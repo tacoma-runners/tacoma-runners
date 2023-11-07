@@ -1,0 +1,15 @@
+.list {
+    text-align: left;
+    max-width: 750px;
+    /* margin: auto; */
+}
+  
+.list-group-item {
+    background-color: rgba(150, 150, 150, 0.5);
+    min-width: 200px;
+    cursor: pointer;
+}
+
+h4 {
+    margin-top: 20px;
+}

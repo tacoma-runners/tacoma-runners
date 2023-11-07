@@ -1,0 +1,95 @@
+<div *ngIf="viewMode; else editable">
+    <div *ngIf="currentRun.id">
+      <h4>Run</h4>
+      <div>
+        <label><strong>Title:</strong></label> {{ currentRun.title }}
+      </div>
+      <div>
+        <label><strong>Description:</strong></label>
+        {{ currentRun.description }}
+      </div>
+      <!-- <div>
+        <label><strong>Status:</strong></label>
+        {{ currentRun.published ? "Published" : "Pending" }}
+      </div>
+  
+      <a
+        class="badge badge-warning"
+        routerLink="/run/{{ currentRun.id }}"
+      >
+        Edit
+      </a> -->
+    </div>
+  
+    <div *ngIf="!currentRun">
+      <br />
+      <p>Please click on a Run...</p>
+    </div>
+  </div>
+  
+  <ng-template #editable>
+    <div *ngIf="currentRun.id" class="edit-form">
+      <h4>Run</h4>
+      <form>
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input
+            type="text"
+            class="form-control"
+            id="title"
+            [(ngModel)]="currentRun.title"
+            name="title"
+          />
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <input
+            type="text"
+            class="form-control"
+            id="description"
+            [(ngModel)]="currentRun.description"
+            name="description"
+          />
+        </div>
+  
+        <div class="form-group">
+          <label><strong>Status:</strong></label>
+          {{ currentRun.published ? "Published" : "Pending" }}
+        </div>
+      </form>
+  
+      <button
+        class="badge badge-primary mr-2"
+        *ngIf="currentRun.published"
+        (click)="updatePublished(false)"
+      >
+        UnPublish
+      </button>
+      <button
+        *ngIf="!currentRun.published"
+        class="badge badge-primary mr-2"
+        (click)="updatePublished(true)"
+      >
+        Publish
+      </button>
+  
+      <button class="badge badge-danger mr-2" (click)="deleteRun()">
+        Delete
+      </button>
+  
+      <button
+        type="submit"
+        class="badge badge-success mb-2"
+        (click)="updateRun()"
+      >
+        Update
+      </button>
+      <p>{{ message }}</p>
+    </div>
+  
+    <div *ngIf="!currentRun.id">
+      <br />
+      <p>Cannot access this Run...</p>
+    </div>
+  </ng-template>
+  
