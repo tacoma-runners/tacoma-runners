@@ -5,6 +5,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { RunsModule } from './runs/runs.module';
 import { Run } from './runs/run.entity';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
 
 @Module({
   imports: [
@@ -13,7 +15,7 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.POSTGRES_HOST,
-      port: Number(process.env.POSTGRES_PORT) || 3306,
+      port: parseInt(process.env.POSTGRES_PORT, 10) || 5432,
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DATABASE,
@@ -23,5 +25,7 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
       namingStrategy: new SnakeNamingStrategy(),
     }),
   ],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
