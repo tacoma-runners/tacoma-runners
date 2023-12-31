@@ -1,44 +1,52 @@
-<div>
-    <div class="col-md-4">
-      <div class="input-group">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="Search by title"
-          [(ngModel)]="title"
-          (keyup.enter)="searchTitle()"
-        />
-        <div class="input-group-append">
-          <button
-            class="btn btn-outline-secondary"
-            type="button"
-            (click)="searchTitle()"
-          >
-            Search
-          </button>
-        </div>
-      </div>
+<!--form>
+  <mat-form-field>
+    <mat-label>Search</mat-label>
+    <input matInput
+      placeholder="Run Title"
+      [(ngModel)]="title"
+      (keyup.enter)="searchTitle()"
+      name="titleSearch"
+      id="titleSearch"
+    />
+  </mat-form-field>
+
+  <button mat-raised-button
+    (click)="searchTitle()">
+    Search
+  </button>
+  <button mat-raised-button
+    (click)="resetSearch()">
+    Reset
+  </button>
+</form-->
+
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-md-12 col-sm-12">
+      <h4>Tacoma Runners Events</h4>
+      @if (loaded) {
+        <mat-accordion>
+          @for (run of runs; track run.id; let i = $index) {
+            <mat-expansion-panel [expanded]="i == 0">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{ run.name }}
+                </mat-panel-title>
+                <mat-panel-description>
+                  {{ run.eventDate | date}}
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="sm-panel-date">{{ run.eventDate | date}}</div>
+              {{ run.venueName }}
+              <mat-action-row>
+                <button mat-raised-button [routerLink]="['/details/', run.id]">Details</button>
+              </mat-action-row>
+            </mat-expansion-panel>
+          }
+        </mat-accordion>
+      } @else {
+        <mat-spinner></mat-spinner>
+      }
     </div>
   </div>
-  <div class="list row">
-    <div class="col-md-6">
-      <h4>Thursday Runs</h4>
-      <ul class="list-group">
-        <li
-          class="list-group-item"
-          *ngFor="let run of runs; let i = index"
-          [class.active]="i == currentIndex"
-          (click)="setActiveRun(run, i)"
-        >
-          <div style="width: 100%;">{{ run.title }}</div>
-        </li>
-      </ul>
-    </div>
-    <div class="col-md-6">
-      <app-run-details
-        [viewMode]="true"
-        [currentRun]="currentRun"
-      ></app-run-details>
-    </div>
-  </div>
-  
+</div>

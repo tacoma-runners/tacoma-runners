@@ -1,41 +1,40 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
-import { MatSidenav } from '@angular/material/sidenav';
-import { delay, filter, map } from 'rxjs/operators';
-import { NavigationEnd, Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { RouterOutlet, Router, RouterModule } from '@angular/router';
+import { map } from 'rxjs/operators';
+import { MaterialModule } from './material/material.module';
 import { Observable } from 'rxjs';
+import { NavigationComponent } from "./components/navigation/navigation.component";
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faFacebookF, faStrava, faInstagram, faMeetup } from '@fortawesome/free-brands-svg-icons';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+    selector: 'app-root',
+    standalone: true,
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css'],
+    imports: [CommonModule, MaterialModule, RouterOutlet, RouterModule, NavigationComponent, FontAwesomeModule]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  title = 'Tacoma Runners';
+  faFacebook = faFacebookF;
+  faStrava = faStrava;
+  faInstagram = faInstagram;
+  faMeetup = faMeetup;
+
   @ViewChild('sidenav') sidenav: any;
 
   public isHandset$: Observable<boolean> = this.observer
     .observe(Breakpoints.Handset)
     .pipe(map((result: BreakpointState) => result.matches));
 
-  constructor(private observer: BreakpointObserver, private router: Router) {}
+  public isLoaded:boolean = false;
 
-  ngAfterViewInit() {
-    // this.observer
-    //   .observe(['(max-width: 800px)'])
-    //   .subscribe((res) => {
-    //     if (res.matches) {
-    //       this.sidenav.mode = 'over';
-    //       this.sidenav.close();
-    //     } else {
-    //       this.sidenav.mode = 'side';
-    //       this.sidenav.open();
-    //     }
-    //   });
-  }
+  constructor(private observer: BreakpointObserver,
+    private router: Router) {}
 
-  closeSideNav() {
-    if (this.sidenav._mode=='over') {
-      this.sidenav.close();
-    }
+  ngOnInit(): void {
+    this.isLoaded = true;
   }
 }

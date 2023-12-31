@@ -1,44 +1,44 @@
 
-	<mat-toolbar class="mat-elevation-z8">
-	  <button
-		mat-icon-button
-		*ngIf="isHandset$ | async"
-		(click)="sidenav.toggle()"
-	  >
-		<mat-icon *ngIf="!sidenav.opened"> menu </mat-icon>
-		<mat-icon *ngIf="sidenav.opened"> close </mat-icon>
-	  </button>
-	  <img class="logo" src="assets/tr-logo.png" height="48"/>
-	  Tacoma Runners
-	</mat-toolbar>
+<mat-toolbar class="mat-elevation-z8">
+  <button
+  mat-icon-button
+  *ngIf="isHandset$ | async"
+  (click)="sidenav.toggle()"
+  >
+  <mat-icon *ngIf="!sidenav.opened"> menu </mat-icon>
+  <mat-icon *ngIf="sidenav.opened"> close </mat-icon>
+  </button>
+  <img class="logo" src="assets/tr-logo.png" height="48"/>
+  <span>Tacoma Runners</span>
+  <span class="spacer"></span>
+  @if (!(isHandset$ | async)) {
+    <app-navigation [mode]="'top'"></app-navigation>
+  }
+  <span class="social-links">
+    <a href="https://www.facebook.com/groups/tacomarunners" class="social-icon si-small bg-transparent" title="Facebook" target="_blank">
+      <fa-icon [icon]="faFacebook"></fa-icon>
+    </a>
+    <a href="https://www.strava.com/clubs/966456" class="social-icon si-small bg-transparent" title="Strava" target="_blank">
+      <fa-icon [icon]="faStrava"></fa-icon>
+    </a>
+    <a href="https://www.instagram.com/tacoma_runners" class="social-icon si-small bg-transparent" title="Instagram" target="_blank">
+      <fa-icon [icon]="faInstagram"></fa-icon>
+    </a>
+    <a href="https://www.meetup.com/Original-Tacoma-Runners/" class="social-icon si-small bg-transparent" title="Meetup" target="_blank">
+      <fa-icon [icon]="faMeetup"></fa-icon>
+    </a>
+  </span>
+</mat-toolbar>
 
 <mat-sidenav-container>
-
-	<mat-sidenav #sidenav class="mat-elevation-z8" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="!(isHandset$ | async)">
-	  <button mat-button class="menu-button" routerLink="/" routerLinkActive="activebutton" [routerLinkActiveOptions]="{exact: true}" (click)="closeSideNav()">
-		<mat-icon>home</mat-icon>
-		<span>Home</span>
-	  </button>
-	  <button mat-button class="menu-button" routerLink="runs-list" routerLinkActive="activebutton" (click)="closeSideNav()">
-		<mat-icon>directions_run</mat-icon>
-		<span>Runs</span>
-	  </button>
-	  <button mat-button class="menu-button" routerLink="info" routerLinkActive="activebutton" (click)="closeSideNav()">
-		<mat-icon>info</mat-icon>
-		<span>Info</span>
-	  </button>
-
-	  <mat-divider></mat-divider>
-
-	  <button mat-button class="menu-button" routerLink="contact" routerLinkActive="activebutton" (click)="closeSideNav()">
-		<mat-icon>mail</mat-icon>
-		<span>Contact</span>
-	  </button>
+  <mat-sidenav #sidenav class="mat-elevation-z8" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="false"
+    [style]="(isHandset$) ? 'visibility:hidden' : 'visibility:visible'">
+    <app-navigation [mode]="'side'" [sidenav]="sidenav"></app-navigation>
   </mat-sidenav>
   <mat-sidenav-content>
-	<div class="content mat-elevation-z8">
-    	<router-outlet></router-outlet>
-	</div>
+    <div class="content mat-elevation-z8">
+        <router-outlet></router-outlet>
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

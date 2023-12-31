@@ -1,0 +1,28 @@
+.home-card {
+  color: black;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.home-card:hover {
+  background-color: rgba(150, 150, 150, 0.5);
+}
+
+.large-icon {
+  width: 1em;
+  height: 1em;
+  font-size: 3em;
+}
+
+.card-title {
+  text-transform: uppercase;
+}
+
+.activebutton {
+  background-color: rgba(150, 150, 150, 0.5);
+}
+
+.social-icon {
+  font-size: 14px;
+}

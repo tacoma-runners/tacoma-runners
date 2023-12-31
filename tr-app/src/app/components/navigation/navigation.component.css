@@ -1,0 +1,42 @@
+.menu-button {
+  width: 100%;
+}
+
+.activebutton {
+  background-color: rgba(150, 150, 150, 0.5);
+}
+
+.topnav {
+  margin-top: 15px;
+}
+
+ul li {
+  display: inline;
+}
+
+.topnav li {
+  list-style: none;
+  position: relative;
+}
+
+.topnav-button {
+  font-size: 15px;
+  display: inline-block;
+  color: white;
+  cursor: pointer;
+  text-transform: uppercase;
+  padding: 0 5px;
+  height: 30px;
+  border-radius: 5px;
+}
+
+.topnav-button:hover {
+  background-color: rgba(150, 150, 150, 0.2);
+}
+
+.topnav-button > mat-icon {
+  height: 28px;
+  vertical-align: middle;
+  overflow: unset;
+}
+

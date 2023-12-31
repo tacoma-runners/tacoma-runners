@@ -1,35 +1,42 @@
+import { CommonModule, Location } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { RunService } from 'src/app/services/run.service';
+import { FormsModule } from '@angular/forms';
+import { RunService } from '../../services/run.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ThursdayRun } from 'src/app/models/run.model';
+import { RunEvent } from '../../models/run.model';
+import { MaterialModule } from '../../material/material.module';
+import { SafePipe } from '../../safe.pipe';
+
+export declare type ViewMode = 'user' | 'admin';
 
 @Component({
   selector: 'app-run-details',
+  standalone: true,
+  imports: [CommonModule, MaterialModule, FormsModule, SafePipe],
   templateUrl: './run-details.component.html',
-  styleUrls: ['./run-details.component.css']
+  styleUrl: './run-details.component.css'
 })
 export class RunDetailsComponent implements OnInit {
 
-  @Input() viewMode = false;
+  @Input() viewMode = 'user';
 
-  @Input() currentRun: ThursdayRun = {
-    title: '',
-    description: '',
-    published: false
+  @Input() currentRun: RunEvent = {
+    name: '',
+    description: ''
   };
-  
-  message = '';
+
+  message:string = '';
+  public mapUrl:string = '';
 
   constructor(
     private runService: RunService,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private location: Location) { }
 
   ngOnInit(): void {
-    if (!this.viewMode) {
-      this.message = '';
-      this.getRun(this.route.snapshot.params["id"]);
-    }
+    this.message = '';
+    this.getRun(this.route.snapshot.params["id"]);
+
   }
 
   getRun(id: string): void {
@@ -38,14 +45,29 @@ export class RunDetailsComponent implements OnInit {
         next: (data) => {
           this.currentRun = data;
           console.log(data);
+          this.setGoogleMapUrl();
         },
         error: (e) => console.error(e)
       });
   }
 
-  updatePublished(status: boolean): void {
+  setGoogleMapUrl() {
+    let url = 'https://www.google.com/maps/embed/v1/place?key=AIzaSyA73WcAxjI0jvET7zFqw06pXdxaNBWs9Zk&q=';
+    let param = encodeURIComponent(
+      this.currentRun.streetAddress + " " +
+      this.currentRun.city + "," +
+      this.currentRun.state + " " +
+      this.currentRun.zipCode);
+    this.mapUrl = url + param;
+  }
+
+  goBack() {
+    this.location.back();
+  }
+
+  /* updatePublished(status: boolean): void {
     const data = {
-      title: this.currentRun.title,
+      title: this.currentRun.name,
       description: this.currentRun.description,
       published: status
     };
@@ -85,6 +107,6 @@ export class RunDetailsComponent implements OnInit {
         },
         error: (e) => console.error(e)
       });
-  }
+  } */
 
 }

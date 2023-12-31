@@ -6,10 +6,12 @@ describe('RunDetailsComponent', () => {
   let component: RunDetailsComponent;
   let fixture: ComponentFixture<RunDetailsComponent>;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [RunDetailsComponent]
-    });
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [RunDetailsComponent]
+    })
+    .compileComponents();
+    
     fixture = TestBed.createComponent(RunDetailsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

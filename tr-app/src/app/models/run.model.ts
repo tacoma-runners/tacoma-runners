@@ -1,6 +1,17 @@
-export class ThursdayRun {
+export class RunEvent {
   id?: any;
-  title?: string;
+  name?: string;
   description?: string;
-  published?: boolean;
+  streetAddress?: string;
+  city?: string;
+  state?: string;
+  zipCode?: string;
+  runNumber?: number;
+  venueName?: string;
+  stravaEventId?: string;
+  meetupEventId?: string;
+  facebookEventId?: string;
+  eventDate?: string;
+  runType?: string;
+  neighborhood?: string;
 }

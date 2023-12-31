@@ -1,18 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { ThursdayRun } from 'src/app/models/run.model';
-import { RunService } from 'src/app/services/run.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RunEvent } from '../../models/run.model';
+import { RunService } from '../../services/run.service';
+import { MaterialModule } from '../../material/material.module';
+import { RunDetailsComponent } from '../run-details/run-details.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-runs-list',
+  standalone: true,
+  imports: [CommonModule, MaterialModule, FormsModule, RunDetailsComponent, RouterModule],
   templateUrl: './runs-list.component.html',
-  styleUrls: ['./runs-list.component.css']
+  styleUrl: './runs-list.component.css'
 })
 export class RunsListComponent implements OnInit {
 
-  runs?: ThursdayRun[];
-  currentRun: ThursdayRun = {};
+  runs?: RunEvent[];
+  currentRun: RunEvent = {};
   currentIndex = -1;
   title = '';
+  loaded:boolean = false;
 
   constructor(private runService: RunService) { }
 
@@ -26,6 +34,7 @@ export class RunsListComponent implements OnInit {
         next: (data) => {
           this.runs = data;
           console.log(data);
+          this.loaded = true;
         },
         error: (e) => console.error(e)
       });
@@ -37,12 +46,12 @@ export class RunsListComponent implements OnInit {
     this.currentIndex = -1;
   }
 
-  setActiveRun(run: ThursdayRun, index: number): void {
+  setActiveRun(run: RunEvent, index: number): void {
     this.currentRun = run;
     this.currentIndex = index;
   }
 
-  searchTitle(): void {
+  /* searchTitle(): void {
     this.currentRun = {};
     this.currentIndex = -1;
 
@@ -55,5 +64,10 @@ export class RunsListComponent implements OnInit {
         error: (e) => console.error(e)
       });
   }
+
+  resetSearch(): void {
+    this.title = '';
+    this.searchTitle();
+  } */
 
 }

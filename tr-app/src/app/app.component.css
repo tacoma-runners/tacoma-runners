@@ -7,11 +7,15 @@ mat-sidenav {
   margin: 16px;
   width: 200px;
   border-right: none;
-  background: #002b5c;
+  /* background: #002b5c; */
   color: white;
   border-radius: 10px;
   padding: 16px;
   text-align: center;
+}
+
+.white-text{
+  color: white;
 }
 
 .content {
@@ -19,14 +23,9 @@ mat-sidenav {
   border-radius: 10px;
   margin: 16px;
   margin-left: 32px;
-
   display: flex;
-  /* justify-content: center;
-  align-items: center; */
-
-  /* font-size: 2rem; */
-  color: lightgray;
   padding: 20px;
+  overflow: scroll;
 }
 
 mat-sidenav-container {
@@ -37,10 +36,20 @@ mat-sidenav-container {
 	margin-right: 10px;
 }
 
-.menu-button {
-  width: 100%;
+.spacer {
+  flex: 1 1 auto;
 }
 
-.activebutton {
-  background-color: rgba(150, 150, 150, 0.5);
+.social-links {
+  margin-left: 20px;
+}
+
+.social-links > a {
+  display: inline-block;
+  color: white;
+  width: 20px;
+}
+
+.social-icon {
+  font-size: 16px;
 }

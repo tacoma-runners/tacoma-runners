@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ThursdayRun } from '../models/run.model';
+import { RunEvent } from '../models/run.model';
 
-const baseUrl = 'http://localhost:8080/api/runs';
+const baseUrl = 'https://tacoma-runners-api.vercel.app/runs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,12 +12,16 @@ export class RunService {
 
   constructor(private http: HttpClient) { }
 
-  getAll(): Observable<ThursdayRun[]> {
-    return this.http.get<ThursdayRun[]>(baseUrl);
+  getAll(): Observable<RunEvent[]> {
+    return this.http.get<RunEvent[]>(baseUrl);
   }
 
-  get(id: any): Observable<ThursdayRun> {
+  get(id: any): Observable<RunEvent> {
     return this.http.get(`${baseUrl}/${id}`);
+  }
+
+  getUpcoming(type: string): Observable<RunEvent> {
+    return this.http.get(`${baseUrl}/upcoming?runType=${type}`);
   }
 
   create(data: any): Observable<any> {
@@ -36,7 +40,7 @@ export class RunService {
     return this.http.delete(baseUrl);
   }
 
-  findByTitle(title: any): Observable<ThursdayRun[]> {
-    return this.http.get<ThursdayRun[]>(`${baseUrl}?title=${title}`);
-  }
+  /* findByTitle(title: any): Observable<RunEvent[]> {
+    return this.http.get<RunEvent[]>(`${baseUrl}?title=${title}`);
+  } */
 }
