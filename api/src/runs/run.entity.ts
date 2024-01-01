@@ -46,4 +46,7 @@ export class Run {
 
   @Column()
   neighborhood: string;
+
+  @Column()
+  description: string;
 }
