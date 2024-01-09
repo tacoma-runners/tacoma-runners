@@ -40,6 +40,9 @@
               {{ run.venueName }}
               <mat-action-row>
                 <button mat-raised-button [routerLink]="['/details/', run.id]">Details</button>
+                @if (authService.isUserLoggedIn()) {
+                  <button mat-raised-button [routerLink]="['/admin/edit/', run.id]">Edit</button>
+                }
               </mat-action-row>
             </mat-expansion-panel>
           }

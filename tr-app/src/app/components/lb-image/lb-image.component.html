@@ -1,0 +1,10 @@
+<button mat-raised-button (click)="openModal()">{{label}}</button>
+
+<div id="imgModal" class="slide-modal" *ngIf="isModalVisible">
+  <span class="close cursor" (click)="closeModal()">&times;</span>
+  <div class="slide-modal-content">
+    <div class="img-slides">
+      <img class="fullsize" src="{{src}}"/>
+    </div>
+  </div>
+</div>

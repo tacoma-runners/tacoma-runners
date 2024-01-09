@@ -1,130 +1,84 @@
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="isLoaded && viewMode == 'user' && currentRun.id; else loading">
   <div class="row justify-content-center">
-    <div class="col-lg-8 col-md-12 col-sm-12">
-      <div><button mat-button (click)="goBack()"><mat-icon>arrow_back</mat-icon>Back</button></div>
-      <div *ngIf="viewMode == 'user' && currentRun.id">
-        <div class="header">
-          @if (currentRun.runType == 'thursday-run') {
-            <span mat-card-avatar><mat-icon class="large-icon" fontIcon="sports_bar" color="primary"></mat-icon></span>
-            <span class="run-type">Thursday Run</span>
-          } @else if (currentRun.runType == 'saturday-5k') {
-            <span mat-card-avatar><mat-icon class="large-icon" fontIcon="forest" color="primary"></mat-icon></span>
-            <span class="run-type">Saturday 5K</span>
-          } @else {
-            <span mat-card-avatar><mat-icon class="large-icon" fontIcon="celebration" color="primary"></mat-icon></span>
-            <span class="run-type">Special Event</span>
+
+    <div class="header col-lg-8 col-md-12 col-sm-12">
+      @if (currentRun.runType == 'thursday-run') {
+        <span mat-card-avatar><mat-icon class="large-icon" fontIcon="sports_bar" color="primary"></mat-icon></span>
+        <span class="run-type">Thursday Run</span>
+      } @else if (currentRun.runType == 'saturday-5k') {
+        <span mat-card-avatar><mat-icon class="large-icon" fontIcon="forest" color="primary"></mat-icon></span>
+        <span class="run-type">Saturday 5K</span>
+        <app-lb-image label="Map/Directions" src="assets/saturday.5k.jpg" class="map-button"></app-lb-image>
+      } @else {
+        <span mat-card-avatar><mat-icon class="large-icon" fontIcon="celebration" color="primary"></mat-icon></span>
+        <span class="run-type">Special Event</span>
+      }
+    </div>
+  </div>
+  <div class="row justify-content-center px-1">
+    <div class="col-lg-4 col-md-6 col-sm-12">
+      <div class="run-name">
+        @if (currentRun.runNumber && currentRun.runNumber > 0) {
+          #{{ currentRun.runNumber }} -
+        }
+        {{ currentRun.name }}
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-12 no-padding">
+      <div class="run-date">
+        {{ currentRun.eventDate | date:'EEEE, MMMM d, y h:mm a':'PST' }}
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-lg-4 col-md-6 col-sm-12 align-self-start">
+      <div class="run-desc">
+        {{ currentRun.description }}
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-12 align-self-start no-padding">
+      <div class="run-location">
+        <iframe class="run-map"
+          width="450"
+          height="250"
+          frameborder="0" style="border:0"
+          referrerpolicy="no-referrer-when-downgrade"
+          [src]="mapUrl | safe"
+          allowfullscreen>
+        </iframe>
+        <div class="run-venue">{{ currentRun.venueName }}</div>
+        <div class="run-address">{{ currentRun. streetAddress }}, {{ currentRun.city }}, {{ currentRun.state }} {{ currentRun.zipCode }}</div>
+      </div>
+
+      @if (currentRun.stravaEventId || currentRun.facebookEventId || currentRun.meetupEventId) {
+        <div class="run-links">
+          @if (currentRun.stravaEventId) {
+            <button mat-raised-button color="primary">
+              <a href="https://www.strava.com/clubs/966456/posts/{{currentRun.stravaEventId}}" target="_blank">Strava Event</a>
+            </button>
+          }
+          @if (currentRun.facebookEventId) {
+            <button mat-raised-button>
+              <a href="https://www.facebook.com/events/{{currentRun.facebookEventId}}" target="_blank">Facebook Event</a>
+            </button>
+          }
+          @if (currentRun.meetupEventId) {
+            <button mat-raised-button color="primary">
+              <a href="https://www.meetup.com/original-tacoma-runners/events/{{currentRun.meetupEventId}}" target="_blank">Meetup Event</a>
+            </button>
           }
         </div>
-        <div>
-          <label>When:</label>
-          {{ currentRun.eventDate | date:'short':'PST' }}
-        </div>
-        <div>
-          <label>Name:</label>
-          {{ currentRun.name }}
-        </div>
-        <div>
-          <label>Description:</label>
-          {{ currentRun.description }}
-        </div>
-        <div>
-          <label>Location:</label> {{ currentRun.venueName }}<br/>
-          {{ currentRun. streetAddress }}<br/>
-          {{ currentRun.city }}, {{ currentRun.state }} {{ currentRun.zipCode }}
-        </div>
-        <div class="location-map">
-          <iframe
-            width="450"
-            height="250"
-            frameborder="0" style="border:0"
-            referrerpolicy="no-referrer-when-downgrade"
-            [src]="mapUrl | safe"
-            allowfullscreen>
-          </iframe>
-        </div>
-        @if (currentRun.stravaEventId) {
-          <div>
-            <a href="https://www.strava.com/clubs/966456/posts/{{currentRun.stravaEventId}}" target="_blank">Strava Event</a>
-          </div>
-        }
-        @if (currentRun.facebookEventId) {
-          <div>
-            <a href="https://www.facebook.com/events/{{currentRun.facebookEventId}}" target="_blank">Facebook Event</a>
-          </div>
-        }
-        @if (currentRun.meetupEventId) {
-          <div>
-            <a href="https://www.meetup.com/original-tacoma-runners/events/{{currentRun.meetupEventId}}" target="_blank">Meetup Event</a>
-          </div>
-        }
-      </div>
+      }
     </div>
   </div>
 </div>
 
-
-<!-- <ng-template #editable>
-  <div *ngIf="viewMode == 'admin' && currentRun.id" class="edit-form">
-    <h4>Run</h4>
-    <form>
-      <div class="form-group">
-        <label for="title">Title</label>
-        <input
-          type="text"
-          class="form-control"
-          id="title"
-          [(ngModel)]="currentRun.name"
-          name="title"
-        />
+<ng-template #loading>
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-2">
+        <mat-spinner></mat-spinner>
       </div>
-      <div class="form-group">
-        <label for="description">Description</label>
-        <input
-          type="text"
-          class="form-control"
-          id="description"
-          [(ngModel)]="currentRun.description"
-          name="description"
-        />
-      </div>
-
-      <div class="form-group">
-        <label><strong>Status:</strong></label>
-        {{ currentRun.published ? "Published" : "Pending" }}
-      </div>
-    </form>
-
-    <button
-      class="badge badge-primary mr-2"
-      *ngIf="currentRun.published"
-      (click)="updatePublished(false)"
-    >
-      UnPublish
-    </button>
-    <button
-      *ngIf="!currentRun.published"
-      class="badge badge-primary mr-2"
-      (click)="updatePublished(true)"
-    >
-      Publish
-    </button>
-
-    <button class="badge badge-danger mr-2" (click)="deleteRun()">
-      Delete
-    </button>
-
-    <button
-      type="submit"
-      class="badge badge-success mb-2"
-      (click)="updateRun()"
-    >
-      Update
-    </button>
-    <p>{{ message }}</p>
+    </div>
   </div>
-
-  <div *ngIf="!currentRun.id">
-    <br />
-    <p>Cannot access this Run...</p>
-  </div>
-</ng-template> -->
+</ng-template>

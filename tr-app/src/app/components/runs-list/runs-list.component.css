@@ -28,6 +28,11 @@ msg-header-description {
   align-items: flex-start;
 }
 
+mat-spinner {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .sm-panel-date {
   display: none;
 }

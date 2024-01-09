@@ -33,7 +33,7 @@
 <mat-sidenav-container>
   <mat-sidenav #sidenav class="mat-elevation-z8" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="false"
-    [style]="(isHandset$) ? 'visibility:hidden' : 'visibility:visible'">
+    [style]="(isHandset$) ? 'visibility:hidden' : 'visibility:visible'" autoFocus="false">
     <app-navigation [mode]="'side'" [sidenav]="sidenav"></app-navigation>
   </mat-sidenav>
   <mat-sidenav-content>

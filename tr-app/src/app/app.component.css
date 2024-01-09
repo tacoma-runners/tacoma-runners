@@ -22,9 +22,9 @@ mat-sidenav {
   height: calc(100vh - 98px);
   border-radius: 10px;
   margin: 16px;
-  margin-left: 32px;
+  /* margin-left: 32px; */
   display: flex;
-  padding: 20px;
+  padding: 10px;
   overflow: scroll;
 }
 

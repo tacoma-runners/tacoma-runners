@@ -6,13 +6,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RunEvent } from '../../models/run.model';
 import { MaterialModule } from '../../material/material.module';
 import { SafePipe } from '../../safe.pipe';
+import { LightboxImageComponent } from '../lb-image/lb-image.component';
 
 export declare type ViewMode = 'user' | 'admin';
 
 @Component({
   selector: 'app-run-details',
   standalone: true,
-  imports: [CommonModule, MaterialModule, FormsModule, SafePipe],
+  imports: [CommonModule, MaterialModule, FormsModule, SafePipe, LightboxImageComponent],
   templateUrl: './run-details.component.html',
   styleUrl: './run-details.component.css'
 })
@@ -28,15 +29,21 @@ export class RunDetailsComponent implements OnInit {
   message:string = '';
   public mapUrl:string = '';
 
+  isLoaded: boolean = false;
+
   constructor(
     private runService: RunService,
     private route: ActivatedRoute,
-    private location: Location) { }
+    private location: Location,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.message = '';
-    this.getRun(this.route.snapshot.params["id"]);
-
+    if (!isNaN(this.route.snapshot.params["id"])) {
+      this.getRun(this.route.snapshot.params["id"]);
+    } else {
+      this.router.navigateByUrl("/");
+    }
   }
 
   getRun(id: string): void {
@@ -44,8 +51,9 @@ export class RunDetailsComponent implements OnInit {
       .subscribe({
         next: (data) => {
           this.currentRun = data;
-          console.log(data);
+          //console.log(data);
           this.setGoogleMapUrl();
+          this.isLoaded = true;
         },
         error: (e) => console.error(e)
       });

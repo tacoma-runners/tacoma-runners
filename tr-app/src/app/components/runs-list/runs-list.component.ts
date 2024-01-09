@@ -6,6 +6,7 @@ import { RunService } from '../../services/run.service';
 import { MaterialModule } from '../../material/material.module';
 import { RunDetailsComponent } from '../run-details/run-details.component';
 import { RouterModule } from '@angular/router';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-runs-list',
@@ -22,7 +23,8 @@ export class RunsListComponent implements OnInit {
   title = '';
   loaded:boolean = false;
 
-  constructor(private runService: RunService) { }
+  constructor(private runService: RunService,
+    public authService: AuthenticationService) { }
 
   ngOnInit(): void {
     this.retrieveRuns();
@@ -33,7 +35,7 @@ export class RunsListComponent implements OnInit {
       .subscribe({
         next: (data) => {
           this.runs = data;
-          console.log(data);
+          //console.log(data);
           this.loaded = true;
         },
         error: (e) => console.error(e)
