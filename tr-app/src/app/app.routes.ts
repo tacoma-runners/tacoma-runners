@@ -7,6 +7,7 @@ import { RunDetailsComponent } from './components/run-details/run-details.compon
 import { LoginComponent } from './components/admin/login/login.component';
 import { RunEditComponent } from './components/admin/run-edit/run-edit.component';
 import { AuthenticationGuard } from './services/authentication.service';
+import { RunCreateComponent } from './components/admin/run-create/run-create.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'details/:id', component: RunDetailsComponent },
   { path: 'admin/login', component: LoginComponent},
-  { path: 'admin/edit/:id', component: RunEditComponent, canActivate: [AuthenticationGuard]}
+  { path: 'admin/edit/:id', component: RunEditComponent, canActivate: [AuthenticationGuard]},
+  { path: 'admin/create', component: RunCreateComponent, canActivate: [AuthenticationGuard]},
 ];
 
 export default routes;

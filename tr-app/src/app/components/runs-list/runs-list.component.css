@@ -46,3 +46,7 @@ mat-spinner {
     display: block;
   }
 }
+
+.row {
+  margin-bottom: 20px;
+}

@@ -1,5 +1,6 @@
 img.fullsize {
-  width:90%
+  width:90%;
+  z-index: 100;
 }
 
 .slide-modal {
@@ -12,10 +13,12 @@ img.fullsize {
   height: 100%;
   overflow: auto;
   background-color: #000000;
+  -webkit-transform: translate3d(0,0,0);
 }
 
 .slide-modal-content {
   position: relative;
+  z-index: 101;
   margin: auto;
   padding: 0;
   width: 100%;
@@ -23,11 +26,8 @@ img.fullsize {
   top: 25px;
 }
 
-.slide-modal-content .image-column {
-  padding: 0;
-}
-
 .close {
+  z-index: 100;
   color: white;
   position: absolute;
   top: 10px;
@@ -44,6 +44,7 @@ img.fullsize {
 }
 
 .img-slides {
+  z-index: 100;
   display: block;
 }
 

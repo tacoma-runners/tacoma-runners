@@ -1,0 +1,95 @@
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10 col-sm-12">
+      <form [formGroup]="runFormGroup">
+        <mat-stepper formArrayName="formArray" [linear]="true" [orientation]="(stepperOrientation | async)!" #stepper (selectionChange)="onStepChange($event)">
+          <mat-step formGroupName="0" [stepControl]="formArray?.get([0])!" label="Run Type">
+            <div class="container">
+              <div class="row">
+                <div class="col-6">
+                  <mat-form-field>
+                    <mat-label>Run Type</mat-label>
+                    <mat-select formControlName="runType">
+                      <mat-option value="thursday-run">Thursday Run</mat-option>
+                      <mat-option value="saturday-5k">Saturday 5K</mat-option>
+                      <mat-option value="special-event">Special Event</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </mat-step>
+
+          <mat-step formGroupName="1" [stepControl]="formArray?.get([1])!"  label="Where/When">
+            <div class="container">
+              <div class="row">
+                <div class="col-6">
+                  <mat-form-field>
+                    <mat-label>Location</mat-label>
+                    <mat-select formControlName="runLocation" [(value)]="selectedLocation">
+                      <mat-option value="1">Point Defiance Park - Five Mile Dr</mat-option>
+                      <mat-option value="2">Beer Star</mat-option>
+                      <mat-option value="3">Dickman Mill Park</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-6">
+                  <mat-form-field>
+                    <mat-label>Event Date/Time</mat-label>
+                    <input matInput type="datetime-local" name="eventDate" formControlName="eventDate">
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </mat-step>
+
+          <mat-step formGroupName="2" [stepControl]="formArray?.get([2])!"  label="Details">
+            <div class="container">
+              <div class="row">
+                <div class="col-6">
+                  <mat-form-field>
+                    <mat-label>Name</mat-label>
+                    <input matInput id="runName" type="text" formControlName="runName"/>
+                  </mat-form-field>
+                </div>
+                <div class="col-6">
+                  <mat-form-field>
+                    <mat-label>Run Number</mat-label>
+                    <input matInput id="runNumber" type="number" formControlName="runNumber"/>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <mat-form-field>
+                    <mat-label>Description</mat-label>
+                    <textarea matInput id="description" type="text" formControlName="description" rows="5"></textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </mat-step>
+
+          <mat-step>
+            <ng-template matStepLabel>Complete</ng-template>
+            <p>Run has been created!</p>
+            <div>
+              <button mat-button (click)="stepper.reset()">Restart</button>
+            </div>
+          </mat-step>
+        </mat-stepper>
+      </form>
+    </div>
+  </div>
+</div>

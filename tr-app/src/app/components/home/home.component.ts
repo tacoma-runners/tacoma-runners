@@ -4,6 +4,7 @@ import { RouterOutlet, RouterModule } from '@angular/router';
 import { MaterialModule } from '../../material/material.module';
 import { RunEvent } from '../../models/run.model';
 import { RunService } from '../../services/run.service';
+import { GlobalService } from '../../services/global.service';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +18,10 @@ export class HomeComponent implements OnInit {
   thursdayRun?:RunEvent;
   saturdayRun?:RunEvent;
 
-  constructor(private runService: RunService) { }
+  constructor(
+    private runService: RunService,
+    public global: GlobalService
+  ) { }
 
   ngOnInit(): void {
     this.getCurrentThursdayRun();
