@@ -11,6 +11,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 const MaterialComponents = [
   MatToolbarModule,
@@ -25,6 +26,7 @@ const MaterialComponents = [
   MatProgressSpinnerModule,
   MatSelectModule,
   MatStepperModule,
+  MatPaginatorModule
 ];
 
 @NgModule({

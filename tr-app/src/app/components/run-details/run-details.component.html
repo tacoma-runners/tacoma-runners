@@ -1,17 +1,23 @@
 <div class="container-fluid" *ngIf="isLoaded && viewMode == 'user' && currentRun.id; else loading">
   <div class="row justify-content-center">
 
-    <div class="header col-lg-8 col-md-12 col-sm-12">
+    <div class="col-lg-8 col-md-12 col-sm-12">
       @if (currentRun.runType == 'thursday-run') {
-        <span mat-card-avatar><mat-icon class="large-icon" fontIcon="sports_bar" color="primary"></mat-icon></span>
-        <span class="run-type">Thursday Run</span>
+        <span class="header">
+          <span mat-card-avatar><mat-icon class="large-icon" fontIcon="sports_bar" color="accent"></mat-icon></span>
+          <span class="run-type">Thursday Run</span>
+        </span>
       } @else if (currentRun.runType == 'saturday-5k') {
-        <span mat-card-avatar><mat-icon class="large-icon" fontIcon="forest" color="primary"></mat-icon></span>
-        <span class="run-type">Saturday 5K</span>
+        <span class="header">
+          <span mat-card-avatar><mat-icon class="large-icon" fontIcon="forest" color="accent"></mat-icon></span>
+          <span class="run-type">Saturday 5K</span>
+        </span>
         <app-lb-image label="Map/Directions" src="assets/saturday.5k.jpg" class="map-button"></app-lb-image>
       } @else {
-        <span mat-card-avatar><mat-icon class="large-icon" fontIcon="celebration" color="primary"></mat-icon></span>
-        <span class="run-type">Special Event</span>
+        <span class="header">
+          <span mat-card-avatar><mat-icon class="large-icon" fontIcon="celebration" color="accent"></mat-icon></span>
+          <span class="run-type">Special Event</span>
+        </span>
       }
     </div>
   </div>
@@ -53,17 +59,17 @@
       @if (currentRun.stravaEventId || currentRun.facebookEventId || currentRun.meetupEventId) {
         <div class="run-links">
           @if (currentRun.stravaEventId) {
-            <button mat-raised-button color="primary">
+            <button mat-raised-button color="accent">
               <a href="https://www.strava.com/clubs/966456/posts/{{currentRun.stravaEventId}}" target="_blank">Strava Event</a>
             </button>
           }
           @if (currentRun.facebookEventId) {
-            <button mat-raised-button>
+            <button mat-raised-button color="accent">
               <a href="https://www.facebook.com/events/{{currentRun.facebookEventId}}" target="_blank">Facebook Event</a>
             </button>
           }
           @if (currentRun.meetupEventId) {
-            <button mat-raised-button color="primary">
+            <button mat-raised-button color="accent">
               <a href="https://www.meetup.com/original-tacoma-runners/events/{{currentRun.meetupEventId}}" target="_blank">Meetup Event</a>
             </button>
           }

@@ -3,6 +3,7 @@ import { FormControl, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { MaterialModule } from '../../../material/material.module';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { Router } from '@angular/router';
+import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,8 @@ import { Router } from '@angular/router';
 export class LoginComponent {
 
   constructor(private authenticationService: AuthenticationService,
-    private router: Router) {}
+    private router: Router,
+    private auth: AuthService) {}
 
   loginForm = new FormGroup({
     username: new FormControl(''),
@@ -29,5 +31,9 @@ export class LoginComponent {
 
     this.authenticationService.login(username, password)
       .subscribe(() => this.router.navigateByUrl("/runs-list"));
+  }
+
+  login() {
+    this.auth.loginWithRedirect();
   }
 }

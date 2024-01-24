@@ -1,32 +1,10 @@
-<!--form>
-  <mat-form-field>
-    <mat-label>Search</mat-label>
-    <input matInput
-      placeholder="Run Title"
-      [(ngModel)]="title"
-      (keyup.enter)="searchTitle()"
-      name="titleSearch"
-      id="titleSearch"
-    />
-  </mat-form-field>
-
-  <button mat-raised-button
-    (click)="searchTitle()">
-    Search
-  </button>
-  <button mat-raised-button
-    (click)="resetSearch()">
-    Reset
-  </button>
-</form-->
-
 <div class="container-fluid">
   <div class="row justify-content-center">
     <div class="col-lg-8 col-md-12 col-sm-12">
       <h4>Tacoma Runners Events</h4>
       @if (loaded) {
         <mat-accordion>
-          @for (run of runs; track run.id; let i = $index) {
+          @for (run of obs | async; track run.id; let i = $index) {
             <mat-expansion-panel [expanded]="i == 0">
               <mat-expansion-panel-header>
                 <mat-panel-title>
@@ -39,9 +17,9 @@
               <div class="sm-panel-date">{{ run.eventDate | date}}</div>
               {{ run.venueName }}
               <mat-action-row>
-                <button mat-raised-button [routerLink]="['/details/', run.id]">Details</button>
-                @if (authService.isUserLoggedIn()) {
-                  <button mat-raised-button [routerLink]="['/admin/edit/', run.id]">Edit</button>
+                <button mat-raised-button color="accent" [routerLink]="['/details/', run.id]">Details</button>
+                @if (auth.isAuthenticated$ | async) {
+                  <button mat-raised-button color="accent" [routerLink]="['/admin/edit/', run.id]">Edit</button>
                 }
               </mat-action-row>
             </mat-expansion-panel>
@@ -50,12 +28,13 @@
       } @else {
         <mat-spinner></mat-spinner>
       }
+      <mat-paginator #paginator [pageSizeOptions]="[5, 10]" showFirstLastButtons></mat-paginator>
     </div>
   </div>
-  @if (authService.isUserLoggedIn()) {
+  @if (auth.isAuthenticated$ | async) {
     <div class="row justify-content-center">
       <div class="col-lg-8 col-md-12 col-sm-12">
-        <button mat-raised-button [routerLink]="['/admin/create']">New Event</button>
+        <button mat-raised-button color="accent" [routerLink]="['/admin/create']">New Event</button>
       </div>
     </div>
   }

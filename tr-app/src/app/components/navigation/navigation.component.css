@@ -2,8 +2,16 @@
   width: 100%;
 }
 
-.activebutton {
-  background-color: rgba(150, 150, 150, 0.5);
+@media only screen and (min-width: 600px) {
+  .activebutton {
+    background-color: rgba(253,89,1,0.8);
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .activebutton {
+    background-color: #249ea0;
+  }
 }
 
 .topnav {
@@ -22,16 +30,17 @@ ul li {
 .topnav-button {
   font-size: 15px;
   display: inline-block;
-  color: white;
+  color: #fff;
   cursor: pointer;
   text-transform: uppercase;
   padding: 0 5px;
   height: 30px;
+  line-height: 30px;
   border-radius: 5px;
 }
 
 .topnav-button:hover {
-  background-color: rgba(150, 150, 150, 0.2);
+  background-color: rgba(253,89,1,0.6);
 }
 
 .topnav-button > mat-icon {

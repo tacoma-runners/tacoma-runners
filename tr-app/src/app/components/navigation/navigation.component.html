@@ -1,23 +1,25 @@
 @if (mode=='side') {
-  <button mat-button color="primary" class="menu-button" routerLink="/" routerLinkActive="activebutton" [routerLinkActiveOptions]="{exact: true}" (click)="closeSideNav()">
+  <button mat-button color="accent" class="menu-button" routerLink="/" routerLinkActive="activebutton" [routerLinkActiveOptions]="{exact: true}" (click)="closeSideNav()">
     <mat-icon>home</mat-icon>
     <span>Home</span>
-    </button>
-    <button mat-button color="primary" class="menu-button" routerLink="runs-list" routerLinkActive="activebutton" (click)="closeSideNav()">
+  </button>
+  <button mat-button color="accent" class="menu-button" routerLink="runs-list" routerLinkActive="activebutton" (click)="closeSideNav()">
     <mat-icon>directions_run</mat-icon>
     <span>Runs</span>
-    </button>
-    <button mat-button color="primary" class="menu-button" routerLink="register" routerLinkActive="activebutton" (click)="closeSideNav()">
+  </button>
+  <button mat-button color="accent" class="menu-button" routerLink="register" routerLinkActive="activebutton" (click)="closeSideNav()">
     <mat-icon>how_to_reg</mat-icon>
     <span>Register</span>
-    </button>
-
-    <!-- <mat-divider></mat-divider> -->
-
-    <button mat-button color="primary" class="menu-button" (click)="closeSideNav();global.openDonate();">
+  </button>
+  <button mat-button color="accent" class="menu-button" (click)="closeSideNav();global.openDonate();">
     <mat-icon>favorite</mat-icon>
     <span>Donate</span>
   </button>
+  @if (auth.isAuthenticated$ | async) {
+    <li>
+      <app-logout-button></app-logout-button>
+    </li>
+  }
 } @else {
   <div class="topnav">
     <ul>
@@ -45,6 +47,11 @@
           <span>Donate</span>
         </div>
       </li>
+      @if (auth.isAuthenticated$ | async) {
+        <li>
+          <app-logout-button></app-logout-button>
+        </li>
+      }
     </ul>
   </div>
 }
