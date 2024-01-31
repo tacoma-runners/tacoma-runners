@@ -61,14 +61,13 @@ export class RunEditComponent implements OnInit {
             description: data.description,
             eventDate: data.eventDate,
             runType: data.runType,
-            runNumber: data.runNumber,
-            venueName: data.venueName,
-            neighborhood: data.neighborhood,
+            venueName: data.location.name,
+            neighborhood: data.location.neighborhood,
             address: {
-              streetAddress: data.streetAddress,
-              city: data.city,
-              state: data.state,
-              zipCode: data.zipCode
+              streetAddress: data.location.streetAddress,
+              city: data.location.city,
+              state: data.location.state,
+              zipCode: data.location.zipCode
             },
             eventIds: {
               facebookEventId: data.facebookEventId,

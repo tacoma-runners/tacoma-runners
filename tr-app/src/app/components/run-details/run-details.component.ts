@@ -62,10 +62,10 @@ export class RunDetailsComponent implements OnInit {
   setGoogleMapUrl() {
     let url = 'https://www.google.com/maps/embed/v1/place?key=AIzaSyA73WcAxjI0jvET7zFqw06pXdxaNBWs9Zk&q=';
     let param = encodeURIComponent(
-      this.currentRun.streetAddress + " " +
-      this.currentRun.city + "," +
-      this.currentRun.state + " " +
-      this.currentRun.zipCode);
+      this.currentRun.location.streetAddress + " " +
+      this.currentRun.location.city + "," +
+      this.currentRun.location.state + " " +
+      this.currentRun.location.zipCode);
     this.mapUrl = url + param;
   }
 
