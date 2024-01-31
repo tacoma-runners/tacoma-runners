@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Location } from 'src/locations/location.entity';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 
 @Entity({ name: 'runs' })
 export class Run {
@@ -7,24 +8,6 @@ export class Run {
 
   @Column()
   name: string;
-
-  @Column()
-  streetAddress: string;
-
-  @Column()
-  city: string;
-
-  @Column()
-  state: string;
-
-  @Column()
-  zipCode: string;
-
-  @Column()
-  runNumber: number;
-
-  @Column()
-  venueName: string;
 
   @Column()
   stravaRouteId: string;
@@ -45,8 +28,8 @@ export class Run {
   runType: string;
 
   @Column()
-  neighborhood: string;
-
-  @Column()
   description: string;
+
+  @ManyToOne(() => Location, (location) => location.runs)
+  location: Location;
 }

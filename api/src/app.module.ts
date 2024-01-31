@@ -7,6 +7,7 @@ import { Run } from './runs/run.entity';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { Location } from './locations/location.entity';
 
 @Module({
   imports: [
@@ -19,7 +20,7 @@ import { AppService } from './app.service';
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DATABASE,
-      entities: [Run],
+      entities: [Run, Location],
       synchronize: false,
       ssl: true,
       namingStrategy: new SnakeNamingStrategy(),

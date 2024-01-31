@@ -17,7 +17,12 @@ export class RunsService {
   */
 
   findAll(): Promise<Run[]> {
-    return this.runsReposity.find({ order: { eventDate: 'DESC' } });
+    return this.runsReposity.find({
+      order: { eventDate: 'DESC' },
+      relations: {
+        location: true,
+      },
+    });
   }
 
   async findUpcoming(runType = null): Promise<Run> {
@@ -43,6 +48,9 @@ export class RunsService {
           eventDate: Between(newDateStart, dateEnd),
           ...(runType && { runType }),
         },
+        relations: {
+          location: true,
+        },
         order: { eventDate: 'DESC' },
         take: 1,
       });
@@ -52,6 +60,11 @@ export class RunsService {
   }
 
   findOne(id: number): Promise<Run> {
-    return this.runsReposity.findOne({ where: { id } });
+    return this.runsReposity.findOne({
+      where: { id },
+      relations: {
+        location: true,
+      },
+    });
   }
 }
