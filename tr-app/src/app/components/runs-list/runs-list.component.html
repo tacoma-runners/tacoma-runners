@@ -15,7 +15,7 @@
                 </mat-panel-description>
               </mat-expansion-panel-header>
               <div class="sm-panel-date">{{ run.eventDate | date}}</div>
-              {{ run.venueName }}
+              {{ run.location.name }}
               <mat-action-row>
                 <button mat-raised-button color="accent" [routerLink]="['/details/', run.id]">Details</button>
                 @if (auth.isAuthenticated$ | async) {

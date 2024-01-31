@@ -24,9 +24,6 @@
   <div class="row justify-content-center px-1">
     <div class="col-lg-4 col-md-6 col-sm-12">
       <div class="run-name">
-        @if (currentRun.runNumber && currentRun.runNumber > 0) {
-          #{{ currentRun.runNumber }} -
-        }
         {{ currentRun.name }}
       </div>
     </div>
@@ -52,8 +49,8 @@
           [src]="mapUrl | safe"
           allowfullscreen>
         </iframe>
-        <div class="run-venue">{{ currentRun.venueName }}</div>
-        <div class="run-address">{{ currentRun. streetAddress }}, {{ currentRun.city }}, {{ currentRun.state }} {{ currentRun.zipCode }}</div>
+        <div class="run-venue">{{ currentRun.location.name }}</div>
+        <div class="run-address">{{ currentRun.location.streetAddress }}, {{ currentRun.location.city }}, {{ currentRun.location.state }} {{ currentRun.location.zipCode }}</div>
       </div>
 
       @if (currentRun.stravaEventId || currentRun.facebookEventId || currentRun.meetupEventId) {
