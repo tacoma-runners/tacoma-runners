@@ -1,4 +1,4 @@
-import { Run } from 'src/runs/run.entity';
+import { Run } from '../runs/run.entity';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
 @Entity({ name: 'locations' })
