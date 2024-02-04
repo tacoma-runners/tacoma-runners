@@ -8,11 +8,14 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { Location } from './locations/location.entity';
+import { AuthzModule } from './authz/authz.module';
+import { LocationsModule } from './locations/location.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     RunsModule,
+    LocationsModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.POSTGRES_HOST,
@@ -25,6 +28,7 @@ import { Location } from './locations/location.entity';
       ssl: true,
       namingStrategy: new SnakeNamingStrategy(),
     }),
+    AuthzModule,
   ],
   controllers: [AppController],
   providers: [AppService],

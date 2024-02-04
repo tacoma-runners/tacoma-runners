@@ -1,6 +1,7 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, Param, Put, Query, UseGuards } from '@nestjs/common';
 import { Run } from './run.entity';
 import { RunsService } from './runs.service';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('runs')
 export class RunsController {
@@ -19,5 +20,11 @@ export class RunsController {
   @Get(':id')
   async findOne(@Param('id') id: number): Promise<Run | null> {
     return this.runsService.findOne(id);
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Put(':id')
+  async updateOne(@Param('id') id: number): Promise<Run | null> {
+    return this.runsService.updateOne(id);
   }
 }

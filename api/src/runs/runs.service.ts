@@ -67,4 +67,13 @@ export class RunsService {
       },
     });
   }
+
+  updateOne(id: number): Promise<Run> {
+    return this.runsReposity.findOne({
+      where: { id },
+      relations: {
+        location: true,
+      },
+    });
+  }
 }
