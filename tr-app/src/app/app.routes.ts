@@ -6,8 +6,8 @@ import { RegisterComponent } from './components/register/register.component';
 import { RunDetailsComponent } from './components/run-details/run-details.component';
 import { LoginComponent } from './components/admin/login/login.component';
 import { RunEditComponent } from './components/admin/run-edit/run-edit.component';
-import { AuthenticationGuard } from './services/authentication.service';
 import { RunCreateComponent } from './components/admin/run-create/run-create.component';
+import { AuthGuard } from '@auth0/auth0-angular';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -16,8 +16,8 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'details/:id', component: RunDetailsComponent },
   { path: 'admin/login', component: LoginComponent},
-  { path: 'admin/edit/:id', component: RunEditComponent, canActivate: [AuthenticationGuard]},
-  { path: 'admin/create', component: RunCreateComponent, canActivate: [AuthenticationGuard]},
+  { path: 'admin/edit/:id', component: RunEditComponent, canActivate: [AuthGuard]},
+  { path: 'admin/create', component: RunCreateComponent, canActivate: [AuthGuard]},
 ];
 
 export default routes;

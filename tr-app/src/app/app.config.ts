@@ -18,7 +18,8 @@ export const appConfig: ApplicationConfig = {
       clientId: 'pDOLML31njEmxLzD70aXD1WVx18KHQBL',
       authorizationParams: {
         redirect_uri: window.document.location.origin
-      }
+      },
+      cacheLocation: 'localstorage'
     }))
   ]
 };

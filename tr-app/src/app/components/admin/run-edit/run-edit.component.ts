@@ -1,26 +1,34 @@
-import { Component, OnInit } from '@angular/core';
-import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ReactiveFormsModule, FormBuilder, FormsModule } from '@angular/forms';
 import { MaterialModule } from '../../../material/material.module';
 import { RunService } from '../../../services/run.service';
 import { ActivatedRoute } from '@angular/router';
 import { RunEvent } from '../../../models/run.model';
 import { DatePipe, CommonModule } from '@angular/common';
+import { Editor, NgxEditorModule } from 'ngx-editor';
 
 @Component({
   selector: 'app-run-edit',
   standalone: true,
-  imports: [ReactiveFormsModule, MaterialModule, CommonModule],
+  imports: [
+    ReactiveFormsModule,
+    MaterialModule,
+    CommonModule,
+    NgxEditorModule,
+    FormsModule
+  ],
   templateUrl: './run-edit.component.html',
   styleUrl: './run-edit.component.css',
   providers: [DatePipe]
 })
-export class RunEditComponent implements OnInit {
+export class RunEditComponent implements OnInit, OnDestroy {
 
   constructor(private runService: RunService,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private datePipe: DatePipe) {}
 
+  editor: Editor;
 
   currentRun: RunEvent | undefined = undefined;
 
@@ -46,7 +54,13 @@ export class RunEditComponent implements OnInit {
   });
 
   ngOnInit(): void {
+    this.editor = new Editor();
+
     this.getRun(this.route.snapshot.params["id"]);
+  }
+
+  ngOnDestroy(): void {
+    this.editor.destroy();
   }
 
   getRun(id: string): void {
@@ -81,6 +95,6 @@ export class RunEditComponent implements OnInit {
   }
 
   onSubmit(): void {
-
+    console.log(this.editForm.controls.description.value);
   }
 }

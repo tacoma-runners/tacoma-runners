@@ -1,3 +1,37 @@
 :host, mat-form-field {
   width: 100%;
 }
+
+:host {
+  padding-left: 0;
+  padding-top: 0;
+}
+
+button {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.row {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.mat-vertical-content, .container-fluid, .col-sm-12 {
+  padding: 0;
+}
+
+.description-ngx {
+  margin-bottom: 24px;
+}
+
+@media only screen and (min-width: 600px) {
+  mat-form-field {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+}
+
+.add-location-btn {
+  margin-bottom: 10px;
+}

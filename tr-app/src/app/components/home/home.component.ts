@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { RouterOutlet, RouterModule } from '@angular/router';
 import { MaterialModule } from '../../material/material.module';
 import { RunEvent } from '../../models/run.model';

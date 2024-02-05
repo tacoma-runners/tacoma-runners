@@ -6,7 +6,7 @@
           <mat-step formGroupName="0" [stepControl]="formArray?.get([0])!" label="Run Type">
             <div class="container">
               <div class="row">
-                <div class="col-6">
+                <div class="col-lg-6 col-sm-12">
                   <mat-form-field>
                     <mat-label>Run Type</mat-label>
                     <mat-select formControlName="runType">
@@ -19,24 +19,25 @@
               </div>
             </div>
             <div>
-              <button mat-button matStepperNext>Next</button>
+              <button mat-raised-button matStepperNext color="accent">Next</button>
             </div>
           </mat-step>
 
           <mat-step formGroupName="1" [stepControl]="formArray?.get([1])!"  label="Where/When">
             <div class="container">
               <div class="row">
-                <div class="col-6">
+                <div class="col-lg-6 col-sm-12">
                   <mat-form-field>
                     <mat-label>Location</mat-label>
                     <mat-select formControlName="runLocation" [(value)]="selectedLocation">
-                      <mat-option value="1">Point Defiance Park - Five Mile Dr</mat-option>
-                      <mat-option value="2">Beer Star</mat-option>
-                      <mat-option value="3">Dickman Mill Park</mat-option>
+                      @for (location of locations$; track location.id; let i = $index) {
+                        <mat-option [value]="location.id">{{ location.name }}</mat-option>
+                      }
                     </mat-select>
                   </mat-form-field>
+                  <button mat-raised-button color="accent" class="add-location-btn" (click)="openLocationDialog()">Add Location</button>
                 </div>
-                <div class="col-6">
+                <div class="col-lg-6 col-sm-12">
                   <mat-form-field>
                     <mat-label>Event Date/Time</mat-label>
                     <input matInput type="datetime-local" name="eventDate" formControlName="eventDate">
@@ -45,39 +46,61 @@
               </div>
             </div>
             <div>
-              <button mat-button matStepperPrevious>Back</button>
-              <button mat-button matStepperNext>Next</button>
+              <button mat-raised-button matStepperPrevious color="accent">Back</button>
+              <button mat-raised-button matStepperNext color="accent">Next</button>
             </div>
           </mat-step>
 
           <mat-step formGroupName="2" [stepControl]="formArray?.get([2])!"  label="Details">
             <div class="container">
               <div class="row">
-                <div class="col-6">
+                <div class="col-12">
                   <mat-form-field>
                     <mat-label>Name</mat-label>
                     <input matInput id="runName" type="text" formControlName="runName"/>
                   </mat-form-field>
                 </div>
-                <div class="col-6">
+              </div>
+              <div class="row">
+                <div class="col12">
+                  <div class="description-ngx">
+                    <ngx-editor-menu [editor]="editor" > </ngx-editor-menu>
+                    <ngx-editor [editor]="editor" formControlName="description" [placeholder]="'Description'"></ngx-editor>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6 col-sm-12">
                   <mat-form-field>
-                    <mat-label>Run Number</mat-label>
-                    <input matInput id="runNumber" type="number" formControlName="runNumber"/>
+                    <mat-label>Strava Route ID</mat-label>
+                    <input matInput id="stravaRouteId" type="text" formControlName="stravaRouteId"/>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-6 col-sm-12">
+                  <mat-form-field>
+                    <mat-label>Strava Event ID</mat-label>
+                    <input matInput id="stravaEventId" type="text" formControlName="stravaEventId"/>
                   </mat-form-field>
                 </div>
               </div>
               <div class="row">
-                <div class="col-12">
+                <div class="col-lg-6 col-sm-12">
                   <mat-form-field>
-                    <mat-label>Description</mat-label>
-                    <textarea matInput id="description" type="text" formControlName="description" rows="5"></textarea>
+                    <mat-label>Facebook Event ID</mat-label>
+                    <input matInput id="facebookEventId" type="text" formControlName="facebookEventId"/>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-6 col-sm-12">
+                  <mat-form-field>
+                    <mat-label>Meetup Event ID</mat-label>
+                    <input matInput id="meetupEventId" type="text" formControlName="meetupEventId"/>
                   </mat-form-field>
                 </div>
               </div>
             </div>
             <div>
-              <button mat-button matStepperPrevious>Back</button>
-              <button mat-button matStepperNext>Next</button>
+              <button mat-raised-button matStepperPrevious color="accent">Back</button>
+              <button mat-raised-button matStepperNext color="accent">Create Run</button>
             </div>
           </mat-step>
 
@@ -85,7 +108,7 @@
             <ng-template matStepLabel>Complete</ng-template>
             <p>Run has been created!</p>
             <div>
-              <button mat-button (click)="stepper.reset()">Restart</button>
+              <button mat-raised-button (click)="stepper.reset()" color="accent">Restart</button>
             </div>
           </mat-step>
         </mat-stepper>
