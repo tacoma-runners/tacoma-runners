@@ -25,7 +25,6 @@ import { LocationsModule } from './locations/location.module';
       database: process.env.POSTGRES_DATABASE,
       entities: [Run, Location],
       synchronize: false,
-      ssl: true,
       namingStrategy: new SnakeNamingStrategy(),
     }),
     AuthzModule,
