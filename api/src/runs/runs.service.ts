@@ -16,7 +16,7 @@ export class RunsService {
   }
   */
 
-  findAll(): Promise<Run[]> {
+  async findAll(): Promise<Run[]> {
     return this.runsReposity.find({
       order: { eventDate: 'DESC' },
       relations: {
@@ -59,7 +59,7 @@ export class RunsService {
     return runs[0];
   }
 
-  findOne(id: number): Promise<Run> {
+  async findOne(id: string): Promise<Run> {
     return this.runsReposity.findOne({
       where: { id },
       relations: {
@@ -68,7 +68,7 @@ export class RunsService {
     });
   }
 
-  updateOne(id: number): Promise<Run> {
+  async updateOne(id: string): Promise<Run> {
     return this.runsReposity.findOne({
       where: { id },
       relations: {

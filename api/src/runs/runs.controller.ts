@@ -18,13 +18,13 @@ export class RunsController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: number): Promise<Run | null> {
+  async findOne(@Param('id') id: string): Promise<Run | null> {
     return this.runsService.findOne(id);
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Put(':id')
-  async updateOne(@Param('id') id: number): Promise<Run | null> {
+  async updateOne(@Param('id') id: string): Promise<Run | null> {
     return this.runsService.updateOne(id);
   }
 }
