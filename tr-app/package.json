@@ -1,6 +1,6 @@
 {
   "name": "tr-app",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -31,7 +31,6 @@
     "angular-fontawesome": "^1.0.0",
     "bootstrap": "^5.3.2",
     "express": "^4.18.2",
-    "lightbox2": "^2.11.4",
     "ngx-editor": "^16.0.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
