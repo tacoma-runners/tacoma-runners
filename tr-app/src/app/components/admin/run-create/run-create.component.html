@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row justify-content-center">
     <div class="col-lg-8 col-md-10 col-sm-12">
-      <form [formGroup]="runFormGroup">
+      <form [formGroup]="runFormGroup" (ngSubmit)="onSubmit()">
         <mat-stepper formArrayName="formArray" [linear]="true" [orientation]="(stepperOrientation | async)!" #stepper (selectionChange)="onStepChange($event)">
           <mat-step formGroupName="0" [stepControl]="formArray?.get([0])!" label="Run Type">
             <div class="container">
@@ -100,7 +100,7 @@
             </div>
             <div>
               <button mat-raised-button matStepperPrevious color="accent">Back</button>
-              <button mat-raised-button matStepperNext color="accent">Create Run</button>
+              <button mat-raised-button matStepperNext color="accent" type="submit">Create Run</button>
             </div>
           </mat-step>
 

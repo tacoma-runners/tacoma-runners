@@ -12,7 +12,6 @@
           <span mat-card-avatar><mat-icon class="large-icon" fontIcon="forest" color="accent"></mat-icon></span>
           <span class="run-type">Saturday 5K</span>
         </span>
-        <app-lb-image label="Map/Directions" src="assets/saturday.5k.jpg" class="map-button"></app-lb-image>
       } @else {
         <span class="header">
           <span mat-card-avatar><mat-icon class="large-icon" fontIcon="celebration" color="accent"></mat-icon></span>
@@ -35,9 +34,7 @@
   </div>
   <div class="row justify-content-center">
     <div class="col-lg-4 col-md-6 col-sm-12 align-self-start">
-      <div class="run-desc">
-        {{ currentRun.description }}
-      </div>
+      <div class="run-desc" [innerHTML]="currentRun.description"></div>
     </div>
     <div class="col-lg-4 col-md-6 col-sm-12 align-self-start no-padding">
       <div class="run-location">
@@ -53,11 +50,16 @@
         <div class="run-address">{{ currentRun.location.streetAddress }}, {{ currentRun.location.city }}, {{ currentRun.location.state }} {{ currentRun.location.zipCode }}</div>
       </div>
 
-      @if (currentRun.stravaEventId || currentRun.facebookEventId || currentRun.meetupEventId) {
+      @if (currentRun.stravaEventId || currentRun.stravaRouteId || currentRun.facebookEventId || currentRun.meetUpEventId) {
         <div class="run-links">
           @if (currentRun.stravaEventId) {
             <button mat-raised-button color="accent">
               <a href="https://www.strava.com/clubs/966456/posts/{{currentRun.stravaEventId}}" target="_blank">Strava Event</a>
+            </button>
+          }
+          @if (currentRun.stravaRouteId) {
+            <button mat-raised-button color="accent">
+              <a href="https://www.strava.com/routes/{{currentRun.stravaRouteId}}" target="_blank">Strava Route</a>
             </button>
           }
           @if (currentRun.facebookEventId) {
@@ -65,9 +67,9 @@
               <a href="https://www.facebook.com/events/{{currentRun.facebookEventId}}" target="_blank">Facebook Event</a>
             </button>
           }
-          @if (currentRun.meetupEventId) {
+          @if (currentRun.meetUpEventId) {
             <button mat-raised-button color="accent">
-              <a href="https://www.meetup.com/original-tacoma-runners/events/{{currentRun.meetupEventId}}" target="_blank">Meetup Event</a>
+              <a href="https://www.meetup.com/original-tacoma-runners/events/{{currentRun.meetUpEventId}}" target="_blank">Meetup Event</a>
             </button>
           }
         </div>

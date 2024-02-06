@@ -6,14 +6,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RunEvent } from '../../models/run.model';
 import { MaterialModule } from '../../material/material.module';
 import { SafePipe } from '../../safe.pipe';
-import { LightboxImageComponent } from '../lb-image/lb-image.component';
 
 export declare type ViewMode = 'user' | 'admin';
 
 @Component({
   selector: 'app-run-details',
   standalone: true,
-  imports: [CommonModule, MaterialModule, FormsModule, SafePipe, LightboxImageComponent],
+  imports: [CommonModule, MaterialModule, FormsModule, SafePipe],
   templateUrl: './run-details.component.html',
   styleUrl: './run-details.component.css'
 })
@@ -39,8 +38,9 @@ export class RunDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.message = '';
-    if (!isNaN(this.route.snapshot.params["id"])) {
-      this.getRun(this.route.snapshot.params["id"]);
+    const runId = this.route.snapshot.params["id"];
+    if (runId != undefined && runId != "") {
+      this.getRun(runId);
     } else {
       this.router.navigateByUrl("/");
     }
@@ -61,11 +61,16 @@ export class RunDetailsComponent implements OnInit {
 
   setGoogleMapUrl() {
     let url = 'https://www.google.com/maps/embed/v1/place?key=AIzaSyA73WcAxjI0jvET7zFqw06pXdxaNBWs9Zk&q=';
-    let param = encodeURIComponent(
-      this.currentRun.location.streetAddress + " " +
-      this.currentRun.location.city + "," +
-      this.currentRun.location.state + " " +
-      this.currentRun.location.zipCode);
+    let param = '';
+    if (this.currentRun.location.googlePlaceId) {
+      param = 'place_id:' + encodeURIComponent(this.currentRun.location.googlePlaceId);
+    } else {
+      param = encodeURIComponent(
+        this.currentRun.location.streetAddress + " " +
+        this.currentRun.location.city + "," +
+        this.currentRun.location.state + " " +
+        this.currentRun.location.zipCode);
+    }
     this.mapUrl = url + param;
   }
 

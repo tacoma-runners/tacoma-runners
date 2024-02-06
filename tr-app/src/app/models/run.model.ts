@@ -7,7 +7,7 @@ export class RunEvent {
   location?: EventLocation;
   stravaEventId?: string;
   stravaRouteId?: string;
-  meetupEventId?: string;
+  meetUpEventId?: string;
   facebookEventId?: string;
   eventDate?: string;
   runType?: string;

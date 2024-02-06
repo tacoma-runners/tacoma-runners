@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ReactiveFormsModule, FormBuilder, FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormsModule, Validators } from '@angular/forms';
 import { MaterialModule } from '../../../material/material.module';
 import { RunService } from '../../../services/run.service';
 import { ActivatedRoute } from '@angular/router';
@@ -33,12 +33,11 @@ export class RunEditComponent implements OnInit, OnDestroy {
   currentRun: RunEvent | undefined = undefined;
 
   editForm = this.formBuilder.group({
-    name: [''],
+    name: ['', Validators.required],
     description: [''],
-    eventDate: [''],
-    runType: [''],
+    eventDate: ['', Validators.required],
+    runType: ['', Validators.required],
     neighborhood: [''],
-    runNumber: [0],
     venueName: [''],
     address: this.formBuilder.group({
       streetAddress: [''],
@@ -48,7 +47,8 @@ export class RunEditComponent implements OnInit, OnDestroy {
     }),
     eventIds: this.formBuilder.group({
       stravaEventId: [''],
-      meetupEventId: [''],
+      stravaRouteId: [''],
+      meetUpEventId: [''],
       facebookEventId: ['']
     }),
   });
@@ -86,7 +86,7 @@ export class RunEditComponent implements OnInit, OnDestroy {
             eventIds: {
               facebookEventId: data.facebookEventId,
               stravaEventId: data.stravaEventId,
-              meetupEventId: data.meetupEventId
+              meetUpEventId: data.meetUpEventId
             }
           });
         },

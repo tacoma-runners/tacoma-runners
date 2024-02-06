@@ -148,5 +148,9 @@ export class RunCreateComponent implements OnInit, OnDestroy {
       console.log(result);
     });
   }
+
+  onSubmit(): void {
+    console.log(this.runFormGroup.controls['formArray'].get([2]).get('description').value);
+  }
 }
 

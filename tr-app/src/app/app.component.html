@@ -8,7 +8,9 @@
   <mat-icon *ngIf="!sidenav.opened"> menu </mat-icon>
   <mat-icon *ngIf="sidenav.opened"> close </mat-icon>
   </button>
-  <img class="logo" src="assets/tr-logo.png" height="48"/>
+  <a routerLink="/">
+    <img class="logo" src="assets/tr-logo.png" height="48"/>
+  </a>
   <span>Tacoma Runners</span>
   <span class="spacer"></span>
   @if (!(isHandset$ | async)) {

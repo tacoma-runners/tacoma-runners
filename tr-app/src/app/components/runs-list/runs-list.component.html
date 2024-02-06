@@ -1,4 +1,11 @@
 <div class="container-fluid">
+  @if (auth.isAuthenticated$ | async) {
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-md-12 col-sm-12">
+        <button mat-raised-button color="accent" [routerLink]="['/admin/create']">New Event</button>
+      </div>
+    </div>
+  }
   <div class="row justify-content-center">
     <div class="col-lg-8 col-md-12 col-sm-12">
       <h4>Tacoma Runners Events</h4>
@@ -30,11 +37,4 @@
       <mat-paginator #paginator [pageSizeOptions]="[5, 10]" showFirstLastButtons></mat-paginator>
     </div>
   </div>
-  @if (auth.isAuthenticated$ | async) {
-    <div class="row justify-content-center">
-      <div class="col-lg-8 col-md-12 col-sm-12">
-        <button mat-raised-button color="accent" [routerLink]="['/admin/create']">New Event</button>
-      </div>
-    </div>
-  }
 </div>
