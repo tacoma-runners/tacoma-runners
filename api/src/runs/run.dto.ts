@@ -5,7 +5,7 @@ import {
   IsString,
 } from 'class-validator';
 import { runType } from './run.entity';
-import { Location } from 'src/locations/location.entity';
+import { Location } from '../locations/location.entity';
 
 export class RunDto {
   @IsNotEmpty()
