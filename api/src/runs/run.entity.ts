@@ -1,6 +1,12 @@
 import { Location } from '../locations/location.entity';
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 
+export enum runType {
+  saturday5k = 'saturday-5k',
+  thursdayRun = 'thursday-run',
+  specialRun = 'special-run',
+}
+
 @Entity({ name: 'runs' })
 export class Run {
   @PrimaryGeneratedColumn('uuid')
@@ -25,7 +31,7 @@ export class Run {
   eventDate: Date;
 
   @Column()
-  runType: string;
+  runType: runType;
 
   @Column()
   description: string;

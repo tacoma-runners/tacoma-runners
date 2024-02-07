@@ -68,12 +68,14 @@ export class RunsService {
     });
   }
 
-  async updateOne(id: string): Promise<Run> {
-    return this.runsReposity.findOne({
-      where: { id },
-      relations: {
-        location: true,
-      },
-    });
+  async createOne(runsPayload: Partial<Run>): Promise<Run> {
+    const newLocation = this.runsReposity.create(runsPayload);
+    await this.runsReposity.save(newLocation);
+    return this.findOne(newLocation.id);
+  }
+
+  async updateOne(id: string, runsPayload: Partial<Run>): Promise<Run> {
+    await this.runsReposity.update(id, runsPayload);
+    return this.findOne(id);
   }
 }
