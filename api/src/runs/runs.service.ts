@@ -35,6 +35,9 @@ export class RunsService {
         eventDate: Between(dateStart, dateEnd),
         ...(runType && { runType }),
       },
+      relations: {
+        location: true,
+      },
       order: { eventDate: 'ASC' },
       take: 1,
     });
