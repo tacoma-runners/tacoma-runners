@@ -18,6 +18,9 @@
           <span class="run-type">Special Event</span>
         </span>
       }
+      @if (auth.isAuthenticated$ | async) {
+        <button mat-raised-button color="accent" [routerLink]="['/admin/edit/', currentRun.id]">Edit</button>
+      }
     </div>
   </div>
   <div class="row justify-content-center px-1">

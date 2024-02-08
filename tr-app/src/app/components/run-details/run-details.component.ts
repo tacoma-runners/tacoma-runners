@@ -2,17 +2,18 @@ import { CommonModule, Location } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RunService } from '../../services/run.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { RunEvent } from '../../models/run.model';
 import { MaterialModule } from '../../material/material.module';
 import { SafePipe } from '../../safe.pipe';
+import { AuthService } from '@auth0/auth0-angular';
 
 export declare type ViewMode = 'user' | 'admin';
 
 @Component({
   selector: 'app-run-details',
   standalone: true,
-  imports: [CommonModule, MaterialModule, FormsModule, SafePipe],
+  imports: [CommonModule, MaterialModule, FormsModule, SafePipe, RouterModule],
   templateUrl: './run-details.component.html',
   styleUrl: './run-details.component.css'
 })
@@ -34,7 +35,8 @@ export class RunDetailsComponent implements OnInit {
     private runService: RunService,
     private route: ActivatedRoute,
     private location: Location,
-    private router: Router) { }
+    private router: Router,
+    public auth: AuthService) { }
 
   ngOnInit(): void {
     this.message = '';

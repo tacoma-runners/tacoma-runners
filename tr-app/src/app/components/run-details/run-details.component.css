@@ -41,8 +41,8 @@ label {
   margin-left: 10px;
 }
 
-.run-name, .run-date, .run-desc, .run-location, .run-links {
-  border: 5px solid rgba(253,89,1,0.3);
+.run-name, .run-date, .run-desc, .run-location, .run-links, .strava-embed {
+  border: 1px solid rgba(128, 128, 128, 0.3);
   border-radius: 20px;
   padding: 10px;
   overflow: hidden;
@@ -72,12 +72,17 @@ label {
   width: 100%;
 }
 
-.run-location {
+.run-location, .run-links, .strava-embed {
   margin-bottom: 10px;
 }
 
 .run-address {
   font-size: 10pt;
+}
+
+button {
+  margin-left: 10px;
+  margin-bottom: 3px;
 }
 
 /* @media only screen and (min-width: 768px) {

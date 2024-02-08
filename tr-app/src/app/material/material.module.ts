@@ -26,7 +26,7 @@ const MaterialComponents = [
   MatProgressSpinnerModule,
   MatSelectModule,
   MatStepperModule,
-  MatPaginatorModule
+  MatPaginatorModule,
 ];
 
 @NgModule({

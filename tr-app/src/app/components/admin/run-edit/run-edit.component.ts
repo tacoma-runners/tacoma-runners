@@ -1,11 +1,14 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Pipe } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormsModule, Validators } from '@angular/forms';
 import { MaterialModule } from '../../../material/material.module';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { RunService } from '../../../services/run.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RunEvent } from '../../../models/run.model';
 import { DatePipe, CommonModule } from '@angular/common';
 import { Editor, NgxEditorModule } from 'ngx-editor';
+import { AuthService } from '@auth0/auth0-angular';
+import { map, merge } from 'rxjs';
 
 @Component({
   selector: 'app-run-edit',
@@ -26,11 +29,15 @@ export class RunEditComponent implements OnInit, OnDestroy {
   constructor(private runService: RunService,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private datePipe: DatePipe) {}
+    private datePipe: DatePipe,
+    public auth: AuthService,
+    private snackBar: MatSnackBar,
+    private router: Router) {}
 
   editor: Editor;
 
-  currentRun: RunEvent | undefined = undefined;
+  currentRun: RunEvent;
+  updatedRun: RunEvent;
 
   editForm = this.formBuilder.group({
     name: ['', Validators.required],
@@ -86,9 +93,46 @@ export class RunEditComponent implements OnInit, OnDestroy {
             eventIds: {
               facebookEventId: data.facebookEventId,
               stravaEventId: data.stravaEventId,
+              stravaRouteId: data.stravaRouteId,
               meetUpEventId: data.meetUpEventId
             }
           });
+
+          this.updatedRun = {};
+          const self = this;
+
+          merge(
+            ...Object.keys(this.editForm.controls)
+            .filter(
+              f => (!f.startsWith('address')&&!f.startsWith('eventIds'))
+            )
+            .map(
+              k => this.editForm.controls[k].valueChanges.pipe(
+                map(v => ({ [k]: v })),
+              )
+            )
+          ).subscribe({
+              next(o: RunEvent) {
+                self.updatedRun = Object.assign(self.updatedRun, o);
+                console.log(self.updatedRun);
+              }
+            }
+          );
+
+          merge(
+            ...Object.keys(this.editForm.controls['eventIds'].controls)
+            .map(
+              k => this.editForm.controls['eventIds'].controls[k].valueChanges.pipe(
+                map(v => ({ [k]: v })),
+              )
+            )
+          ).subscribe({
+              next(o: RunEvent) {
+                self.updatedRun = Object.assign(self.updatedRun, o);
+                console.log(self.updatedRun);
+              }
+            }
+          );
         },
         error: (e) => console.error(e)
       });
@@ -96,5 +140,32 @@ export class RunEditComponent implements OnInit, OnDestroy {
 
   onSubmit(): void {
     console.log(this.editForm.controls.description.value);
+
+    this.updatedRun = Object.assign(this.currentRun, this.updatedRun);
+    this.updatedRun.location = this.updatedRun.location.id;
+
+    console.log(this.updatedRun.eventDate);
+    let runDate = new Date(Date.parse(this.updatedRun.eventDate.replace('T',' ')));
+    let isoRunDate = runDate.toISOString();
+    console.log(isoRunDate);
+    this.updatedRun.eventDate = isoRunDate;
+    console.log(this.updatedRun);
+
+    this.runService.update(this.updatedRun.id, this.updatedRun).subscribe({
+      next: (result) => {
+        console.log(result);
+        let message = result.message ? result.message : 'Update Successful';
+        this.getRun(this.route.snapshot.params["id"]);
+        this.editForm.markAsPristine();
+        this.snackBar.open(message, "View", {
+          duration: 5000,
+        }).onAction().subscribe(
+          o => this.router.navigate(["details", this.currentRun.id])
+        );
+      },
+      error: (err) => {
+
+      }
+    });
   }
 }

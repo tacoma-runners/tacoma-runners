@@ -1,25 +1,56 @@
+import { config } from './app.config.server';
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import routes from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { provideHttpClient, withFetch } from '@angular/common/http';
-import { AuthModule } from '@auth0/auth0-angular';
+import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
+import { AuthHttpInterceptor, AuthModule } from '@auth0/auth0-angular';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideClientHydration(),
-    provideHttpClient(withFetch()),
+    provideHttpClient(withInterceptorsFromDi()),
+    {
+      provide:HTTP_INTERCEPTORS,
+      useClass: AuthHttpInterceptor,
+      multi:true
+    },
     provideAnimations(),
     importProvidersFrom(AuthModule.forRoot({
-      domain: 'dev-bym2t3cwunsxjdpu.us.auth0.com',
-      clientId: 'pDOLML31njEmxLzD70aXD1WVx18KHQBL',
+      domain: 'dev-4q6hizgkp6h52g3r.us.auth0.com',
+      clientId: '8Le7pkjJ3yHaEWWdB6eYmwDQTiRA6xPO',
+      cacheLocation: 'localstorage',
       authorizationParams: {
-        redirect_uri: window.document.location.origin
+        redirect_uri: window.document.location.origin,
+        audience: 'https://tacoma-runners-api.vercel.app/'
       },
-      cacheLocation: 'localstorage'
+      httpInterceptor: {
+        allowedList: [
+          {
+            uri: 'https://tacoma-runners-api.vercel.app/runs/*',
+            httpMethod: 'POST',
+            tokenOptions: {
+              authorizationParams: {
+                audience: 'https://tacoma-runners-api.vercel.app/',
+                scope: 'admin'
+              }
+            },
+          },
+          {
+            uri: 'https://tacoma-runners-api.vercel.app/runs/*',
+            httpMethod: 'PUT',
+            tokenOptions: {
+              authorizationParams: {
+                audience: 'https://tacoma-runners-api.vercel.app/',
+                scope: 'admin'
+              }
+            },
+          }
+        ]
+      }
     }))
   ]
 };
