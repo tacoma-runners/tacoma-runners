@@ -1,10 +1,10 @@
 export class EventLocation {
-  id?: any;
+  id?: string;
   name?: string;
   streetAddress?: string;
   city?: string;
   state?: string;
-  zipCode?: string;
+  zipCode?: number;
   neighborhood?: string;
   googlePlaceId?: string;
 }

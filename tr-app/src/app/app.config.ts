@@ -6,7 +6,7 @@ import routes from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
-import { AuthHttpInterceptor, AuthModule } from '@auth0/auth0-angular';
+import { AuthHttpInterceptor, AuthModule, HttpMethod } from '@auth0/auth0-angular';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -25,29 +25,35 @@ export const appConfig: ApplicationConfig = {
       cacheLocation: 'localstorage',
       authorizationParams: {
         redirect_uri: window.document.location.origin,
-        audience: 'https://tacoma-runners-api.vercel.app/'
+        audience: 'https://tacoma-runners-api.vercel.app/',
+        scope: 'admin'
       },
       httpInterceptor: {
         allowedList: [
           {
             uri: 'https://tacoma-runners-api.vercel.app/runs/*',
-            httpMethod: 'POST',
-            tokenOptions: {
-              authorizationParams: {
-                audience: 'https://tacoma-runners-api.vercel.app/',
-                scope: 'admin'
-              }
-            },
+            httpMethod: HttpMethod.Get,
+            allowAnonymous: true
+          },
+          {
+            uri: 'https://tacoma-runners-api.vercel.app/runs',
+            httpMethod: HttpMethod.Post
           },
           {
             uri: 'https://tacoma-runners-api.vercel.app/runs/*',
-            httpMethod: 'PUT',
-            tokenOptions: {
-              authorizationParams: {
-                audience: 'https://tacoma-runners-api.vercel.app/',
-                scope: 'admin'
-              }
-            },
+            httpMethod: HttpMethod.Put
+          },
+          {
+            uri: 'https://tacoma-runners-api.vercel.app/locations/*',
+            httpMethod: HttpMethod.Get
+          },
+          {
+            uri: 'https://tacoma-runners-api.vercel.app/locations',
+            httpMethod: HttpMethod.Post
+          },
+          {
+            uri: 'https://tacoma-runners-api.vercel.app/locations/*',
+            httpMethod: HttpMethod.Put
           }
         ]
       }

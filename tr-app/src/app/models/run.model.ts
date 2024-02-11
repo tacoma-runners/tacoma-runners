@@ -1,7 +1,7 @@
 import { EventLocation } from './location.model';
 
 export class RunEvent {
-  id?: any;
+  id?: string;
   name?: string;
   description?: string;
   location?: EventLocation;

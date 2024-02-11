@@ -16,7 +16,7 @@ export class RunService {
     return this.http.get<RunEvent[]>(baseUrl);
   }
 
-  get(id: any): Observable<RunEvent> {
+  get(id: string): Observable<RunEvent> {
     return this.http.get(`${baseUrl}/${id}`);
   }
 
@@ -24,11 +24,11 @@ export class RunService {
     return this.http.get(`${baseUrl}/upcoming?runType=${type}`);
   }
 
-  create(data: any): Observable<any> {
+  create(data: RunEvent): Observable<RunEvent> {
     return this.http.post(baseUrl, data);
   }
 
-  update(id: any, data: any): Observable<any> {
+  update(id: string, data: RunEvent): Observable<RunEvent> {
     return this.http.put(`${baseUrl}/${id}`, data);
   }
 }

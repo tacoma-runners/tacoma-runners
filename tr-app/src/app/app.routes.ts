@@ -16,8 +16,8 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'details/:id', component: RunDetailsComponent },
   { path: 'admin/login', component: LoginComponent},
-  { path: 'admin/edit/:id', component: RunEditComponent, canActivate: [AuthGuard]},
-  { path: 'admin/create', component: RunCreateComponent, canActivate: [AuthGuard]},
+  { path: 'admin/edit/:id', component: RunEditComponent, canActivate: [AuthGuard], canLoad: [AuthGuard]},
+  { path: 'admin/create', component: RunCreateComponent, canActivate: [AuthGuard], canLoad: [AuthGuard]},
 ];
 
 export default routes;

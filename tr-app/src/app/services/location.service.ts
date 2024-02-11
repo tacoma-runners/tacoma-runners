@@ -16,23 +16,15 @@ export class LocationService {
     return this.http.get<EventLocation[]>(baseUrl);
   }
 
-  get(id: any): Observable<EventLocation> {
+  get(id: string): Observable<EventLocation> {
     return this.http.get(`${baseUrl}/${id}`);
   }
 
-  create(data: any): Observable<any> {
+  create(data: EventLocation): Observable<EventLocation> {
     return this.http.post(baseUrl, data);
   }
 
-  update(id: any, data: any): Observable<any> {
+  update(id: string, data: EventLocation): Observable<EventLocation> {
     return this.http.put(`${baseUrl}/${id}`, data);
-  }
-
-  delete(id: any): Observable<any> {
-    return this.http.delete(`${baseUrl}/${id}`);
-  }
-
-  deleteAll(): Observable<any> {
-    return this.http.delete(baseUrl);
   }
 }
