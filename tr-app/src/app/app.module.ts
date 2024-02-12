@@ -5,6 +5,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthHttpInterceptor } from '@auth0/auth0-angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { register } from 'swiper/element/bundle';
+register();
+
 @NgModule({
   declarations: [],
   imports: [

@@ -6,11 +6,12 @@ import { RunEvent } from '../../models/run.model';
 import { RunService } from '../../services/run.service';
 import { GlobalService } from '../../services/global.service';
 import { AuthService } from '@auth0/auth0-angular';
+import { CarouselComponent } from '../carousel/carousel.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, MaterialModule, RouterOutlet, RouterModule],
+  imports: [CommonModule, MaterialModule, RouterOutlet, RouterModule, CarouselComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })

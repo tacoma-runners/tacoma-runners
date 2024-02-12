@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet, Router, RouterModule } from '@angular/router';
+import { RouterOutlet, RouterModule } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { MaterialModule } from './material/material.module';
 import { Observable } from 'rxjs';
@@ -31,8 +31,7 @@ export class AppComponent implements OnInit {
 
   public isLoaded:boolean = false;
 
-  constructor(private observer: BreakpointObserver,
-    private router: Router) {}
+  constructor(private observer: BreakpointObserver) {}
 
   ngOnInit(): void {
     this.isLoaded = true;
