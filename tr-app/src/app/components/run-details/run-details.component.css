@@ -65,7 +65,7 @@ label {
 }
 
 .run-desc {
-  white-space: pre;
+  white-space: pre-wrap;
 }
 
 .run-map {

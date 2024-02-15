@@ -7,13 +7,20 @@ import { RunEvent } from '../../models/run.model';
 import { MaterialModule } from '../../material/material.module';
 import { SafePipe } from '../../safe.pipe';
 import { AuthService } from '@auth0/auth0-angular';
+import { StravaembedComponent } from '../stravaembed/stravaembed.component';
 
 export declare type ViewMode = 'user' | 'admin';
 
 @Component({
   selector: 'app-run-details',
   standalone: true,
-  imports: [CommonModule, MaterialModule, FormsModule, SafePipe, RouterModule],
+  imports: [
+    CommonModule,
+    MaterialModule,
+    FormsModule,
+    SafePipe,
+    RouterModule,
+    StravaembedComponent],
   templateUrl: './run-details.component.html',
   styleUrl: './run-details.component.css'
 })

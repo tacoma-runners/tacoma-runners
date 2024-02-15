@@ -1,6 +1,5 @@
 <div class="container-fluid" *ngIf="isLoaded && viewMode == 'user' && currentRun.id; else loading">
   <div class="row justify-content-center">
-
     <div class="col-lg-8 col-md-12 col-sm-12">
       @if (currentRun.runType == 'thursday-run') {
         <span class="header">
@@ -79,6 +78,13 @@
       }
     </div>
   </div>
+  @if (currentRun.stravaRouteId) {
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-md-12 col-sm-12">
+        <app-stravaembed [routeid]="currentRun.stravaRouteId"></app-stravaembed>
+      </div>
+    </div>
+  }
 </div>
 
 <ng-template #loading>

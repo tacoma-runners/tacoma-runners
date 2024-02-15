@@ -1,3 +1,7 @@
+:host {
+  width: 100%;
+}
+
 .home-card {
   color: black;
   margin-top: 5px;

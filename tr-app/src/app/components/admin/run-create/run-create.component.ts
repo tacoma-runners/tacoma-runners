@@ -125,9 +125,9 @@ export class RunCreateComponent implements OnInit, OnDestroy {
     .observe('(min-width: 800px)')
     .pipe(map(({matches}) => (matches ? 'horizontal' : 'vertical')));
 
-    this.runFormGroup.valueChanges.subscribe(data => {
-      this.runFormGroup.patchValue(data, {emitEvent: false});
-    });
+    // this.runFormGroup.valueChanges.subscribe(data => {
+    //   this.runFormGroup.patchValue(data, {emitEvent: false});
+    // });
   }
 
   retrieveLocations(): void {
