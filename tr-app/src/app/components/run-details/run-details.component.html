@@ -3,26 +3,26 @@
     <div class="col-lg-8 col-md-12 col-sm-12">
       @if (currentRun.runType == 'thursday-run') {
         <span class="header">
-          <span mat-card-avatar><mat-icon class="large-icon" fontIcon="sports_bar" color="accent"></mat-icon></span>
+          <span mat-card-avatar><mat-icon class="large-icon" fontIcon="sports_bar" color="primary"></mat-icon></span>
           <span class="run-type">Thursday Run</span>
         </span>
       } @else if (currentRun.runType == 'saturday-5k') {
         <span class="header">
-          <span mat-card-avatar><mat-icon class="large-icon" fontIcon="forest" color="accent"></mat-icon></span>
+          <span mat-card-avatar><mat-icon class="large-icon" fontIcon="forest" color="primary"></mat-icon></span>
           <span class="run-type">Saturday 5K</span>
         </span>
       } @else {
         <span class="header">
-          <span mat-card-avatar><mat-icon class="large-icon" fontIcon="celebration" color="accent"></mat-icon></span>
+          <span mat-card-avatar><mat-icon class="large-icon" fontIcon="celebration" color="primary"></mat-icon></span>
           <span class="run-type">Special Event</span>
         </span>
       }
       @if (auth.isAuthenticated$ | async) {
-        <button mat-raised-button color="accent" [routerLink]="['/admin/edit/', currentRun.id]">Edit</button>
+        <button mat-raised-button color="accent" class="admin-button" [routerLink]="['/admin/edit/', currentRun.id]">Edit</button>
       }
     </div>
   </div>
-  <div class="row justify-content-center px-1">
+  <div class="row justify-content-center">
     <div class="col-lg-4 col-md-6 col-sm-12">
       <div class="run-name">
         {{ currentRun.name }}
@@ -55,24 +55,16 @@
       @if (currentRun.stravaEventId || currentRun.stravaRouteId || currentRun.facebookEventId || currentRun.meetUpEventId) {
         <div class="run-links">
           @if (currentRun.stravaEventId) {
-            <button mat-raised-button color="accent">
-              <a href="https://www.strava.com/clubs/966456/posts/{{currentRun.stravaEventId}}" target="_blank">Strava Event</a>
-            </button>
+            <a mat-raised-button color="primary" class="link-button" href="https://www.strava.com/clubs/966456/posts/{{currentRun.stravaEventId}}" target="_blank">Strava Event</a>
           }
           @if (currentRun.stravaRouteId) {
-            <button mat-raised-button color="accent">
-              <a href="https://www.strava.com/routes/{{currentRun.stravaRouteId}}" target="_blank">Strava Route</a>
-            </button>
+            <a mat-raised-button color="primary" class="link-button" href="https://www.strava.com/routes/{{currentRun.stravaRouteId}}" target="_blank">Strava Route</a>
           }
           @if (currentRun.facebookEventId) {
-            <button mat-raised-button color="accent">
-              <a href="https://www.facebook.com/events/{{currentRun.facebookEventId}}" target="_blank">Facebook Event</a>
-            </button>
+            <a mat-raised-button color="primary" class="link-button" href="https://www.facebook.com/events/{{currentRun.facebookEventId}}" target="_blank">Facebook Event</a>
           }
           @if (currentRun.meetUpEventId) {
-            <button mat-raised-button color="accent">
-              <a href="https://www.meetup.com/original-tacoma-runners/events/{{currentRun.meetUpEventId}}" target="_blank">Meetup Event</a>
-            </button>
+            <a mat-raised-button color="primary" class="link-button" href="https://www.meetup.com/original-tacoma-runners/events/{{currentRun.meetUpEventId}}" target="_blank">Meetup Event</a>
           }
         </div>
       }

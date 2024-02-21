@@ -20,7 +20,12 @@
 }
 
 .card-title {
+  font-weight: 900;
+  letter-spacing: 2px;
+  font-size: 18pt;
+  color: #17695C;
   text-transform: uppercase;
+  line-height: 40px !important;
 }
 
 .activebutton {
@@ -33,7 +38,7 @@
 
 .copyright {
   height: 20px;
-  width: 400px;
+  width: 300px;
   margin-left: auto;
   margin-right: auto;
 }

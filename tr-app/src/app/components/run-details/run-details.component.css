@@ -11,9 +11,11 @@ h4 {
   margin-top: 20px;
 }
 
-a {
+a.link-button {
   text-decoration: none;
-  color: #000;
+  color: white;
+  margin-left: 10px;
+  margin-bottom: 3px;
 }
 
 .header {
@@ -24,7 +26,7 @@ a {
 .large-icon {
   width: 1em;
   height: 1em;
-  font-size: 1em;
+  font-size: 42px;
 }
 
 label {
@@ -39,13 +41,22 @@ label {
 
 .run-type, .map-button {
   margin-left: 10px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  font-size: 18pt;
+  color: #17695C;
+  text-transform: uppercase;
+  line-height: 40px !important;
+  vertical-align: top;
 }
 
 .run-name, .run-date, .run-desc, .run-location, .run-links, .strava-embed {
-  border: 1px solid rgba(128, 128, 128, 0.3);
-  border-radius: 20px;
+  border: 0px solid #eaeaf0;
+  border-radius: 2px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
   padding: 10px;
   overflow: hidden;
+  background-color: white;
 }
 
 @media only screen and (min-width: 768px) {
@@ -80,17 +91,7 @@ label {
   font-size: 10pt;
 }
 
-button {
-  margin-left: 10px;
-  margin-bottom: 3px;
+.admin-button {
+  vertical-align: top;
+  margin-left: 50px;
 }
-
-/* @media only screen and (min-width: 768px) {
-  .left-section {
-    margin-right: 10px;
-  }
-
-  .right-section {
-    margin-left: 10px;
-  }
-} */

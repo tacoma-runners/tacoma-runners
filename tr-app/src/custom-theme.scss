@@ -1,0 +1,83 @@
+@use "@angular/material" as mat;
+
+@include mat.core();
+
+$mat-tr-primary: (
+	50: #f8e9e7,
+	100: #f9cdbd,
+	200: #f6ad93,
+	300: #f38e68,
+	400: #f17748,
+	500: #f06129,
+	600: #e55b25,
+	700: #d75521,
+	800: #c94e1e,
+	900: #af4218,
+  contrast: (
+    50: rgba(0,0,0,0.87),
+    100: rgba(0,0,0,0.87),
+    200: rgba(0,0,0,0.87),
+    300: rgba(0,0,0,0.87),
+    400: rgba(0,0,0,0.87),
+    500: white,
+    600: white,
+    700: white,
+    800: rgba(255,255,255,0.87),
+    900: rgba(255,255,255,0.87),
+    A100: rgba(0,0,0,0.87),
+    A200: white,
+    A400: white,
+    A700: white,
+  )
+);
+
+$mat-tr-accent: (
+	50: #e1f2f1,
+	100: #b4dfda,
+	200: #84cbc3,
+	300: #55b6ab,
+	400: #34a699,
+	500: #209687,
+	600: #1d897a,
+	700: #1a796a,
+	800: #17695b,
+	900: #114d40,
+  contrast: (
+    50: rgba(0,0,0,0.87),
+    100: rgba(0,0,0,0.87),
+    200: rgba(0,0,0,0.87),
+    300: rgba(0,0,0,0.87),
+    400: rgba(0,0,0,0.87),
+    500: white,
+    600: white,
+    700: white,
+    800: rgba(255,255,255,0.87),
+    900: rgba(255,255,255,0.87),
+    A100: rgba(0,0,0,0.87),
+    A200: white,
+    A400: white,
+    A700: white,
+  )
+);
+
+$tr-app-primary: mat.define-palette($mat-tr-primary);
+$tr-app-accent: mat.define-palette($mat-tr-accent, 800, 500, 900);
+$tr-app-warn: mat.define-palette(mat.$red-palette);
+
+$custom-typography: mat.define-typography-config(
+  $font-family: '"Montserrat", sans-serif'
+);
+
+$tr-app-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $tr-app-primary,
+      accent: $tr-app-accent,
+      warn: $tr-app-warn,
+    ),
+    typography: $custom-typography
+  )
+);
+
+@include mat.all-component-themes($tr-app-theme);
+@include mat.typography-hierarchy($tr-app-theme);

@@ -1,16 +1,51 @@
 mat-toolbar {
-  background: #249ea0;
+  background: #B9DDD8;
   color: white;
+}
+
+@media only screen and (max-width: 600px) {
+  mat-toolbar {
+    padding: 0;
+  }
 }
 
 mat-sidenav {
   margin: 16px;
   width: 200px;
   border-right: none;
-  color: rgba(253,89,1,1);
+  background-color: #B9DDD8;
+  color: #E55B25 !important;
   border-radius: 10px;
   padding: 16px;
   text-align: center;
+  text-transform: uppercase;
+}
+
+mat-sidenav > button {
+  color: #E55B25
+}
+
+.mat-mdc-icon-button {
+  color: #E55B25 !important;
+}
+
+.mat-mdc-button:not(:disabled) {
+  color: #E55B25 !important;
+}
+
+.header-title {
+  font-family: "BalloonD";
+  font-size: 30pt;
+  color: #E55B25;
+}
+
+@media only screen and (max-width: 600px) {
+  .header-title {
+    font-size: 24pt;
+    width: 140px;
+    white-space: break-spaces;
+    line-height: 20pt;
+  }
 }
 
 .white-text{
@@ -50,7 +85,7 @@ mat-sidenav-container {
 
 .social-links > a {
   display: inline-block;
-  color: white;
+  color: rgb(229, 91, 37);
   width: 20px;
 }
 

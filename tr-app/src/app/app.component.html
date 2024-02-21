@@ -1,5 +1,5 @@
 
-<mat-toolbar class="mat-elevation-z8">
+<mat-toolbar>
   <button
   mat-icon-button
   *ngIf="isHandset$ | async"
@@ -9,9 +9,9 @@
   <mat-icon *ngIf="sidenav.opened"> close </mat-icon>
   </button>
   <a routerLink="/">
-    <img class="logo" src="assets/tr-logo.png" height="48"/>
+    <img class="logo" src="assets/tr-logo-2-color.svg" height="48"/>
   </a>
-  <span>Tacoma Runners</span>
+  <span class="header-title">Tacoma Runners</span>
   <span class="spacer"></span>
   @if (!(isHandset$ | async)) {
     <app-navigation [mode]="'top'"></app-navigation>

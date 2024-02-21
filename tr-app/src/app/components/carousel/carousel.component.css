@@ -13,6 +13,14 @@
   width: 60%;
 }
 
+h1 {
+  font-weight: 900;
+  letter-spacing: 2px;
+  font-size: 18pt;
+  color: #17695C;
+  text-transform: uppercase;
+}
+
 @media only screen and (max-width: 600px) {
   .swiper {
     width: 350px;
