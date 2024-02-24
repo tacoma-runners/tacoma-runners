@@ -191,18 +191,19 @@ export class RunCreateComponent implements OnInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
-      this.updateLocation(result).subscribe({
+      this.createLocation(result).subscribe({
         next: result => {
           this.retrieveLocations();
+          this.selectedLocation = result.id;
         }
       });
     });
   }
 
-  updateLocation(updatedLocation: any): Observable<EventLocation> | null {
-    updatedLocation.zipCode = parseInt(updatedLocation.zipCode, 10);
+  createLocation(newLocation: any): Observable<EventLocation> | null {
+    newLocation.zipCode = parseInt(newLocation.zipCode, 10);
 
-    return this.locationService.update(updatedLocation.id, updatedLocation);
+    return this.locationService.create(newLocation);
   }
 
   onSubmit(): void {

@@ -96,7 +96,7 @@ export class RunEditComponent implements OnInit, OnDestroy {
   }
 
   preserveSpaces(html: string): string {
-    return html?.replace(/ /g, '&nbsp;');
+    return html?.replace(/\s\s/g, ' &nbsp;');
   }
 
   processRun(data: RunEvent): void {
