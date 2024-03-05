@@ -44,7 +44,7 @@ export class CarouselComponent implements AfterViewInit {
       loop: true,
       initialSlide: this.images.length,
       autoplay: {
-        delay: 5000,
+        delay: 15000,
         pauseOnMouseEnter: true,
         disableOnInteraction: true
       },
@@ -56,7 +56,7 @@ export class CarouselComponent implements AfterViewInit {
           slidesPerView: "auto",
         }
       },
-      effect: 'coverflow',
+      // effect: 'coverflow',
       navigation: {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
