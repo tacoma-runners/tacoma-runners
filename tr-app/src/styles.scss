@@ -18,8 +18,14 @@ body {
   background-color: rgb(245, 245, 245) !important;
 }
 
+.swiper-pagination-bullet {
+  background: #17695C !important;
+}
+.swiper-pagination-bullet-active {
+  background: #17695C !important;
+}
+
 @import 'swiper/scss';
 @import 'swiper/scss/autoplay';
 @import 'swiper/scss/navigation';
 @import 'swiper/scss/pagination';
-@import 'swiper/scss/effect-coverflow';

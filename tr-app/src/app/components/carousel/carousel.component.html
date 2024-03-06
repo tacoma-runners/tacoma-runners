@@ -1,13 +1,16 @@
 <div class="swiper" #swiperContainer>
   <div class="swiper-wrapper">
-    @for (image of images; track image;) {
-      <div class="swiper-slide"><img [src]="image"/></div>
+    @for (image of images; track image; let i = $index) {
+      <div class="swiper-slide">
+        <img [src]="image.src" [loading]="(i!=0)?'lazy':'eagar'"/>
+        @if (i != 0) {
+          <div class="swiper-lazy-preloader"></div>
+        }
+      </div>
     }
-    <div class="swiper-slide">
-      <h1>Running Tacoma since 2010</h1>
-      <p>The Tacoma Runners began in January 2010 with a few words on Twitter. Three people confirmed for an easy run from Tacoma's iconic Parkway Tavern. Seven showed up. Twelve runners came for week two from the Red Hot. Then sixteen the following week. After more than a decade, several thousand runners have joined us and the group continues to grow. All events are open to runners of all speeds and abilities. We won't lose you. </p>
-      <p>We have two weekly runs - a Thursday night social run and a free Saturday 5k. These are a great way to meet people and learn about all the various running options in the South Sound. </p>
-    </div>
   </div>
   <div class="swiper-pagination"></div>
+
+  <!--div class="swiper-button-prev"></div>
+  <div class="swiper-button-next"></div -->
 </div>

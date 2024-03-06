@@ -1,7 +1,7 @@
 import { AfterViewInit, CUSTOM_ELEMENTS_SCHEMA, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { Navigation, Autoplay, Pagination, EffectCoverflow } from 'swiper/modules';
+import { Navigation, Autoplay, Pagination } from 'swiper/modules';
 import { Swiper } from 'swiper';
 
 import { register } from 'swiper/element/bundle';
@@ -21,16 +21,19 @@ export class CarouselComponent implements AfterViewInit {
 
   @ViewChild('swiperContainer') swiperContainer: any;
 
-  images: string[] = [
-    'https://tacomarunners.store/images/slide1.jpg',
-    'https://tacomarunners.store/images/slide2.jpg',
-    'https://tacomarunners.store/images/slide3.jpg',
-    'https://tacomarunners.store/images/slide4.jpg',
-    'https://tacomarunners.store/images/slide5.jpg',
-    'https://tacomarunners.store/images/slide6.jpg',
-    'https://tacomarunners.store/images/slide7.jpg',
-    'https://tacomarunners.store/images/slide8.jpg',
-    'https://tacomarunners.store/images/slide9.jpg',
+  images: any = [
+    {src:'https://rgugzhoywaloltmagelp.supabase.co/storage/v1/object/public/photos/slide1.jpg?t=2024-03-06T21%3A29%3A17.021Z'},
+    {src:'https://rgugzhoywaloltmagelp.supabase.co/storage/v1/object/public/photos/slide2.jpg?t=2024-03-06T21%3A29%3A30.111Z'},
+    {src:'https://rgugzhoywaloltmagelp.supabase.co/storage/v1/object/public/photos/slide3.jpg?t=2024-03-06T21%3A29%3A40.414Z'},
+    {src:'https://tacomarunners.store/images/slide1.jpg'},
+    {src:'https://tacomarunners.store/images/slide2.jpg'},
+    {src:'https://tacomarunners.store/images/slide3.jpg'},
+    {src:'https://tacomarunners.store/images/slide4.jpg'},
+    {src:'https://tacomarunners.store/images/slide5.jpg'},
+    {src:'https://tacomarunners.store/images/slide6.jpg'},
+    {src:'https://tacomarunners.store/images/slide7.jpg'},
+    {src:'https://tacomarunners.store/images/slide8.jpg'},
+    {src:'https://tacomarunners.store/images/slide9.jpg'},
   ];
 
   constructor() {
@@ -39,10 +42,8 @@ export class CarouselComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     new Swiper(this.swiperContainer.nativeElement, {
-      modules: [Navigation, Autoplay, Pagination, EffectCoverflow],
+      modules: [Navigation, Autoplay, Pagination],
       direction: 'horizontal',
-      loop: true,
-      initialSlide: this.images.length,
       autoplay: {
         delay: 15000,
         pauseOnMouseEnter: true,
@@ -50,17 +51,6 @@ export class CarouselComponent implements AfterViewInit {
       },
       slidesPerView: 1,
       centeredSlides: true,
-      breakpoints: {
-        600: {
-          initialSlide: 0,
-          slidesPerView: "auto",
-        }
-      },
-      // effect: 'coverflow',
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
       pagination: {
         el: ".swiper-pagination",
         clickable: true,

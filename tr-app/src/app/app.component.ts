@@ -26,7 +26,11 @@ export class AppComponent implements OnInit {
   @ViewChild('sidenav') sidenav: any;
 
   public isHandset$: Observable<boolean> = this.observer
-    .observe(Breakpoints.Handset)
+    .observe([
+      Breakpoints.Handset,
+      Breakpoints.TabletPortrait,
+      Breakpoints.WebPortrait
+    ])
     .pipe(map((result: BreakpointState) => result.matches));
 
   public isLoaded:boolean = false;
