@@ -8,10 +8,12 @@ import { LoginComponent } from './components/admin/login/login.component';
 import { RunEditComponent } from './components/admin/run-edit/run-edit.component';
 import { RunCreateComponent } from './components/admin/run-create/run-create.component';
 import { AuthGuard } from '@auth0/auth0-angular';
+import { AboutComponent } from './components/about/about.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'runs-list', component: RunsListComponent },
+  { path: 'about', component: AboutComponent },
   { path: 'saturday5k', component: Saturday5kComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'details/:id', component: RunDetailsComponent },

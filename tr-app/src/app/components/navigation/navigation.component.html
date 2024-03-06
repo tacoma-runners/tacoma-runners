@@ -15,6 +15,10 @@
     <mat-icon>favorite</mat-icon>
     <span>Donate</span>
   </button>
+  <button mat-button color="accent" class="menu-button" routerLink="about" routerLinkActive="activebutton" (click)="closeSideNav()">
+    <mat-icon>info</mat-icon>
+    <span>About</span>
+  </button>
   @if (auth.isAuthenticated$ | async) {
     <li>
       <app-logout-button></app-logout-button>
@@ -45,6 +49,12 @@
         <div class="topnav-button" (click)="global.openDonate()">
           <mat-icon>favorite</mat-icon>
           <span>Donate</span>
+        </div>
+      </li>
+      <li>
+        <div class="topnav-button" routerLink="about" routerLinkActive="activebutton">
+        <mat-icon>info</mat-icon>
+        <span>About</span>
         </div>
       </li>
       @if (auth.isAuthenticated$ | async) {

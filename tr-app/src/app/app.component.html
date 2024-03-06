@@ -1,9 +1,10 @@
 
 <mat-toolbar>
-  <button
+  <button #menubutton
   mat-icon-button
   *ngIf="isHandset$ | async"
-  (click)="sidenav.toggle()"
+  (click)="sidenav.toggle();"
+  onclick="this.blur()"
   >
   <mat-icon *ngIf="!sidenav.opened"> menu </mat-icon>
   <mat-icon *ngIf="sidenav.opened"> close </mat-icon>

@@ -45,7 +45,7 @@ export class CarouselComponent implements AfterViewInit {
       modules: [Navigation, Autoplay, Pagination],
       direction: 'horizontal',
       autoplay: {
-        delay: 15000,
+        delay: 5000,
         pauseOnMouseEnter: true,
         disableOnInteraction: true
       },

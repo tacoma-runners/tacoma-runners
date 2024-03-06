@@ -95,3 +95,8 @@ label {
   vertical-align: top;
   margin-left: 50px;
 }
+
+.spinner {
+  margin-left: auto;
+  margin-right: auto;
+}

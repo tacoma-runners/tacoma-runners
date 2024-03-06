@@ -9,8 +9,6 @@ import { SafePipe } from '../../safe.pipe';
 import { AuthService } from '@auth0/auth0-angular';
 import { StravaembedComponent } from '../stravaembed/stravaembed.component';
 
-export declare type ViewMode = 'user' | 'admin';
-
 @Component({
   selector: 'app-run-details',
   standalone: true,
@@ -25,8 +23,6 @@ export declare type ViewMode = 'user' | 'admin';
   styleUrl: './run-details.component.css'
 })
 export class RunDetailsComponent implements OnInit {
-
-  @Input() viewMode = 'user';
 
   @Input() currentRun: RunEvent = {
     name: '',
