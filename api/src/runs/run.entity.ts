@@ -7,6 +7,12 @@ export enum runType {
   specialRun = 'special-run',
 }
 
+export enum runStatus {
+  pending = 'pending',
+  published = 'published',
+  archived = 'archived',
+}
+
 @Entity({ name: 'runs' })
 export class Run {
   @PrimaryGeneratedColumn('uuid')
@@ -38,4 +44,7 @@ export class Run {
 
   @ManyToOne(() => Location, (location) => location.runs)
   location: Location;
+
+  @Column()
+  status: runStatus;
 }

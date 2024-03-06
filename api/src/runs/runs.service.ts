@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Run } from './run.entity';
+import { Run, runStatus } from './run.entity';
 import { Repository, Between } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
@@ -18,6 +18,7 @@ export class RunsService {
 
   async findAll(): Promise<Run[]> {
     return this.runsReposity.find({
+      where: { status: runStatus.published },
       order: { eventDate: 'DESC' },
       relations: {
         location: true,
@@ -32,6 +33,7 @@ export class RunsService {
 
     let runs = await this.runsReposity.find({
       where: {
+        status: runStatus.published,
         eventDate: Between(dateStart, dateEnd),
         ...(runType && { runType }),
       },
@@ -48,6 +50,7 @@ export class RunsService {
       );
       runs = await this.runsReposity.find({
         where: {
+          status: runStatus.published,
           eventDate: Between(newDateStart, dateEnd),
           ...(runType && { runType }),
         },
@@ -64,7 +67,7 @@ export class RunsService {
 
   async findOne(id: string): Promise<Run> {
     return this.runsReposity.findOne({
-      where: { id },
+      where: { id, status: runStatus.published },
       relations: {
         location: true,
       },
@@ -72,13 +75,48 @@ export class RunsService {
   }
 
   async createOne(runsPayload: Partial<Run>): Promise<Run> {
-    const newLocation = this.runsReposity.create(runsPayload);
-    await this.runsReposity.save(newLocation);
-    return this.findOne(newLocation.id);
+    console.log({
+      ...runsPayload,
+      status: runStatus.pending,
+    });
+    const newRun = this.runsReposity.create({
+      ...runsPayload,
+      status: runStatus.pending,
+    });
+    await this.runsReposity.save(newRun);
+    return this.findOne(newRun.id);
   }
 
   async updateOne(id: string, runsPayload: Partial<Run>): Promise<Run> {
     await this.runsReposity.update(id, runsPayload);
     return this.findOne(id);
+  }
+
+  async publishOne(id: string): Promise<Run> {
+    await this.runsReposity.update(id, { status: runStatus.published });
+    return this.findOne(id);
+  }
+
+  async archiveOne(id: string): Promise<Run> {
+    await this.runsReposity.update(id, { status: runStatus.archived });
+    return this.findOne(id);
+  }
+
+  async adminFindAll(): Promise<Run[]> {
+    return this.runsReposity.find({
+      order: { eventDate: 'DESC' },
+      relations: {
+        location: true,
+      },
+    });
+  }
+
+  async adminFindOne(id: string): Promise<Run> {
+    return this.runsReposity.findOne({
+      where: { id },
+      relations: {
+        location: true,
+      },
+    });
   }
 }

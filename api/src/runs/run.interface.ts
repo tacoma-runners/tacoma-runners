@@ -16,4 +16,5 @@ export interface Run {
   eventDate: Date;
   runType: string;
   description: string;
+  status: string;
 }

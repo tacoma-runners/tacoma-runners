@@ -27,6 +27,30 @@ export class RunsController {
     return this.runsService.findUpcoming(runType);
   }
 
+  @UseGuards(AuthGuard('jwt'))
+  @Put('publish/:id')
+  publish(@Param('id') id: string) {
+    return this.runsService.publishOne(id);
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Put('archive/:id')
+  archive(@Param('id') id: string) {
+    return this.runsService.archiveOne(id);
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Get('admin')
+  async adminFindAll(): Promise<Run[]> {
+    return this.runsService.adminFindAll();
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Get('admin/:id')
+  async adminFindOne(@Param('id') id: string): Promise<Run> {
+    return this.runsService.adminFindOne(id);
+  }
+
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<Run | null> {
     return this.runsService.findOne(id);
