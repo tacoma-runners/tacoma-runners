@@ -50,6 +50,7 @@ export class RunEditComponent implements OnInit, OnDestroy {
     name: ['', Validators.required],
     description: [''],
     eventDate: ['', Validators.required],
+    status: [''],
     runType: ['', Validators.required],
     neighborhood: [''],
     venueName: [''],
@@ -109,6 +110,7 @@ export class RunEditComponent implements OnInit, OnDestroy {
       description: this.preserveSpaces(data.description),
       eventDate: data.eventDate,
       runType: data.runType,
+      status: data.status,
       venueName: data.location.name,
       neighborhood: data.location.neighborhood,
       address: {

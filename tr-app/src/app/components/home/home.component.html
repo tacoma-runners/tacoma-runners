@@ -15,8 +15,8 @@
             <p>The Thursday night social run is the iconic Tacoma Runners event. Every week we run from a different local business or park. Rain or shine. Join us!</p>
             @if (thursdayRun) {
               <p>{{ thursdayRun.name }} - {{ thursdayRun.eventDate | date:'EEEE, MMMM d, y h:mm a':'PST'}}</p>
-              <p>{{ thursdayRun.location.name }}<br/>
-                {{ thursdayRun.location.streetAddress }}, {{ thursdayRun.location.city }}, {{ thursdayRun.location.state }} {{ thursdayRun.location.zipCode }}
+              <p>{{ thursdayRun.location.name }}<br/>{{ thursdayRun.location.streetAddress }}<br/>
+                {{ thursdayRun.location.city }}, {{ thursdayRun.location.state }} {{ thursdayRun.location.zipCode }}
               </p>
             }
           </mat-card-content>
@@ -62,4 +62,4 @@
     </div>
   </div>
 </div>
-<div class="copyright">Copyright &copy; Tacoma Runners 2010-2024</div>
+<app-copyright></app-copyright>

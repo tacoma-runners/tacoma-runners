@@ -18,7 +18,7 @@
         </span>
       }
       @if (auth.isAuthenticated$ | async) {
-        <button mat-raised-button color="accent" class="admin-button" [routerLink]="['/admin/edit/', currentRun.id]">Edit</button>
+        <button mat-raised-button color="primary" class="admin-button" [routerLink]="['/admin/edit/', currentRun.id]">Edit</button>
       }
     </div>
   </div>

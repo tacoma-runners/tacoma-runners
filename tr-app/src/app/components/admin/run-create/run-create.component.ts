@@ -217,6 +217,7 @@ export class RunCreateComponent implements OnInit, OnDestroy {
     let runDate = new Date(Date.parse(this.newRun.eventDate.replace('T',' ')));
     let isoRunDate = runDate.toISOString();
     this.newRun.eventDate = isoRunDate;
+    this.newRun.status = "pending";
 
     this.runService.create(this.newRun).subscribe({
       next: (result) => {

@@ -7,11 +7,19 @@ import { RunService } from '../../services/run.service';
 import { GlobalService } from '../../services/global.service';
 import { AuthService } from '@auth0/auth0-angular';
 import { CarouselComponent } from '../carousel/carousel.component';
+import { CopyrightComponent } from '../copyright/copyright.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, MaterialModule, RouterOutlet, RouterModule, CarouselComponent],
+  imports: [
+    CommonModule,
+    MaterialModule,
+    RouterOutlet,
+    RouterModule,
+    CarouselComponent,
+    CopyrightComponent,
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })

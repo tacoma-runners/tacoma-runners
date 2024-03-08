@@ -11,4 +11,5 @@ export class RunEvent {
   facebookEventId?: string;
   eventDate?: string;
   runType?: string;
+  status?: string;
 }
