@@ -22,18 +22,10 @@ export class CarouselComponent implements AfterViewInit {
   @ViewChild('swiperContainer') swiperContainer: any;
 
   images: any = [
-    {src:'https://rgugzhoywaloltmagelp.supabase.co/storage/v1/object/public/photos/slide1.jpg?t=2024-03-06T21%3A29%3A17.021Z'},
-    {src:'https://rgugzhoywaloltmagelp.supabase.co/storage/v1/object/public/photos/slide2.jpg?t=2024-03-06T21%3A29%3A30.111Z'},
-    {src:'https://rgugzhoywaloltmagelp.supabase.co/storage/v1/object/public/photos/slide3.jpg?t=2024-03-06T21%3A29%3A40.414Z'},
-    {src:'https://tacomarunners.store/images/slide1.jpg'},
-    {src:'https://tacomarunners.store/images/slide2.jpg'},
-    {src:'https://tacomarunners.store/images/slide3.jpg'},
-    {src:'https://tacomarunners.store/images/slide4.jpg'},
-    {src:'https://tacomarunners.store/images/slide5.jpg'},
-    {src:'https://tacomarunners.store/images/slide6.jpg'},
-    {src:'https://tacomarunners.store/images/slide7.jpg'},
-    {src:'https://tacomarunners.store/images/slide8.jpg'},
-    {src:'https://tacomarunners.store/images/slide9.jpg'},
+    {src:'https://rgugzhoywaloltmagelp.supabase.co/storage/v1/object/public/photos/halloween-slide.jpeg'},
+    {src:'https://rgugzhoywaloltmagelp.supabase.co/storage/v1/object/public/photos/flannel-slide.jpeg'},
+    {src: 'https://rgugzhoywaloltmagelp.supabase.co/storage/v1/object/public/photos/oktoberfest-slide.jpeg'},
+    {src:'https://rgugzhoywaloltmagelp.supabase.co/storage/v1/object/public/photos/narrows-slide.jpg'},
   ];
 
   constructor() {
@@ -54,7 +46,8 @@ export class CarouselComponent implements AfterViewInit {
       pagination: {
         el: ".swiper-pagination",
         clickable: true,
-      }
+      },
+      loop: true,
     });
   }
 }

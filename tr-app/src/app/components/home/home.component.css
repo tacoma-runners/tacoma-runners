@@ -37,4 +37,31 @@
   font-size: 14px;
 }
 
+.copyright {
+  height: 20px;
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px 0 40px 0;
+}
 
+.mat-mdc-card {
+  height: 250px;
+}
+
+.carousel-holder {
+  margin: -10px -10px 20px -10px;
+}
+
+@media only screen and (max-width: 991px) {
+  .mat-mdc-card {
+    height: auto;
+  }
+}
+
+
+@media only screen and (max-width: 500px) {
+  .mat-mdc-card {
+    height: auto;
+  }
+}

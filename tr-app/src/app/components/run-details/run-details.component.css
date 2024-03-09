@@ -69,6 +69,10 @@ label {
   .no-padding {
     margin-top: 10px;
   }
+
+  .run-desc {
+    height: auto;
+  }
 }
 
 .run-name {
@@ -77,6 +81,8 @@ label {
 
 .run-desc {
   white-space: pre-wrap;
+  height: 315px;
+  overflow-y: auto;
 }
 
 .run-map {
