@@ -58,10 +58,3 @@
     height: auto;
   }
 }
-
-
-@media only screen and (max-width: 500px) {
-  .mat-mdc-card {
-    height: auto;
-  }
-}
