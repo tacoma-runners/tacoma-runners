@@ -22,10 +22,11 @@ export class CarouselComponent implements AfterViewInit {
   @ViewChild('swiperContainer') swiperContainer: any;
 
   images: any = [
-    {src:'https://rgugzhoywaloltmagelp.supabase.co/storage/v1/object/public/photos/halloween-slide.jpeg'},
-    {src:'https://rgugzhoywaloltmagelp.supabase.co/storage/v1/object/public/photos/flannel-slide.jpeg'},
+    {src: 'https://rgugzhoywaloltmagelp.supabase.co/storage/v1/object/public/photos/halloween-slide.jpeg'},
+    {src: 'https://rgugzhoywaloltmagelp.supabase.co/storage/v1/object/public/photos/flannel-slide.jpeg'},
     {src: 'https://rgugzhoywaloltmagelp.supabase.co/storage/v1/object/public/photos/oktoberfest-slide.jpeg'},
-    {src:'https://rgugzhoywaloltmagelp.supabase.co/storage/v1/object/public/photos/narrows-slide.jpg'},
+    {src: 'https://rgugzhoywaloltmagelp.supabase.co/storage/v1/object/public/photos/saturday-slide.jpeg'},
+    {src: 'https://rgugzhoywaloltmagelp.supabase.co/storage/v1/object/public/photos/narrows-slide.jpg'},
   ];
 
   constructor() {
