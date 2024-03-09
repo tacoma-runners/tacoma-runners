@@ -51,23 +51,6 @@
         <div class="run-venue">{{ currentRun.location.name }}</div>
         <div class="run-address">{{ currentRun.location.streetAddress }}, {{ currentRun.location.city }}, {{ currentRun.location.state }} {{ currentRun.location.zipCode }}</div>
       </div>
-
-      @if (currentRun.stravaEventId || currentRun.stravaRouteId || currentRun.facebookEventId || currentRun.meetUpEventId) {
-        <div class="run-links">
-          @if (currentRun.stravaEventId) {
-            <a mat-raised-button color="primary" class="link-button" href="https://www.strava.com/clubs/966456/posts/{{currentRun.stravaEventId}}" target="_blank">Strava Event</a>
-          }
-          @if (currentRun.stravaRouteId) {
-            <a mat-raised-button color="primary" class="link-button" href="https://www.strava.com/routes/{{currentRun.stravaRouteId}}" target="_blank">Strava Route</a>
-          }
-          @if (currentRun.facebookEventId) {
-            <a mat-raised-button color="primary" class="link-button" href="https://www.facebook.com/events/{{currentRun.facebookEventId}}" target="_blank">Facebook Event</a>
-          }
-          @if (currentRun.meetUpEventId) {
-            <a mat-raised-button color="primary" class="link-button" href="https://www.meetup.com/original-tacoma-runners/events/{{currentRun.meetUpEventId}}" target="_blank">Meetup Event</a>
-          }
-        </div>
-      }
     </div>
   </div>
   @if (currentRun.stravaRouteId) {
