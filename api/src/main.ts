@@ -8,10 +8,10 @@ async function bootstrap() {
 
   app.enableCors({
     origin: [
-      'https://https://api.tacoma-runners.com/',
-      'https://https://api-next.tacoma-runners.com/',
-      'https://https://tacoma-runners-api.vercel.app/',
-      'http://localhost:3000',
+      'https://tacoma-runners.com',
+      'https://dodgerblue.online',
+      'http://localhost:4200',
+      'https://next.tacoma-runners.com',
     ],
     methods: 'GET, HEAD, PUT, POST, DELETE, OPTIONS, PATCH, OPTIONS',
     credentials: true,

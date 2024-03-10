@@ -17,9 +17,12 @@ import { RunDto } from './run.dto';
 export class RunsController {
   constructor(private runsService: RunsService) {}
 
-  @Get()
-  async findAll(): Promise<Run[]> {
-    return this.runsService.findAll();
+  @Get('?')
+  async findAll(
+    @Query('page') page: number,
+    @Query('take') take: number,
+  ): Promise<Run[]> {
+    return this.runsService.findAll(page, take);
   }
 
   @Get('upcoming')
@@ -40,9 +43,12 @@ export class RunsController {
   }
 
   @UseGuards(AuthGuard('jwt'))
-  @Get('admin')
-  async adminFindAll(): Promise<Run[]> {
-    return this.runsService.adminFindAll();
+  @Get('admin?')
+  async adminFindAll(
+    @Query('page') page: number,
+    @Query('take') take: number,
+  ): Promise<Run[]> {
+    return this.runsService.adminFindAll(page, take);
   }
 
   @UseGuards(AuthGuard('jwt'))
