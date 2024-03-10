@@ -7,7 +7,11 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
 
   app.enableCors({
-    origin: true,
+    origin: [
+      /\.tacoma-runners\.com$/,
+      /\.dodgerblue\.online$/,
+      'http://localhost:4200',
+    ],
     methods: 'GET, HEAD, PUT, POST, DELETE, OPTIONS, PATCH, OPTIONS',
     credentials: true,
     allowedHeaders:
