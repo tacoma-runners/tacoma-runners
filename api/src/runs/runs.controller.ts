@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  Inject,
   Param,
   Post,
   Put,
@@ -12,10 +13,14 @@ import { Run } from './run.entity';
 import { RunsService } from './runs.service';
 import { AuthGuard } from '@nestjs/passport';
 import { RunDto } from './run.dto';
+import { CACHE_MANAGER, Cache } from '@nestjs/cache-manager';
 
 @Controller('runs')
 export class RunsController {
-  constructor(private runsService: RunsService) {}
+  constructor(
+    private runsService: RunsService,
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
+  ) {}
 
   @Get('?')
   async findAll(
@@ -32,13 +37,15 @@ export class RunsController {
 
   @UseGuards(AuthGuard('jwt'))
   @Put('publish/:id')
-  publish(@Param('id') id: string) {
+  async publish(@Param('id') id: string) {
+    await this.cacheManager.reset();
     return this.runsService.publishOne(id);
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Put('archive/:id')
-  archive(@Param('id') id: string) {
+  async archive(@Param('id') id: string) {
+    await this.cacheManager.reset();
     return this.runsService.archiveOne(id);
   }
 
@@ -64,13 +71,15 @@ export class RunsController {
 
   @UseGuards(AuthGuard('jwt'))
   @Post()
-  create(@Body() _runDto: RunDto) {
+  async create(@Body() _runDto: RunDto) {
+    await this.cacheManager.reset();
     return this.runsService.createOne(_runDto);
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Put(':id')
-  update(@Param('id') id: string, @Body() _runDto: RunDto) {
+  async update(@Param('id') id: string, @Body() _runDto: RunDto) {
+    await this.cacheManager.reset();
     return this.runsService.updateOne(id, _runDto);
   }
 }
