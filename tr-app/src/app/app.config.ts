@@ -7,6 +7,7 @@ import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
 import { AuthHttpInterceptor, AuthModule, HttpMethod } from '@auth0/auth0-angular';
+import { environment } from '../environments/environment';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -31,28 +32,28 @@ export const appConfig: ApplicationConfig = {
       httpInterceptor: {
         allowedList: [
           {
-            uri: 'https://tacoma-runners-api.vercel.app/runs/*',
+            uri: `${environment.apiUrl}/runs/*`,
             httpMethod: HttpMethod.Get,
             allowAnonymous: true
           },
           {
-            uri: 'https://tacoma-runners-api.vercel.app/runs',
+            uri:  `${environment.apiUrl}/runs`,
             httpMethod: HttpMethod.Post
           },
           {
-            uri: 'https://tacoma-runners-api.vercel.app/runs/*',
+            uri:  `${environment.apiUrl}/runs/*`,
             httpMethod: HttpMethod.Put
           },
           {
-            uri: 'https://tacoma-runners-api.vercel.app/locations/*',
+            uri:  `${environment.apiUrl}/locations/*`,
             httpMethod: HttpMethod.Get
           },
           {
-            uri: 'https://tacoma-runners-api.vercel.app/locations',
+            uri:  `${environment.apiUrl}/locations`,
             httpMethod: HttpMethod.Post
           },
           {
-            uri: 'https://tacoma-runners-api.vercel.app/locations/*',
+            uri:  `${environment.apiUrl}/locations/*`,
             httpMethod: HttpMethod.Put
           }
         ]

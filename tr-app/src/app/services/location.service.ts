@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { EventLocation } from '../models/location.model';
+import { environment } from '../../environments/environment';
 
-const baseUrl = 'https://tacoma-runners-api.vercel.app/locations';
+const baseUrl =  `${environment.apiUrl}/locations`;
 
 @Injectable({
   providedIn: 'root'

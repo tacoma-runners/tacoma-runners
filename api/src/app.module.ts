@@ -1,6 +1,9 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
+import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
+import { CacheModule, CacheInterceptor } from '@nestjs/cache-manager';
 
 import { RunsModule } from './runs/runs.module';
 import { Run } from './runs/run.entity';
@@ -13,6 +16,17 @@ import { LocationsModule } from './locations/location.module';
 
 @Module({
   imports: [
+    ThrottlerModule.forRoot([
+      {
+        ttl: 60,
+        limit: 2,
+      },
+    ]),
+    CacheModule.register({
+      isGlobal: true,
+      ttl: 3600,
+      max: 10,
+    }),
     ConfigModule.forRoot(),
     RunsModule,
     LocationsModule,
@@ -30,6 +44,16 @@ import { LocationsModule } from './locations/location.module';
     AuthzModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: CacheInterceptor,
+    },
+  ],
 })
 export class AppModule {}

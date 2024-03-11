@@ -3,8 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { RunEvent } from '../models/run.model';
 import { AuthService } from '@auth0/auth0-angular';
+import { environment } from '../../environments/environment';
 
-const baseUrl: string = 'https://tacoma-runners-api.vercel.app/runs';
+const baseUrl: string = `${environment.apiUrl}/runs`;
 
 @Injectable({
   providedIn: 'root'

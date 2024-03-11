@@ -10,19 +10,15 @@ export class RunsService {
     private runsReposity: Repository<Run>,
   ) {}
 
-  /* TODO add creation and edit logic with validation
-  create(run: Run) {
-    this.runs.push(run);
-  }
-  */
-
-  async findAll(): Promise<Run[]> {
+  async findAll(page = 1, take = 20): Promise<Run[]> {
     return this.runsReposity.find({
       where: { status: runStatus.published },
       order: { eventDate: 'DESC' },
       relations: {
         location: true,
       },
+      take,
+      skip: take * (page - 1),
     });
   }
 
@@ -75,10 +71,6 @@ export class RunsService {
   }
 
   async createOne(runsPayload: Partial<Run>): Promise<Run> {
-    console.log({
-      ...runsPayload,
-      status: runStatus.pending,
-    });
     const newRun = this.runsReposity.create({
       ...runsPayload,
       status: runStatus.pending,
@@ -102,12 +94,14 @@ export class RunsService {
     return this.adminFindOne(id);
   }
 
-  async adminFindAll(): Promise<Run[]> {
+  async adminFindAll(page = 1, take = 20): Promise<Run[]> {
     return this.runsReposity.find({
       order: { eventDate: 'DESC' },
       relations: {
         location: true,
       },
+      take,
+      skip: take * page,
     });
   }
 
