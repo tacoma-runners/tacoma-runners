@@ -84,7 +84,7 @@ export class RunsService {
       status: runStatus.pending,
     });
     await this.runsReposity.save(newRun);
-    return this.findOne(newRun.id);
+    return this.adminFindOne(newRun.id);
   }
 
   async updateOne(id: string, runsPayload: Partial<Run>): Promise<Run> {
