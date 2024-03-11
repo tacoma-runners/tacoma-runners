@@ -89,17 +89,17 @@ export class RunsService {
 
   async updateOne(id: string, runsPayload: Partial<Run>): Promise<Run> {
     await this.runsReposity.update(id, runsPayload);
-    return this.findOne(id);
+    return this.adminFindOne(id);
   }
 
   async publishOne(id: string): Promise<Run> {
     await this.runsReposity.update(id, { status: runStatus.published });
-    return this.findOne(id);
+    return this.adminFindOne(id);
   }
 
   async archiveOne(id: string): Promise<Run> {
     await this.runsReposity.update(id, { status: runStatus.archived });
-    return this.findOne(id);
+    return this.adminFindOne(id);
   }
 
   async adminFindAll(): Promise<Run[]> {
