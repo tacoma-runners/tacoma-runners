@@ -7,8 +7,10 @@ import {
   Post,
   Put,
   Query,
+  Res,
   UseGuards,
 } from '@nestjs/common';
+import { VercelResponse } from '@vercel/node';
 import { Run } from './run.entity';
 import { RunsService } from './runs.service';
 import { AuthGuard } from '@nestjs/passport';
@@ -24,15 +26,25 @@ export class RunsController {
 
   @Get('?')
   async findAll(
+    @Res() res: VercelResponse,
     @Query('page') page: number,
     @Query('take') take: number,
   ): Promise<Run[]> {
-    return this.runsService.findAll(page, take);
+    res.setHeader('Cache-Control', 'public, s-maxage=3600');
+    const runs = this.runsService.findAll(page, take);
+    res.status(200).json(runs);
+    return runs;
   }
 
   @Get('upcoming')
-  async findUpcoming(@Query('runType') runType?: string): Promise<Run | null> {
-    return this.runsService.findUpcoming(runType);
+  async findUpcoming(
+    @Res() res: VercelResponse,
+    @Query('runType') runType?: string,
+  ): Promise<Run | null> {
+    res.setHeader('Cache-Control', 'public, s-maxage=3600');
+    const upcomingRun = await this.runsService.findUpcoming(runType);
+    res.status(200).json(upcomingRun);
+    return upcomingRun;
   }
 
   @UseGuards(AuthGuard('jwt'))
