@@ -31,7 +31,7 @@ export class RunsController {
     @Query('take') take: number,
   ): Promise<Run[]> {
     res.setHeader('Cache-Control', 'public, s-maxage=3600');
-    const runs = this.runsService.findAll(page, take);
+    const runs = await this.runsService.findAll(page, take);
     res.status(200).json(runs);
     return runs;
   }
