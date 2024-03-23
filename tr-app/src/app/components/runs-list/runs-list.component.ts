@@ -36,7 +36,7 @@ export class RunsListComponent implements OnInit {
     this.runService.getAll()
       .subscribe(data => {
           //this.runs = data;
-          this.dataSource = new MatTableDataSource<RunEvent>(data);
+          this.dataSource = new MatTableDataSource<RunEvent>(data.runs);
           this.dataSource.paginator = this.paginator;
           this.obs = this.dataSource.connect();
           //console.log(data);

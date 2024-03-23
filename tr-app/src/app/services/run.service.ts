@@ -26,8 +26,8 @@ export class RunService {
     });
   }
 
-  getAll(): Observable<RunEvent[]> {
-    return this.http.get<RunEvent[]>(this.apiEndpoint);
+  getAll(): Observable<{ runs: RunEvent[], count: number }> {
+    return this.http.get<{ runs: RunEvent[], count: number }>(this.apiEndpoint);
   }
 
   get(id: string): Observable<RunEvent> {
