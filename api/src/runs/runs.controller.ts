@@ -36,16 +36,6 @@ export class RunsController {
     return { runs: response[0], count: response[1] };
   }
 
-  @Get(':id')
-  async findOne(
-    @Res() res: VercelResponse,
-    @Param('id') id: string,
-  ): Promise<Run | null> {
-    const run = await this.runsService.findOne(id);
-    res.status(200).json(run);
-    return run;
-  }
-
   @Get('upcoming')
   async findUpcoming(
     @Res() res: VercelResponse,
@@ -98,5 +88,15 @@ export class RunsController {
   async update(@Param('id') id: string, @Body() _runDto: RunDto) {
     await this.cacheManager.reset();
     return this.runsService.updateOne(id, _runDto);
+  }
+
+  @Get(':id')
+  async findOne(
+    @Res() res: VercelResponse,
+    @Param('id') id: string,
+  ): Promise<Run | null> {
+    const run = await this.runsService.findOne(id);
+    res.status(200).json(run);
+    return run;
   }
 }
