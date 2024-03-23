@@ -1,11 +1,14 @@
 <div class="swiper" #swiperContainer>
   <div class="swiper-wrapper">
+    @for (video of videos; track video; let i = $index) {
+      <div class="swiper-slide">
+        <video [src]="video.src" muted="muted" autoplay="true" loop="true"></video>
+      </div>
+    }
     @for (image of images; track image; let i = $index) {
       <div class="swiper-slide">
-        <img [src]="image.src" [loading]="(i!=0)?'lazy':'eagar'"/>
-        @if (i != 0) {
-          <div class="swiper-lazy-preloader"></div>
-        }
+        <img [src]="image.src" [loading]="(i>=0)?'lazy':'eagar'"/>
+        <div class="swiper-lazy-preloader"></div>
       </div>
     }
   </div>
