@@ -67,6 +67,7 @@ export class CarouselComponent implements AfterViewInit {
           const activeSlideVideo = activeSlide.getElementsByTagName('video')[0];
           if (activeSlideVideo) {
             activeSlideVideo.muted = true; // even though this is in html it's needed here... weird
+            activeSlideVideo.playsInline = true;
             activeSlideVideo.play();
           }
         },
