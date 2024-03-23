@@ -29,11 +29,21 @@ export class RunsController {
     @Res() res: VercelResponse,
     @Query('page') page: number,
     @Query('take') take: number,
-  ): Promise<Run[]> {
+  ): Promise<{ runs: Run[]; count: number }> {
     res.setHeader('Cache-Control', 'public, s-maxage=3600');
-    const runs = await this.runsService.findAll(page, take);
-    res.status(200).json(runs);
-    return runs;
+    const response = await this.runsService.findAll(page, take);
+    res.status(200).json({ runs: response[0], count: response[1] });
+    return { runs: response[0], count: response[1] };
+  }
+
+  @Get(':id')
+  async findOne(
+    @Res() res: VercelResponse,
+    @Param('id') id: string,
+  ): Promise<Run | null> {
+    const run = await this.runsService.findOne(id);
+    res.status(200).json(run);
+    return run;
   }
 
   @Get('upcoming')
@@ -49,7 +59,7 @@ export class RunsController {
 
   @UseGuards(AuthGuard('jwt'))
   @Put('publish/:id')
-  async publish(@Param('id') id: string) {
+  async publish(@Res() res: VercelResponse, @Param('id') id: string) {
     await this.cacheManager.reset();
     return this.runsService.publishOne(id);
   }
@@ -74,11 +84,6 @@ export class RunsController {
   @Get('admin/:id')
   async adminFindOne(@Param('id') id: string): Promise<Run> {
     return this.runsService.adminFindOne(id);
-  }
-
-  @Get(':id')
-  async findOne(@Param('id') id: string): Promise<Run | null> {
-    return this.runsService.findOne(id);
   }
 
   @UseGuards(AuthGuard('jwt'))

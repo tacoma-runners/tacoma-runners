@@ -10,8 +10,8 @@ export class RunsService {
     private runsReposity: Repository<Run>,
   ) {}
 
-  async findAll(page = 1, take = 20): Promise<Run[]> {
-    return this.runsReposity.find({
+  async findAll(page = 1, take = 20): Promise<[Run[], number]> {
+    return this.runsReposity.findAndCount({
       where: { status: runStatus.published },
       order: { eventDate: 'DESC' },
       relations: {
