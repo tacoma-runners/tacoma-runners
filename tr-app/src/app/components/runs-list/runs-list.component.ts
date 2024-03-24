@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RunEvent } from '../../models/run.model';
@@ -9,7 +9,8 @@ import { RouterModule } from '@angular/router';
 import { AuthService } from '@auth0/auth0-angular';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
+import { RunsDataSource } from '../../services/run.datasource';
 
 @Component({
   selector: 'app-runs-list',
@@ -18,29 +19,31 @@ import { Observable } from 'rxjs';
   templateUrl: './runs-list.component.html',
   styleUrl: './runs-list.component.css'
 })
-export class RunsListComponent implements OnInit {
+export class RunsListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   obs: Observable <RunEvent[]>;
   runs: RunEvent[];
   loaded:boolean = false;
-  dataSource: MatTableDataSource<RunEvent>;
+  dataSource: RunsDataSource;
 
   constructor(private runService: RunService,
     public auth: AuthService) { }
 
   ngOnInit(): void {
-    this.retrieveRuns();
+    this.dataSource = new RunsDataSource(this.runService);
+    this.dataSource.paginator = this.paginator;
+    this.obs = this.dataSource.connect().asObservable();
+    this.dataSource.loadRuns(1, this.paginator.pageSize);
   }
 
-  retrieveRuns(): void {
-    this.runService.getAll()
-      .subscribe(data => {
-          //this.runs = data;
-          this.dataSource = new MatTableDataSource<RunEvent>(data.runs);
-          this.dataSource.paginator = this.paginator;
-          this.obs = this.dataSource.connect();
-          //console.log(data);
-          this.loaded = true;
-      });
+  ngAfterViewInit(): void {
+    this.paginator.page.pipe(
+      tap(() => this.retrieveRunsPage())
+    )
+    .subscribe();
+  }
+
+  retrieveRunsPage(): void {
+    this.dataSource.loadRuns(this.paginator.pageIndex + 1, this.paginator.pageSize);
   }
 }

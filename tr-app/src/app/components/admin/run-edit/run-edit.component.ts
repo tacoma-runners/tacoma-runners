@@ -12,6 +12,9 @@ import { Observable, filter, map, merge, mergeMap } from 'rxjs';
 import { EventLocation } from '../../../models/location.model';
 import { LocationService } from '../../../services/location.service';
 import { error } from 'console';
+import { MatDialog } from '@angular/material/dialog';
+import { LocationCreateComponent } from '../location-create/location-create.component';
+import { MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: 'app-run-edit',
@@ -31,6 +34,7 @@ export class RunEditComponent implements OnInit, OnDestroy {
 
   constructor(private runService: RunService,
     private locationService: LocationService,
+    public locationDialog: MatDialog,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private datePipe: DatePipe,
@@ -45,27 +49,41 @@ export class RunEditComponent implements OnInit, OnDestroy {
   updatedRun: any;
   updatedLocation: any;
   saving: boolean = false;
+  locations$: EventLocation[];
+  locationsLoaded: boolean = false;
 
+  // editForm = this.formBuilder.group({
+  //   name: [{value: ''}, Validators.required],
+  //   description: [{value: ''}],
+  //   eventDate: [{value: ''}, Validators.required],
+  //   status: [{value: ''}, Validators.required],
+  //   runType: [{value: ''}, Validators.required],
+  //   stravaRouteId: [{value: ''}, Validators.required],
+  //   location: this.formBuilder.group({
+  //     locationId: [{value: ''}],
+  //     neighborhood: [{value: '', disabled: true}],
+  //     venueName: [{value: '', disabled: true}],
+  //     streetAddress: [{value: '', disabled: true}],
+  //     city: [{value: '', disabled: true}],
+  //     state: [{value: '', disabled: true}],
+  //     zipCode: [{value: '', disabled: true}],
+  //   },),
+  // });
   editForm = this.formBuilder.group({
     name: ['', Validators.required],
     description: [''],
     eventDate: ['', Validators.required],
-    status: [''],
+    status: ['', Validators.required],
     runType: ['', Validators.required],
-    neighborhood: [''],
-    venueName: [''],
-    address: this.formBuilder.group({
+    stravaRouteId: [''],
+    location: this.formBuilder.group({
+      id: [''],
+      neighborhood: [''],
       streetAddress: [''],
       city: [''],
       state: [''],
-      zipCode: ['']
-    }),
-    eventIds: this.formBuilder.group({
-      stravaEventId: [''],
-      stravaRouteId: [''],
-      meetUpEventId: [''],
-      facebookEventId: ['']
-    }),
+      zipCode: [''],
+    },),
   });
 
   toolbar: Toolbar = [
@@ -86,6 +104,13 @@ export class RunEditComponent implements OnInit, OnDestroy {
     ).subscribe();
 
     this.getRun(this.route.snapshot.params["id"]).subscribe(run => this.processRun(run));
+    this.retrieveLocations();
+
+    this.editForm.controls['location'].controls['neighborhood'].disable();
+    this.editForm.controls['location'].controls['streetAddress'].disable();
+    this.editForm.controls['location'].controls['city'].disable();
+    this.editForm.controls['location'].controls['state'].disable();
+    this.editForm.controls['location'].controls['zipCode'].disable();
   }
 
   ngOnDestroy(): void {
@@ -111,20 +136,15 @@ export class RunEditComponent implements OnInit, OnDestroy {
       eventDate: data.eventDate,
       runType: data.runType,
       status: data.status,
-      venueName: data.location.name,
-      neighborhood: data.location.neighborhood,
-      address: {
+      stravaRouteId: data.stravaRouteId,
+      location: {
+        id: data.location.id,
+        neighborhood: data.location.neighborhood,
         streetAddress: data.location.streetAddress,
         city: data.location.city,
         state: data.location.state,
         zipCode: data.location.zipCode?.toString()
       },
-      eventIds: {
-        facebookEventId: data.facebookEventId,
-        stravaEventId: data.stravaEventId,
-        stravaRouteId: data.stravaRouteId,
-        meetUpEventId: data.meetUpEventId
-      }
     });
 
     this.updatedRun = {};
@@ -134,9 +154,6 @@ export class RunEditComponent implements OnInit, OnDestroy {
     // Add a valueChanges observer to all non-address/eventId fields to populate the updatedRun object.
     merge(
       ...Object.keys(this.editForm.controls)
-      .filter(
-        f => (!f.startsWith('address')&&!f.startsWith('eventIds'))
-      )
       .map(
         k => this.editForm.controls[k].valueChanges.pipe(
           map(v => ({ [k]: v })),
@@ -146,38 +163,6 @@ export class RunEditComponent implements OnInit, OnDestroy {
         next(o) {
           self.updatedRun = Object.assign(self.updatedRun, o);
           console.log(self.updatedRun);
-        }
-      }
-    );
-
-    // Add a valueChanges observer to all event/route Id fields to populate the updatedRun object.
-    merge(
-      ...Object.keys(this.editForm.controls['eventIds'].controls)
-      .map(
-        k => this.editForm.controls['eventIds'].controls[k].valueChanges.pipe(
-          map(v => ({ [k]: v })),
-        )
-      )
-    ).subscribe({
-        next(o) {
-          self.updatedRun = Object.assign(self.updatedRun, o);
-          console.log(self.updatedRun);
-        }
-      }
-    );
-
-    // Add a valueChanges observer to all address fields to populate the updatedLocation object.
-    merge(
-      ...Object.keys(this.editForm.controls['address'].controls)
-      .map(
-        k => this.editForm.controls['address'].controls[k].valueChanges.pipe(
-          map(v => ({ [k]: v })),
-        )
-      )
-    ).subscribe({
-        next(o) {
-          self.updatedLocation = Object.assign(self.updatedLocation, o);
-          console.log(self.updatedLocation);
         }
       }
     );
@@ -202,58 +187,65 @@ export class RunEditComponent implements OnInit, OnDestroy {
 
       this.runService.update(this.updatedRun.id, this.updatedRun).subscribe({
         next: (result) => {
-          console.log(result);
-          let locUpdate = this.updateLocation();
-          if (locUpdate instanceof Observable) {
-            locUpdate.subscribe({
-              next: (loc) => {
-                this.postUpdates();
-              },
-              error: (err) => {
-                console.error("updateRun() - updateLocation1: ", err);
-              }
-            });
-          } else {
-            this.postUpdates();
-          }
+          this.processRun(result);
+          this.editForm.markAsPristine();
+          this.saving = false;
+          this.postUpdates();
         },
         error: (err) => {
           this.saving = false;
           console.error("updateRun(): ", err);
         }
       });
-    } else {
-      let locUpdate = this.updateLocation();
-      if (locUpdate instanceof Observable) {
-        locUpdate.subscribe({
-          next: (loc) => {
-            this.postUpdates();
-          },
-          error: (err) => {
-            console.error("updateRun() - updateLocation2: ", err);
-          }
-        });
-      }
     }
   }
 
-  updateLocation(): Observable<EventLocation> | null {
-    if (!this.isObjectEmpty(this.updatedLocation)) {
-      this.updatedLocation = Object.assign(this.currentLocation, this.updatedLocation);
-      this.updatedLocation.zipCode = parseInt(this.updatedLocation.zipCode, 10);
+  retrieveLocations(): void {
+    this.locationService.getAll().subscribe(locations => {
+      this.locations$ = locations;
+    });
+  }
 
-      return this.locationService.update(this.updatedLocation.id, this.updatedLocation);
+  updateLocation(location: EventLocation): Observable<EventLocation> | null {
+    if (!this.isObjectEmpty(location)) {
+      return this.locationService.update(location.id, location);
     } else {
       return null;
     }
   }
 
-  postUpdates():void {
-    this.getRun(this.route.snapshot.params["id"]).subscribe(run => {
-      this.processRun(run);
-      this.editForm.markAsPristine();
-      this.saving = false;
+  openLocationDialog(): void {
+    const dialogRef = this.locationDialog.open(LocationCreateComponent, {
+      data: this.currentLocation,
+      minWidth: '50%',
+      disableClose: true,
+      hasBackdrop: true
     });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log(result);
+        const locUpdate: EventLocation = new EventLocation();
+        locUpdate.id = result.id;
+        locUpdate.city = result.city;
+        locUpdate.name = result.name;
+        locUpdate.neighborhood = result.neighborhood;
+        locUpdate.state = result.state;
+        locUpdate.streetAddress = result.streetAddress;
+        locUpdate.zipCode = parseInt(result.zipCode, 10);
+        locUpdate.googlePlaceId = result.googlePlaceId;
+        this.updateLocation(locUpdate).subscribe({
+          next: result => {
+            this.currentLocation = result;
+            this.currentRun.location = this.currentLocation;
+            this.retrieveLocations();
+          }
+        });
+      }
+    });
+  }
+
+  postUpdates():void {
     this.snackBar.open('Update Successful', "View", {
       duration: 5000,
     }).onAction().subscribe(
@@ -267,5 +259,21 @@ export class RunEditComponent implements OnInit, OnDestroy {
       Object.keys(objectName).length === 0 &&
       objectName.constructor === Object
     );
+  }
+
+  onLocationChange(value: any) {
+    this.currentLocation = this.locations$.find((element) => element.id == value);
+    this.currentRun.location = this.currentLocation;
+    const data = this.currentRun;
+
+    this.editForm.patchValue({
+      location: {
+        neighborhood: data.location.neighborhood,
+        streetAddress: data.location.streetAddress,
+        city: data.location.city,
+        state: data.location.state,
+        zipCode: data.location.zipCode?.toString()
+      },
+    });
   }
 }

@@ -51,3 +51,11 @@ mat-spinner {
     display: block;
   }
 }
+
+.pending {
+  background-color: #B9DDD8 !important;
+}
+
+.archived {
+  background-color: lightpink !important;
+}

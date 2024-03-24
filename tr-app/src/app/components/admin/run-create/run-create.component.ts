@@ -80,6 +80,20 @@ export class RunCreateComponent implements OnInit, OnDestroy {
     ])
   });
 
+  constructor(
+    private formBuilder: FormBuilder,
+    breakpointObserver: BreakpointObserver,
+    @Inject(LOCALE_ID) public locale: string,
+    private runService: RunService,
+    private locationService: LocationService,
+    public locationDialog: MatDialog,
+    private router: Router
+  ) {
+    this.stepperOrientation = breakpointObserver
+    .observe('(min-width: 800px)')
+    .pipe(map(({matches}) => (matches ? 'horizontal' : 'vertical')));
+  }
+
   ngOnInit(): void {
     this.editor = new Editor();
     this.retrieveLocations();
@@ -110,24 +124,6 @@ export class RunCreateComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.editor.destroy();
-  }
-
-  constructor(
-    private formBuilder: FormBuilder,
-    breakpointObserver: BreakpointObserver,
-    @Inject(LOCALE_ID) public locale: string,
-    private runService: RunService,
-    private locationService: LocationService,
-    public locationDialog: MatDialog,
-    private router: Router
-  ) {
-    this.stepperOrientation = breakpointObserver
-    .observe('(min-width: 800px)')
-    .pipe(map(({matches}) => (matches ? 'horizontal' : 'vertical')));
-
-    // this.runFormGroup.valueChanges.subscribe(data => {
-    //   this.runFormGroup.patchValue(data, {emitEvent: false});
-    // });
   }
 
   retrieveLocations(): void {

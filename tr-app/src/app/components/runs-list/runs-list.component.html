@@ -9,32 +9,34 @@
   <div class="row justify-content-center">
     <div class="col-12">
       <h4>Tacoma Runners Events</h4>
-      @if (!loaded) {
+      @if (dataSource.loading$ | async) {
         <mat-spinner></mat-spinner>
       }
       <mat-accordion>
-        @for (run of obs | async; track run.id; let i = $index) {
-          <mat-expansion-panel [expanded]="i == 0">
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                {{ run.name }}
-              </mat-panel-title>
-              <mat-panel-description>
-                {{ run.eventDate | date}}
-              </mat-panel-description>
-            </mat-expansion-panel-header>
-            <div class="sm-panel-date">{{ run.eventDate | date}}</div>
-            {{ run.location.name }}
-            <mat-action-row>
-              <button mat-raised-button color="primary" [routerLink]="['/details/', run.id]">Details</button>
-              @if (auth.isAuthenticated$ | async) {
-                <button mat-raised-button color="primary" [routerLink]="['/admin/edit/', run.id]">Edit</button>
-              }
-            </mat-action-row>
-          </mat-expansion-panel>
+        @if (!(dataSource.loading$ | async)) {
+          @for (run of obs | async; track run.id; let i = $index) {
+            <mat-expansion-panel [expanded]="i == 0" [ngClass]="run.status">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{ run.name }} @if (run.status != "published") { - {{run.status}} }
+                </mat-panel-title>
+                <mat-panel-description>
+                  {{ run.eventDate | date}}
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="sm-panel-date">{{ run.eventDate | date}}</div>
+              {{ run.location.name }}
+              <mat-action-row>
+                <button mat-raised-button color="primary" [routerLink]="['/details/', run.id]">Details</button>
+                @if (auth.isAuthenticated$ | async) {
+                  <button mat-raised-button color="primary" [routerLink]="['/admin/edit/', run.id]">Edit</button>
+                }
+              </mat-action-row>
+            </mat-expansion-panel>
+          }
         }
       </mat-accordion>
-      <mat-paginator #paginator [pageSizeOptions]="[5, 10]" showFirstLastButtons></mat-paginator>
+      <mat-paginator #paginator [pageSizeOptions]="[5, 10]" [length]="dataSource.runsCount() | async" showFirstLastButtons></mat-paginator>
     </div>
   </div>
 </div>
