@@ -53,17 +53,10 @@ mat-sidenav > button {
 }
 
 .content {
-  height: calc(100vh - 65px);
+  height: auto;
   display: flex;
   padding: 10px;
   overflow: scroll;
-}
-
-@supports (-webkit-touch-callout: none) {
-  /* CSS specific to iOS devices */
-  .content {
-    height: -webkit-fill-available;
-  }
 }
 
 @media only screen and (max-width: 600px) {
