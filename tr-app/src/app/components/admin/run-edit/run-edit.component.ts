@@ -126,7 +126,7 @@ export class RunEditComponent implements OnInit, OnDestroy {
   }
 
   processRun(data: RunEvent): void {
-    let evDate = this.datePipe.transform(data.eventDate, 'y-MM-ddTHH:mm:ss', 'PST');
+    let evDate = this.datePipe.transform(data.eventDate, 'y-MM-ddTHH:mm:ss');
     data.eventDate = (evDate==null)?undefined:evDate;
     this.currentRun = data;
     this.currentLocation = data.location;
@@ -238,6 +238,16 @@ export class RunEditComponent implements OnInit, OnDestroy {
           next: result => {
             this.currentLocation = result;
             this.currentRun.location = this.currentLocation;
+
+            this.editForm.patchValue({
+              location: {
+                neighborhood: this.currentLocation.neighborhood,
+                streetAddress: this.currentLocation.streetAddress,
+                city: this.currentLocation.city,
+                state: this.currentLocation.state,
+                zipCode: this.currentLocation.zipCode?.toString()
+              },
+            });
             this.retrieveLocations();
           }
         });

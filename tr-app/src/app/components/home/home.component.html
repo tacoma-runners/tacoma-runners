@@ -12,7 +12,7 @@
           <mat-card-content>
             <p>The Thursday night social run is the iconic Tacoma Runners event. Every week we run from a different local business or park. Rain or shine. Join us!</p>
             @if (thursdayRun) {
-              <p>{{ thursdayRun.name }} - {{ thursdayRun.eventDate | date:'EEEE, MMMM d, y h:mm a':'PST'}}</p>
+              <p>{{ thursdayRun.name }} - {{ thursdayRun.eventDate | date:'EEEE, MMMM d, y h:mm a'}}</p>
               <p>{{ thursdayRun.location.name }}<br/>{{ thursdayRun.location.streetAddress }}<br/>
                 {{ thursdayRun.location.city }}, {{ thursdayRun.location.state }} {{ thursdayRun.location.zipCode }}
               </p>
@@ -29,7 +29,7 @@
         <mat-card-content>
           <p>The free Saturday 5k is a timed event on a measured course. It is a great way to start your weekend off right with a training run or a little competition among friends.</p>
           @if (saturdayRun) {
-            <p>{{ saturdayRun.eventDate | date:'EEEE, MMMM d, y h:mm a':'PST'}}</p>
+            <p>{{ saturdayRun.eventDate | date:'EEEE, MMMM d, y h:mm a'}}</p>
             <p>{{ saturdayRun.location.name }}<br/>{{ saturdayRun.location.streetAddress }}<br/>
             {{ saturdayRun.location.city }}, {{ saturdayRun.location.state }} {{ saturdayRun.location.zipCode }}</p>
           }
