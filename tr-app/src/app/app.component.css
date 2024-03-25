@@ -56,7 +56,6 @@ mat-sidenav > button {
   height: calc(100vh - 65px);
   display: flex;
   padding: 10px;
-  overflow: scroll;
 }
 
 @media only screen and (max-width: 600px) {

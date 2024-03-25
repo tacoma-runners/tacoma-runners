@@ -64,6 +64,12 @@ label {
     padding-left: unset;
     padding-right: unset;
   }
+
+  .run-desc {
+    white-space: pre-wrap;
+    height: 315px;
+    overflow-y: auto;
+  }
 }
 @media only screen and (max-width: 991px) {
   .no-padding {
@@ -77,12 +83,6 @@ label {
 
 .run-name {
   font-weight: bold;
-}
-
-.run-desc {
-  white-space: pre-wrap;
-  height: 315px;
-  overflow-y: auto;
 }
 
 .run-map {

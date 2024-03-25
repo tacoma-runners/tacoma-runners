@@ -66,8 +66,9 @@ export class RunsController {
   async adminFindAll(
     @Query('page') page: number,
     @Query('take') take: number,
-  ): Promise<Run[]> {
-    return this.runsService.adminFindAll(page, take);
+  ): Promise<{ runs: Run[]; count: number }> {
+    const result = await this.runsService.adminFindAll(page, take);
+    return { runs: result[0], count: result[1] };
   }
 
   @UseGuards(AuthGuard('jwt'))
