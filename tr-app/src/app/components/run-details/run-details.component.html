@@ -48,8 +48,9 @@
           [src]="mapUrl | safe"
           allowfullscreen>
         </iframe>
-        <div class="run-venue">{{ currentRun.location.name }}</div>
-        <div class="run-address">{{ currentRun.location.streetAddress }}, {{ currentRun.location.city }}, {{ currentRun.location.state }} {{ currentRun.location.zipCode }}</div>
+        <div class="run-venue">{{ $any(currentRun).location.name }}</div>
+        <div class="run-address">{{ $any(currentRun).location.streetAddress }},
+          {{ $any(currentRun).location.city }}, {{ $any(currentRun).location.state }} {{ $any(currentRun).location.zipCode }}</div>
       </div>
     </div>
   </div>

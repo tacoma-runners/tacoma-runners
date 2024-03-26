@@ -12,7 +12,7 @@ import { EventLocation } from '../../../models/location.model';
 import { MatDialog } from '@angular/material/dialog';
 import { LocationCreateComponent } from '../location-create/location-create.component';
 import { RunService } from '../../../services/run.service';
-import { RunEvent } from '../../../models/run.model';
+import { RunEvent, RunEventStatus } from '../../../models/run.model';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -213,7 +213,7 @@ export class RunCreateComponent implements OnInit, OnDestroy {
     let runDate = new Date(Date.parse(this.newRun.eventDate.replace('T',' ')));
     let isoRunDate = runDate.toISOString();
     this.newRun.eventDate = isoRunDate;
-    this.newRun.status = "pending";
+    this.newRun.status = RunEventStatus.Pending;
 
     this.runService.create(this.newRun).subscribe({
       next: (result) => {

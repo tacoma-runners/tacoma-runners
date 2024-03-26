@@ -67,14 +67,16 @@ export class RunDetailsComponent implements OnInit {
   setGoogleMapUrl() {
     let url = 'https://www.google.com/maps/embed/v1/place?key=AIzaSyA73WcAxjI0jvET7zFqw06pXdxaNBWs9Zk&q=';
     let param = '';
-    if (this.currentRun.location.googlePlaceId) {
-      param = 'place_id:' + encodeURIComponent(this.currentRun.location.googlePlaceId);
-    } else {
-      param = encodeURIComponent(
-        this.currentRun.location.streetAddress + " " +
-        this.currentRun.location.city + "," +
-        this.currentRun.location.state + " " +
-        this.currentRun.location.zipCode);
+    if (this.currentRun.location && typeof this.currentRun.location === "object") {
+      if (this.currentRun.location.googlePlaceId) {
+        param = 'place_id:' + encodeURIComponent(this.currentRun.location.googlePlaceId);
+      } else {
+        param = encodeURIComponent(
+          this.currentRun.location.streetAddress + " " +
+          this.currentRun.location.city + "," +
+          this.currentRun.location.state + " " +
+          this.currentRun.location.zipCode);
+      }
     }
     this.mapUrl = url + param;
   }

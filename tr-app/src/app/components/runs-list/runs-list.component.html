@@ -18,18 +18,21 @@
             <mat-expansion-panel [expanded]="i == 0" [ngClass]="run.status">
               <mat-expansion-panel-header>
                 <mat-panel-title>
-                  {{ run.name }} @if (run.status != "published") { - {{run.status}} }
+                  {{ run.name }} @if (run.status != RES.Published) { - {{run.status}} }
                 </mat-panel-title>
                 <mat-panel-description>
                   {{ run.eventDate | date}}
                 </mat-panel-description>
               </mat-expansion-panel-header>
               <div class="sm-panel-date">{{ run.eventDate | date}}</div>
-              {{ run.location.name }}
+              {{ $any(run).location.name }}
               <mat-action-row>
                 <button mat-raised-button color="primary" [routerLink]="['/details/', run.id]">Details</button>
                 @if (auth.isAuthenticated$ | async) {
                   <button mat-raised-button color="primary" [routerLink]="['/admin/edit/', run.id]">Edit</button>
+                  @if (run.status == RES.Pending || saving) {
+                    <button mat-raised-button color="primary" (click)="publishPendingRun(run)" [class.spinner]="saving" [disabled]="saving">Publish</button>
+                  }
                 }
               </mat-action-row>
             </mat-expansion-panel>

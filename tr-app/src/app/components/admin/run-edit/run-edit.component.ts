@@ -4,7 +4,7 @@ import { MaterialModule } from '../../../material/material.module';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { RunService } from '../../../services/run.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RunEvent } from '../../../models/run.model';
+import { RunEvent, RunEventStatus, RunEventType } from '../../../models/run.model';
 import { DatePipe, CommonModule } from '@angular/common';
 import { Editor, NgxEditorModule, Toolbar } from 'ngx-editor';
 import { AuthService, GenericError } from '@auth0/auth0-angular';
@@ -42,8 +42,10 @@ export class RunEditComponent implements OnInit, OnDestroy {
     private snackBar: MatSnackBar,
     private router: Router) {}
 
-  editor: Editor;
+  public RES = RunEventStatus;
+  public RET = RunEventType;
 
+  editor: Editor;
   currentRun: RunEvent;
   currentLocation: EventLocation;
   updatedRun: any;
@@ -129,23 +131,25 @@ export class RunEditComponent implements OnInit, OnDestroy {
     let evDate = this.datePipe.transform(data.eventDate, 'y-MM-ddTHH:mm:ss');
     data.eventDate = (evDate==null)?undefined:evDate;
     this.currentRun = data;
-    this.currentLocation = data.location;
-    this.editForm.patchValue({
-      name: data.name,
-      description: this.preserveSpaces(data.description),
-      eventDate: data.eventDate,
-      runType: data.runType,
-      status: data.status,
-      stravaRouteId: data.stravaRouteId,
-      location: {
-        id: data.location.id,
-        neighborhood: data.location.neighborhood,
-        streetAddress: data.location.streetAddress,
-        city: data.location.city,
-        state: data.location.state,
-        zipCode: data.location.zipCode?.toString()
-      },
-    });
+    if (data.location && typeof data.location === "object") {
+      this.currentLocation = data.location;
+      this.editForm.patchValue({
+        name: data.name,
+        description: this.preserveSpaces(data.description),
+        eventDate: data.eventDate,
+        runType: data.runType,
+        status: data.status,
+        stravaRouteId: data.stravaRouteId,
+        location: {
+          id: data.location.id,
+          neighborhood: data.location.neighborhood,
+          streetAddress: data.location.streetAddress,
+          city: data.location.city,
+          state: data.location.state,
+          zipCode: data.location.zipCode?.toString()
+        },
+      });
+    }
 
     this.updatedRun = {};
     this.updatedLocation = {};
@@ -276,14 +280,16 @@ export class RunEditComponent implements OnInit, OnDestroy {
     this.currentRun.location = this.currentLocation;
     const data = this.currentRun;
 
-    this.editForm.patchValue({
-      location: {
-        neighborhood: data.location.neighborhood,
-        streetAddress: data.location.streetAddress,
-        city: data.location.city,
-        state: data.location.state,
-        zipCode: data.location.zipCode?.toString()
-      },
-    });
+    if (data.location && typeof data.location === "object") {
+      this.editForm.patchValue({
+        location: {
+          neighborhood: data.location.neighborhood,
+          streetAddress: data.location.streetAddress,
+          city: data.location.city,
+          state: data.location.state,
+          zipCode: data.location.zipCode?.toString()
+        },
+      });
+    }
   }
 }
