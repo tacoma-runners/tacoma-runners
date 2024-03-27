@@ -37,12 +37,13 @@ export class CarouselComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    const swiper = new Swiper(this.swiperContainer.nativeElement, {
+    new Swiper(this.swiperContainer.nativeElement, {
       modules: [Navigation, Autoplay, Pagination],
       direction: 'horizontal',
       autoplay: {
-        delay: 20000,
-        
+        delay: 5000,
+        pauseOnMouseEnter: true,
+        disableOnInteraction: true
       },
       slidesPerView: 1,
       centeredSlides: true,
