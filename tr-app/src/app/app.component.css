@@ -58,16 +58,19 @@ mat-sidenav > button {
   padding: 10px;
   overflow: scroll;
   -webkit-overflow-scrolling: touch;
+  overscroll-behavior: none;
 }
 
 @media only screen and (max-width: 600px) {
   .content {
-    padding: 0;
+    padding: 0px 0px 100px 0px;
   }
 }
 
 mat-sidenav-container {
   height: calc(100vh - 65px);
+  overscroll-behavior: none;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 .logo {

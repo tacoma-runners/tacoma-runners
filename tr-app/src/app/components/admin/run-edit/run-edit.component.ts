@@ -166,7 +166,7 @@ export class RunEditComponent implements OnInit, OnDestroy {
     ).subscribe({
         next(o) {
           self.updatedRun = Object.assign(self.updatedRun, o);
-          console.log(self.updatedRun);
+          //console.log(self.updatedRun);
         }
       }
     );
@@ -228,7 +228,7 @@ export class RunEditComponent implements OnInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log(result);
+        //console.log(result);
         const locUpdate: EventLocation = new EventLocation();
         locUpdate.id = result.id;
         locUpdate.city = result.city;
