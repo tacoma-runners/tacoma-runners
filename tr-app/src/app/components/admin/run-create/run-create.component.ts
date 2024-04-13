@@ -72,10 +72,7 @@ export class RunCreateComponent implements OnInit, OnDestroy {
       this.formBuilder.group({
         name: [null, Validators.required],
         // description: [null, Validators.required],
-        stravaEventId: [null],
         stravaRouteId: [null],
-        meetUpEventId: [null],
-        facebookEventId: [null],
       }),
     ])
   });
@@ -188,9 +185,15 @@ export class RunCreateComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
       this.createLocation(result).subscribe({
-        next: result => {
-          this.retrieveLocations();
-          this.selectedLocation = result.id;
+        next: newLocation => {
+          this.locationService.getAll().subscribe(locations => {
+            this.locations$ = locations;
+            this.selectedLocation = newLocation.id;
+          });
+        },
+        error: (err: HttpErrorResponse) => {
+          console.error("openLocationDialog(): ", err);
+          this.showError(err?.error?.message);
         }
       });
     });

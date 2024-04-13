@@ -54,7 +54,7 @@ export class LocationCreateComponent implements OnInit {
     ).subscribe({
         next(o) {
           self.newLocation = Object.assign(self.newLocation, o);
-          console.log(self.newLocation);
+          //console.log(self.newLocation);
         }
       }
     );

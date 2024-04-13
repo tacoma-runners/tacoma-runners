@@ -19,13 +19,16 @@
       }
       @if (auth.isAuthenticated$ | async) {
         <button mat-raised-button color="primary" class="admin-button" [routerLink]="['/admin/edit/', currentRun.id]">Edit</button>
+        @if (currentRun.status == RES.Pending || saving) {
+          <button mat-raised-button color="primary" class="admin-button" (click)="publishPendingRun(currentRun)" [class.button-spinner]="saving" [disabled]="saving">Publish</button>
+        }
       }
     </div>
   </div>
   <div class="row justify-content-center">
     <div class="col-lg-6 col-sm-12">
       <div class="run-name">
-        {{ currentRun.name }}
+        {{ currentRun.name }} @if (currentRun.status != RES.Published) { - {{currentRun.status}} }
       </div>
     </div>
     <div class="col-lg-6 col-sm-12 no-padding">
