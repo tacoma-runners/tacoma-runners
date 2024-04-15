@@ -12,7 +12,7 @@ import { EventLocation } from '../../../models/location.model';
 import { MatDialog } from '@angular/material/dialog';
 import { LocationCreateComponent } from '../location-create/location-create.component';
 import { RunService } from '../../../services/run.service';
-import { RunEvent } from '../../../models/run.model';
+import { RunEvent, RunEventStatus } from '../../../models/run.model';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -72,13 +72,24 @@ export class RunCreateComponent implements OnInit, OnDestroy {
       this.formBuilder.group({
         name: [null, Validators.required],
         // description: [null, Validators.required],
-        stravaEventId: [null],
         stravaRouteId: [null],
-        meetUpEventId: [null],
-        facebookEventId: [null],
       }),
     ])
   });
+
+  constructor(
+    private formBuilder: FormBuilder,
+    breakpointObserver: BreakpointObserver,
+    @Inject(LOCALE_ID) public locale: string,
+    private runService: RunService,
+    private locationService: LocationService,
+    public locationDialog: MatDialog,
+    private router: Router
+  ) {
+    this.stepperOrientation = breakpointObserver
+    .observe('(min-width: 800px)')
+    .pipe(map(({matches}) => (matches ? 'horizontal' : 'vertical')));
+  }
 
   ngOnInit(): void {
     this.editor = new Editor();
@@ -110,24 +121,6 @@ export class RunCreateComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.editor.destroy();
-  }
-
-  constructor(
-    private formBuilder: FormBuilder,
-    breakpointObserver: BreakpointObserver,
-    @Inject(LOCALE_ID) public locale: string,
-    private runService: RunService,
-    private locationService: LocationService,
-    public locationDialog: MatDialog,
-    private router: Router
-  ) {
-    this.stepperOrientation = breakpointObserver
-    .observe('(min-width: 800px)')
-    .pipe(map(({matches}) => (matches ? 'horizontal' : 'vertical')));
-
-    // this.runFormGroup.valueChanges.subscribe(data => {
-    //   this.runFormGroup.patchValue(data, {emitEvent: false});
-    // });
   }
 
   retrieveLocations(): void {
@@ -192,9 +185,15 @@ export class RunCreateComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
       this.createLocation(result).subscribe({
-        next: result => {
-          this.retrieveLocations();
-          this.selectedLocation = result.id;
+        next: newLocation => {
+          this.locationService.getAll().subscribe(locations => {
+            this.locations$ = locations;
+            this.selectedLocation = newLocation.id;
+          });
+        },
+        error: (err: HttpErrorResponse) => {
+          console.error("openLocationDialog(): ", err);
+          this.showError(err?.error?.message);
         }
       });
     });
@@ -217,7 +216,7 @@ export class RunCreateComponent implements OnInit, OnDestroy {
     let runDate = new Date(Date.parse(this.newRun.eventDate.replace('T',' ')));
     let isoRunDate = runDate.toISOString();
     this.newRun.eventDate = isoRunDate;
-    this.newRun.status = "pending";
+    this.newRun.status = RunEventStatus.Pending;
 
     this.runService.create(this.newRun).subscribe({
       next: (result) => {

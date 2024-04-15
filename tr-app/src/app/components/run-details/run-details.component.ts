@@ -3,11 +3,12 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RunService } from '../../services/run.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { RunEvent } from '../../models/run.model';
+import { RunEvent, RunEventStatus } from '../../models/run.model';
 import { MaterialModule } from '../../material/material.module';
 import { SafePipe } from '../../safe.pipe';
 import { AuthService } from '@auth0/auth0-angular';
 import { StravaembedComponent } from '../stravaembed/stravaembed.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-run-details',
@@ -33,13 +34,19 @@ export class RunDetailsComponent implements OnInit {
   public mapUrl:string = '';
 
   isLoaded: boolean = false;
+  saving: boolean = false;
+
+  public get RES(): typeof RunEventStatus {
+    return RunEventStatus;
+  }
 
   constructor(
     private runService: RunService,
     private route: ActivatedRoute,
     private location: Location,
     private router: Router,
-    public auth: AuthService) { }
+    public auth: AuthService,
+    private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.message = '';
@@ -67,14 +74,16 @@ export class RunDetailsComponent implements OnInit {
   setGoogleMapUrl() {
     let url = 'https://www.google.com/maps/embed/v1/place?key=AIzaSyA73WcAxjI0jvET7zFqw06pXdxaNBWs9Zk&q=';
     let param = '';
-    if (this.currentRun.location.googlePlaceId) {
-      param = 'place_id:' + encodeURIComponent(this.currentRun.location.googlePlaceId);
-    } else {
-      param = encodeURIComponent(
-        this.currentRun.location.streetAddress + " " +
-        this.currentRun.location.city + "," +
-        this.currentRun.location.state + " " +
-        this.currentRun.location.zipCode);
+    if (this.currentRun.location && typeof this.currentRun.location === "object") {
+      if (this.currentRun.location.googlePlaceId) {
+        param = 'place_id:' + encodeURIComponent(this.currentRun.location.googlePlaceId);
+      } else {
+        param = encodeURIComponent(
+          this.currentRun.location.streetAddress + " " +
+          this.currentRun.location.city + "," +
+          this.currentRun.location.state + " " +
+          this.currentRun.location.zipCode);
+      }
     }
     this.mapUrl = url + param;
   }
@@ -83,48 +92,33 @@ export class RunDetailsComponent implements OnInit {
     this.location.back();
   }
 
-  /* updatePublished(status: boolean): void {
-    const data = {
-      title: this.currentRun.name,
-      description: this.currentRun.description,
-      published: status
-    };
-
-    this.message = '';
-
-    this.runService.update(this.currentRun.id, data)
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-          this.currentRun.published = status;
-          this.message = res.message ? res.message : 'The status was updated successfully!';
+  publishPendingRun(run: RunEvent): void {
+    const fullLocation: any = run.location;
+    if (run.status == RunEventStatus.Pending) {
+      run.status = RunEventStatus.Published;
+      if (fullLocation && typeof fullLocation === 'object') run.location = fullLocation.id;
+      this.saving = true;
+      this.runService.update(run.id, run).subscribe({
+        next: (data) => {
+          this.saving = false;
+          run = data;
+          this.snackBar.open('Publish Successful!', "", {
+            duration: 5000,
+          }).onAction().subscribe(
+            o => this.router.navigate(["details", run.id])
+          );
         },
-        error: (e) => console.error(e)
+        error: (e) => {
+          run.location = fullLocation;
+          this.saving = false;
+          run.status = RunEventStatus.Pending;
+          console.error(e);
+          this.snackBar.open('Publish Failed! Error details in console log.', '', {
+            duration: 10000,
+          })
+        }
       });
+    }
   }
-
-  updateRun(): void {
-    this.message = '';
-
-    this.runService.update(this.currentRun.id, this.currentRun)
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-          this.message = res.message ? res.message : 'This run was updated successfully!';
-        },
-        error: (e) => console.error(e)
-      });
-  }
-
-  deleteRun(): void {
-    this.runService.delete(this.currentRun.id)
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-          this.router.navigate(['/runs']);
-        },
-        error: (e) => console.error(e)
-      });
-  } */
 
 }

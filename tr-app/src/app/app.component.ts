@@ -1,13 +1,15 @@
+import { Navigation } from 'swiper/modules';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet, RouterModule } from '@angular/router';
-import { map } from 'rxjs/operators';
+import { RouterOutlet, RouterModule, Router, Event as NavigationEvent, NavigationEnd } from '@angular/router';
+import { filter, map } from 'rxjs/operators';
 import { MaterialModule } from './material/material.module';
 import { Observable } from 'rxjs';
 import { NavigationComponent } from "./components/navigation/navigation.component";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faFacebookF, faStrava, faInstagram, faMeetup } from '@fortawesome/free-brands-svg-icons';
+import { Platform } from '@angular/cdk/platform';
 
 @Component({
     selector: 'app-root',
@@ -35,9 +37,20 @@ export class AppComponent implements OnInit {
 
   public isLoaded:boolean = false;
 
-  constructor(private observer: BreakpointObserver) {}
+  constructor(private observer: BreakpointObserver,
+    private router: Router,
+    private platform: Platform) {}
 
   ngOnInit(): void {
     this.isLoaded = true;
+
+    if (!this.platform.IOS) {
+      this.router.events.pipe(
+        filter(event => event instanceof NavigationEnd)
+      )
+      .subscribe((e: NavigationEvent) => {
+        document.getElementsByTagName("router-outlet")[0].scrollIntoView();
+      });
+    }
   }
 }

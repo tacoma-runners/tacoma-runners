@@ -94,14 +94,14 @@ export class RunsService {
     return this.adminFindOne(id);
   }
 
-  async adminFindAll(page = 1, take = 20): Promise<Run[]> {
-    return this.runsReposity.find({
+  async adminFindAll(page = 1, take = 30): Promise<[Run[], number]> {
+    return this.runsReposity.findAndCount({
       order: { eventDate: 'DESC' },
       relations: {
         location: true,
       },
       take,
-      skip: take * page,
+      skip: take * (page - 1),
     });
   }
 

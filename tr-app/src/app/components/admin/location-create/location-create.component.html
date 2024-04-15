@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Create New Location</h2>
+<h2 mat-dialog-title>@if(newLocation.id==null){New}@else{Update} Location</h2>
 <mat-dialog-content [formGroup]="locationForm">
   <div class="container">
     <div class="row">
@@ -61,5 +61,5 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-raised-button color="accent" (click)="onCancelClick()">Cancel</button>
-  <button mat-raised-button color="accent" [mat-dialog-close]="newLocation" [disabled]="!locationForm.valid">Create</button>
+  <button mat-raised-button color="accent" [mat-dialog-close]="newLocation" [disabled]="!locationForm.valid">@if(newLocation.id==null){Create}@else{Update}</button>
 </mat-dialog-actions>

@@ -5,6 +5,7 @@
 :host {
   padding-left: 0;
   padding-top: 0;
+  overflow-x: hidden;
 }
 
 button {

@@ -1,7 +1,35 @@
+:host {
+  width: 100%;
+}
+
 h1 {
   font-weight: 900;
   letter-spacing: 2px;
   font-size: 18pt;
   color: #17695C;
   text-transform: uppercase;
+}
+
+.row {
+  margin-bottom: 20px;
+}
+
+.joined {
+  font-style: italic;
+}
+
+h2 {
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 3px;
+}
+
+img {
+  height: 300px;
+  object-fit: none;
+  margin-bottom: 10px;
+}
+
+.name-title {
+  font-weight: bold;
 }
