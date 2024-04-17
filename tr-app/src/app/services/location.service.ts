@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { EventLocation } from '../models/location.model';
 import { environment } from '../../environments/environment';
 
@@ -14,7 +14,9 @@ export class LocationService {
   constructor(private http: HttpClient) { }
 
   getAll(): Observable<EventLocation[]> {
-    return this.http.get<EventLocation[]>(baseUrl);
+    return this.http.get<EventLocation[]>(baseUrl).pipe(
+      tap(results => results.sort((a,b) => a.name.localeCompare(b.name)))
+    );
   }
 
   get(id: string): Observable<EventLocation> {
