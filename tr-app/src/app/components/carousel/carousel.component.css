@@ -28,7 +28,7 @@ h1 {
   font-weight: 900;
   letter-spacing: 2px;
   font-size: 18pt;
-  color: #17695C;
+  color: #17695c;
   text-transform: uppercase;
 }
 
@@ -43,11 +43,5 @@ h1 {
 
   .swiper-slide {
     font-size: 14px;
-  }
-}
-
-@media only screen and (min-width: 600px) {
-  .swiper {
-    max-width: 1600px;
   }
 }
