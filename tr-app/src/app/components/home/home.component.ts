@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterModule } from '@angular/router';
 import { MaterialModule } from '../../material/material.module';
@@ -24,15 +24,15 @@ import { CopyrightComponent } from '../copyright/copyright.component';
   styleUrl: './home.component.css',
 })
 export class HomeComponent implements OnInit {
-
-  thursdayRun?:RunEvent;
-  saturdayRun?:RunEvent;
+  thursdayRun?: RunEvent;
+  saturdayRun?: RunEvent;
 
   constructor(
     private runService: RunService,
     public global: GlobalService,
-    public auth: AuthService
-  ) { }
+    public auth: AuthService,
+    private cdRef: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.getCurrentThursdayRun();
@@ -40,22 +40,22 @@ export class HomeComponent implements OnInit {
   }
 
   getCurrentThursdayRun(): void {
-    this.runService.getUpcoming("thursday-run")
-      .subscribe({
-        next: (data) => {
-          this.thursdayRun = data;
-        },
-        error: (e) => console.error(e)
-      });
+    this.runService.getUpcoming('thursday-run').subscribe({
+      next: (data) => {
+        this.thursdayRun = data;
+        this.cdRef.detectChanges();
+      },
+      error: (e) => console.error(e),
+    });
   }
 
   getCurrentSaturdayRun(): void {
-    this.runService.getUpcoming("saturday-5k")
-      .subscribe({
-        next: (data) => {
-          this.saturdayRun = data;
-        },
-        error: (e) => console.error(e)
-      });
+    this.runService.getUpcoming('saturday-5k').subscribe({
+      next: (data) => {
+        this.saturdayRun = data;
+        this.cdRef.detectChanges();
+      },
+      error: (e) => console.error(e),
+    });
   }
 }

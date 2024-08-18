@@ -9,6 +9,7 @@ import { RunEditComponent } from './components/admin/run-edit/run-edit.component
 import { RunCreateComponent } from './components/admin/run-create/run-create.component';
 import { AuthGuard } from '@auth0/auth0-angular';
 import { AboutComponent } from './components/about/about.component';
+import { MerchComponent } from './components/merch/merch.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -16,10 +17,21 @@ const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'saturday5k', component: Saturday5kComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'merch', component: MerchComponent },
   { path: 'details/:id', component: RunDetailsComponent },
-  { path: 'admin/login', component: LoginComponent},
-  { path: 'admin/edit/:id', component: RunEditComponent, canActivate: [AuthGuard], canLoad: [AuthGuard]},
-  { path: 'admin/create', component: RunCreateComponent, canActivate: [AuthGuard], canLoad: [AuthGuard]},
+  { path: 'admin/login', component: LoginComponent },
+  {
+    path: 'admin/edit/:id',
+    component: RunEditComponent,
+    canActivate: [AuthGuard],
+    canLoad: [AuthGuard],
+  },
+  {
+    path: 'admin/create',
+    component: RunCreateComponent,
+    canActivate: [AuthGuard],
+    canLoad: [AuthGuard],
+  },
 ];
 
 export default routes;
