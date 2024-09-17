@@ -10,4 +10,8 @@ export class GlobalService {
   public openDonate() {
     window.open('https://donate.stripe.com/eVaaFc4DcgFK9yg8wD');
   }
+
+  public openTrainingForm() {
+    window.open('https://forms.gle/BoY2P7mMs73iA3Ep6');
+  }
 }
