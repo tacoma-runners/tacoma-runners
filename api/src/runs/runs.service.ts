@@ -23,7 +23,6 @@ export class RunsService {
   }
 
   async findUpcoming(runType = null): Promise<Run> {
-    console.log('here');
     // Look for next run but with 6 hour buffer after last one
     const dateEnd = new Date(new Date().setHours(new Date().getHours() + 164));
     const dateStart = new Date(new Date().setHours(new Date().getHours() - 4));
@@ -40,8 +39,6 @@ export class RunsService {
       order: { eventDate: 'ASC' },
       take: 1,
     });
-
-    console.log('hi');
 
     if (runs.length === 0) {
       const newDateStart = new Date(
@@ -60,8 +57,6 @@ export class RunsService {
         take: 1,
       });
     }
-
-    console.log('yo');
 
     return runs[0];
   }
