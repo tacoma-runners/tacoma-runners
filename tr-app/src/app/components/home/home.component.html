@@ -4,47 +4,78 @@
 <div class="container-fluid">
   <div class="row justify-content-center">
     <div class="col-lg-6 col-md-12 col-sm-12">
-      <mat-card class="home-card" [routerLink]="(thursdayRun)?['/details',thursdayRun.id]:['/runs-list']">
-          <mat-card-header>
-              <div mat-card-avatar><mat-icon class="large-icon" fontIcon="sports_bar" color="primary"></mat-icon></div>
-              <mat-card-title class="card-title">Thursday Run</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <p>The Thursday night social run is the iconic Tacoma Runners event. Every week we run from a different local business or park. Rain or shine. Join us!</p>
-            @if (thursdayRun) {
-              <p>{{ thursdayRun.name }} - {{ thursdayRun.eventDate | date:'EEEE, MMMM d, y h:mm a'}}</p>
-              <p>{{ $any(thursdayRun).location.name }}<br/>{{ $any(thursdayRun).location.streetAddress }}<br/>
-                {{ $any(thursdayRun).location.city }}, {{ $any(thursdayRun).location.state }} {{ $any(thursdayRun).location.zipCode }}
-              </p>
-            }
-          </mat-card-content>
-      </mat-card>
-    </div>
-    <div class="col-lg-6 col-md-12 col-sm-12">
-      <mat-card class="home-card" (click)="global.openTrainingForm()">
-          <mat-card-header>
-              <div mat-card-avatar><mat-icon class="large-icon" fontIcon="5k" color="primary"></mat-icon></div>
-              <mat-card-title class="card-title">Beginner Training Group</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            If you've never run 5K or have wanted to get back to being able to run that distance, you can join us for a free 8 week training program from
-            Tuesday, October 1st through November 23rd. The group we'll meet 3 days a week and complete a walk/run program that works up to running 5K
-            (3.1 miles) continuously. Great way to get ready for a Turkey Trot! Check out more information and sign up at <span style="text-decoration: underline;">https://forms.gle/BoY2P7mMs73iA3Ep6</span>.
-          </mat-card-content>
-      </mat-card>
-    </div>
-    <div class="col-lg-6 col-md-12 col-sm-12">
-      <mat-card class="home-card" [routerLink]="(saturdayRun)?['/details',saturdayRun.id]:['/saturday5k']">
+      <mat-card
+        class="home-card"
+        [routerLink]="
+          thursdayRun ? ['/details', thursdayRun.id] : ['/runs-list']
+        "
+      >
         <mat-card-header>
-            <div mat-card-avatar><mat-icon class="large-icon" fontIcon="forest" color="primary"></mat-icon></div>
-            <mat-card-title class="card-title">Saturday 5k</mat-card-title>
+          <div mat-card-avatar>
+            <mat-icon
+              class="large-icon"
+              fontIcon="sports_bar"
+              color="primary"
+            ></mat-icon>
+          </div>
+          <mat-card-title class="card-title">Thursday Run</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <p>The free Saturday 5k is a timed event on a measured course. It is a great way to start your weekend off right with a training run or a little competition among friends.</p>
+          <p>
+            The Thursday night social run is the iconic Tacoma Runners event.
+            Every week we run from a different local business or park. Rain or
+            shine. Join us!
+          </p>
+          @if (thursdayRun) {
+          <p>
+            {{ thursdayRun.name }} -
+            {{ thursdayRun.eventDate | date : "EEEE, MMMM d, y h:mm a" }}
+          </p>
+          <p>
+            {{ $any(thursdayRun).location.name }}<br />{{
+              $any(thursdayRun).location.streetAddress
+            }}<br />
+            {{ $any(thursdayRun).location.city }},
+            {{ $any(thursdayRun).location.state }}
+            {{ $any(thursdayRun).location.zipCode }}
+          </p>
+          }
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="col-lg-6 col-md-12 col-sm-12">
+      <mat-card
+        class="home-card"
+        [routerLink]="
+          saturdayRun ? ['/details', saturdayRun.id] : ['/saturday5k']
+        "
+      >
+        <mat-card-header>
+          <div mat-card-avatar>
+            <mat-icon
+              class="large-icon"
+              fontIcon="forest"
+              color="primary"
+            ></mat-icon>
+          </div>
+          <mat-card-title class="card-title">Saturday 5k</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>
+            The free Saturday 5k is a timed event on a measured course. It is a
+            great way to start your weekend off right with a training run or a
+            little competition among friends.
+          </p>
           @if (saturdayRun) {
-            <p>{{ saturdayRun.eventDate | date:'EEEE, MMMM d, y h:mm a'}}</p>
-            <p>{{ $any(saturdayRun).location.name }}<br/>{{ $any(saturdayRun).location.streetAddress }}<br/>
-            {{ $any(saturdayRun).location.city }}, {{ $any(saturdayRun).location.state }} {{ $any(saturdayRun).location.zipCode }}</p>
+          <p>{{ saturdayRun.eventDate | date : "EEEE, MMMM d, y h:mm a" }}</p>
+          <p>
+            {{ $any(saturdayRun).location.name }}<br />{{
+              $any(saturdayRun).location.streetAddress
+            }}<br />
+            {{ $any(saturdayRun).location.city }},
+            {{ $any(saturdayRun).location.state }}
+            {{ $any(saturdayRun).location.zipCode }}
+          </p>
           }
         </mat-card-content>
       </mat-card>
@@ -52,22 +83,37 @@
     <div class="col-lg-6 col-md-12 col-sm-12">
       <mat-card class="home-card" [routerLink]="['/register']">
         <mat-card-header>
-            <div mat-card-avatar><mat-icon class="large-icon" fontIcon="how_to_reg" color="primary"></mat-icon></div>
-            <mat-card-title class="card-title">Register</mat-card-title>
+          <div mat-card-avatar>
+            <mat-icon
+              class="large-icon"
+              fontIcon="how_to_reg"
+              color="primary"
+            ></mat-icon>
+          </div>
+          <mat-card-title class="card-title">Register</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          Please complete the one-time registration process before joining us for the first time. This is good for all runs that we host on our calendar. We'll see you soon!
+          Please complete the one-time registration process before joining us
+          for the first time. This is good for all runs that we host on our
+          calendar. We'll see you soon!
         </mat-card-content>
       </mat-card>
     </div>
     <div class="col-lg-6 col-md-12 col-sm-12">
       <mat-card class="home-card" (click)="global.openDonate()">
         <mat-card-header>
-            <div mat-card-avatar><mat-icon class="large-icon" fontIcon="favorite" color="primary"></mat-icon></div>
-            <mat-card-title class="card-title">Donate</mat-card-title>
+          <div mat-card-avatar>
+            <mat-icon
+              class="large-icon"
+              fontIcon="favorite"
+              color="primary"
+            ></mat-icon>
+          </div>
+          <mat-card-title class="card-title">Donate</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          Consider donating to Tacoma Runners. Your gift is tax-deductible and helps us maintain your favorite run club.<br/><br/>EIN: 86-3898774
+          Consider donating to Tacoma Runners. Your gift is tax-deductible and
+          helps us maintain your favorite run club.<br /><br />EIN: 86-3898774
         </mat-card-content>
       </mat-card>
     </div>
