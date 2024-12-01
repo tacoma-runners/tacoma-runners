@@ -1,0 +1,15 @@
+<mat-dialog-content class="content">
+  <div class="container-fluid">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-lg-4 col-12 giving-toprow">
+        <img class="giving-image" src="assets/giving.tuesday.png" alt="" width="100%"/>
+      </div>
+      <div class="col-lg-8 col-12 giving-text">
+        Consider donating to your favorite run club on Giving Tuesday 2024! <a href="#" (click)="global.openDonate()">Click here</a> to show your love and provide a tax-dedutible gift.
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions class="actions" align="end">
+  <button mat-raised-button color="primary" (click)="onCloseClick()">Close</button>
+</mat-dialog-actions>

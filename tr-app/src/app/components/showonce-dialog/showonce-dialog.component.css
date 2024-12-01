@@ -1,0 +1,15 @@
+.giving-toprow {
+  text-align: center;
+}
+
+.giving-image {
+  max-width: 400px;
+}
+
+.giving-text {
+  vertical-align: middle;
+}
+
+.content, .actions {
+  background: #B9DDD8;
+}
