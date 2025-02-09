@@ -78,8 +78,6 @@ export class AppComponent implements OnInit {
           document.getElementsByTagName('router-outlet')[0].scrollIntoView();
         });
     }
-
-    this.openLocationDialog();
   }
 
   openLocationDialog(): void {
