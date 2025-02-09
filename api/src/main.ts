@@ -10,6 +10,7 @@ async function bootstrap() {
     origin: [
       /\tacoma-runners\.com$/,
       /\vercel\.app$/,
+      /\.herokuapp\.com$/,
       /\dodgerblue\.online$/,
       'http://localhost:4200',
     ],
