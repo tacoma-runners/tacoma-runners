@@ -1,47 +1,73 @@
-
 <mat-toolbar>
-  <button #menubutton
-  mat-icon-button
-  *ngIf="isHandset$ | async"
-  (click)="sidenav.toggle();"
-  onclick="this.blur()"
+  <button
+    #menubutton
+    mat-icon-button
+    *ngIf="isHandset$ | async"
+    (click)="sidenav.toggle()"
+    onclick="this.blur()"
   >
-  <mat-icon *ngIf="!sidenav.opened"> menu </mat-icon>
-  <mat-icon *ngIf="sidenav.opened"> close </mat-icon>
+    <mat-icon *ngIf="!sidenav.opened"> menu </mat-icon>
+    <mat-icon *ngIf="sidenav.opened"> close </mat-icon>
   </button>
   <a routerLink="/">
-    <img class="logo" src="assets/tr-logo-2-color.svg" height="48"/>
+    <img class="logo" src="assets/tr-logo-2-color.svg" height="48" />
   </a>
   <span class="header-title">Tacoma Runners</span>
   <span class="spacer"></span>
   @if (!(isHandset$ | async)) {
-    <app-navigation [mode]="'top'"></app-navigation>
+  <app-navigation [mode]="'top'"></app-navigation>
   }
   <span class="social-links">
-    <a href="https://www.facebook.com/groups/tacomarunners" class="social-icon si-small bg-transparent" title="Facebook" target="_blank">
+    <a
+      href="https://www.facebook.com/groups/tacomarunners"
+      class="social-icon si-small bg-transparent"
+      title="Facebook"
+      target="_blank"
+    >
       <fa-icon [icon]="faFacebook"></fa-icon>
     </a>
-    <a href="https://www.strava.com/clubs/966456" class="social-icon si-small bg-transparent" title="Strava" target="_blank">
+    <a
+      href="https://www.strava.com/clubs/966456"
+      class="social-icon si-small bg-transparent"
+      title="Strava"
+      target="_blank"
+    >
       <fa-icon [icon]="faStrava"></fa-icon>
     </a>
-    <a href="https://www.instagram.com/tacoma_runners" class="social-icon si-small bg-transparent" title="Instagram" target="_blank">
+    <a
+      href="https://www.instagram.com/tacoma_runners"
+      class="social-icon si-small bg-transparent"
+      title="Instagram"
+      target="_blank"
+    >
       <fa-icon [icon]="faInstagram"></fa-icon>
     </a>
-    <a href="https://www.meetup.com/Original-Tacoma-Runners/" class="social-icon si-small bg-transparent" title="Meetup" target="_blank">
+    <a
+      href="https://www.meetup.com/Original-Tacoma-Runners/"
+      class="social-icon si-small bg-transparent"
+      title="Meetup"
+      target="_blank"
+    >
       <fa-icon [icon]="faMeetup"></fa-icon>
     </a>
   </span>
 </mat-toolbar>
 
 <mat-sidenav-container>
-  <mat-sidenav #sidenav class="mat-elevation-z8" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="false"
-    [style]="(isHandset$) ? 'visibility:hidden' : 'visibility:visible'" autoFocus="false">
+  <mat-sidenav
+    #sidenav
+    class="mat-elevation-z8"
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="false"
+    [style]="isHandset$ ? 'visibility:hidden' : 'visibility:visible'"
+    autoFocus="false"
+  >
     <app-navigation [mode]="'side'" [sidenav]="sidenav"></app-navigation>
   </mat-sidenav>
   <mat-sidenav-content>
     <div class="content">
-        <router-outlet></router-outlet>
+      <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
