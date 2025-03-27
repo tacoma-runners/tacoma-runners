@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GlobalService {
-
-  constructor() { }
+  constructor() {}
 
   public openDonate() {
     window.open('https://donate.stripe.com/eVaaFc4DcgFK9yg8wD');
   }
 
   public openTrainingForm() {
-    window.open('https://forms.gle/BoY2P7mMs73iA3Ep6');
+    window.open('https://forms.gle/L5YsTwzbCCtWomAw5');
   }
 }
