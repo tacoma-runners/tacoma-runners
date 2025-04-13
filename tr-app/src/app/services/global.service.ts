@@ -11,6 +11,6 @@ export class GlobalService {
   }
 
   public openTrainingForm() {
-    window.open('https://forms.gle/L5YsTwzbCCtWomAw5');
+    window.open('https://forms.gle/SaiwDVc8Pm9McZSn9');
   }
 }
