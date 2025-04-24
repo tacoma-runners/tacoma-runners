@@ -37,6 +37,10 @@ h1 {
 }
 
 @media only screen and (max-width: 600px) {
+  .swiper {
+    height: 250px;
+  }
+
   .swiper-slide img {
     height: 250px;
   }
