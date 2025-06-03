@@ -7,7 +7,7 @@ export class GlobalService {
   constructor() {}
 
   public openDonate() {
-    window.open('https://donate.stripe.com/00gfZwglU4X225O6ox');
+    window.open('https://donate.stripe.com/eVaaFc4DcgFK9yg8wD');
   }
 
   public openRecurringDonate() {

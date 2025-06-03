@@ -127,40 +127,6 @@
       </mat-card>
     </div>
     <div class="col-lg-6 col-md-12 col-sm-12">
-      <mat-card class="home-card" (click)="global.openDonate()">
-        <mat-card-header>
-          <div mat-card-avatar>
-            <mat-icon
-              class="large-icon"
-              fontIcon="favorite"
-              color="primary"
-            ></mat-icon>
-          </div>
-          <mat-card-title class="card-title">One-time Donations</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <div class="row justify-content-center align-items-center">
-            <div class="col-lg-8 col-md-12 col-sm-12 col justify-content-center">
-              <p>
-                Click this card to donate to Tacoma Runners! Your
-                gift is tax-deductible and helps us maintain your favorite run
-                club.
-              </p>
-              <p>
-                Through May, if you donate $40 or more, you'll receive a
-                Tacoma Runners hat as thanks!
-              </p>
-              <p>EIN: 86-3898774</p>
-            </div>
-            <img
-              class="col-lg-4 col-md-12 col-sm-12 rounded justify-self-center"
-              src="https://rgugzhoywaloltmagelp.supabase.co/storage/v1/object/public/photos//hat_example.jpeg"
-            />
-          </div>
-        </mat-card-content>
-      </mat-card>
-    </div>
-    <div class="col-lg-6 col-md-12 col-sm-12">
       <mat-card class="home-card" (click)="global.openRecurringDonate()">
         <mat-card-header>
           <div mat-card-avatar>
@@ -173,24 +139,34 @@
           <mat-card-title class="card-title">Recurring Donations</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <div class="row justify-content-center align-items-center">
-            <div class="col-lg-8 col-md-12 col-sm-12 col justify-content-center">
-              <p>
-                Click this card to make a recurring donation to Tacoma Runners! Your
-                gift is tax-deductible and helps us maintain your favorite run
-                club.
-              </p>
-              <p>
-                Through May, if you set up a recurring donation over $10, you'll
-                receive a Tacoma Runners hat as thanks!
-              </p>
-              <p>EIN: 86-3898774</p>
-            </div>
-            <img
-              class="col-lg-4 col-md-12 col-sm-12 rounded justify-self-center"
-              src="https://rgugzhoywaloltmagelp.supabase.co/storage/v1/object/public/photos//hat_example.jpeg"
-            />
+          <p>
+            Click this card to make a recurring donation to Tacoma Runners! Your
+            gift is tax-deductible and helps us maintain your favorite run
+            club.
+          </p>
+          <p>EIN: 86-3898774</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="col-lg-6 col-md-12 col-sm-12">
+      <mat-card class="home-card" (click)="global.openDonate()">
+        <mat-card-header>
+          <div mat-card-avatar>
+            <mat-icon
+              class="large-icon"
+              fontIcon="favorite"
+              color="primary"
+            ></mat-icon>
           </div>
+          <mat-card-title class="card-title">One-time Donations</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>
+            Click this card to donate to Tacoma Runners! Your
+            gift is tax-deductible and helps us maintain your favorite run
+            club.
+          </p>
+          <p>EIN: 86-3898774</p>
         </mat-card-content>
       </mat-card>
     </div>
