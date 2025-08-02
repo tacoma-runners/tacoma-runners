@@ -1,0 +1,54 @@
+.donate-modal {
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 20px;
+}
+
+.donate-modal__title {
+  font-weight: 900;
+  letter-spacing: 2px;
+  font-size: 18pt;
+  color: #17695c;
+  text-transform: uppercase;
+  line-height: 40px !important;
+  align-self: center;
+}
+
+.donate-modal__domey {
+  width: 250px;
+  padding-bottom: 30px;
+  align-self: center;
+}
+
+.donate-modal__text {
+  text-align: center;
+  font-size: 16px;
+}
+
+.donate-modal__buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.donate-modal__button {
+  margin: 20px;
+  padding: 20px;
+}
+
+@media only screen and (max-width: 800px) {
+  .donate-modal {
+    width: 300px;
+  }
+
+  .donate-modal__buttons {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .donate-modal__button {
+    margin: 10px;
+  }
+}

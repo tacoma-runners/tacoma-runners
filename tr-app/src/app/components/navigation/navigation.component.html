@@ -1,67 +1,117 @@
 @if (mode=='side') {
-  <button mat-button color="accent" class="menu-button" routerLink="/" routerLinkActive="activebutton" [routerLinkActiveOptions]="{exact: true}" (click)="closeSideNav()">
-    <mat-icon>home</mat-icon>
-    <span>Home</span>
-  </button>
-  <button mat-button color="accent" class="menu-button" routerLink="runs-list" routerLinkActive="activebutton" (click)="closeSideNav()">
-    <mat-icon>directions_run</mat-icon>
-    <span>Runs</span>
-  </button>
-  <button mat-button color="accent" class="menu-button" routerLink="register" routerLinkActive="activebutton" (click)="closeSideNav()">
-    <mat-icon>how_to_reg</mat-icon>
-    <span>Register</span>
-  </button>
-  <button mat-button color="accent" class="menu-button" (click)="closeSideNav();global.openDonate();">
-    <mat-icon>favorite</mat-icon>
-    <span>Donate</span>
-  </button>
-  <button mat-button color="accent" class="menu-button" routerLink="about" routerLinkActive="activebutton" (click)="closeSideNav()">
-    <mat-icon>info</mat-icon>
-    <span>About</span>
-  </button>
-  @if (auth.isAuthenticated$ | async) {
+<button
+  mat-button
+  color="accent"
+  class="menu-button"
+  routerLink="/"
+  routerLinkActive="activebutton"
+  [routerLinkActiveOptions]="{ exact: true }"
+  (click)="closeSideNav()"
+>
+  <mat-icon>home</mat-icon>
+  <span>Home</span>
+</button>
+<button
+  mat-button
+  color="accent"
+  class="menu-button"
+  routerLink="runs-list"
+  routerLinkActive="activebutton"
+  (click)="closeSideNav()"
+>
+  <mat-icon>directions_run</mat-icon>
+  <span>Runs</span>
+</button>
+<button
+  mat-button
+  color="accent"
+  class="menu-button"
+  routerLink="register"
+  routerLinkActive="activebutton"
+  (click)="closeSideNav()"
+>
+  <mat-icon>how_to_reg</mat-icon>
+  <span>Register</span>
+</button>
+<button
+  mat-button
+  color="accent"
+  class="menu-button"
+  (click)="closeSideNav(); openMyModal()"
+>
+  <mat-icon>favorite</mat-icon>
+  <span>Donate</span>
+</button>
+<button
+  mat-button
+  color="accent"
+  class="menu-button"
+  routerLink="about"
+  routerLinkActive="activebutton"
+  (click)="closeSideNav()"
+>
+  <mat-icon>info</mat-icon>
+  <span>About</span>
+</button>
+@if (auth.isAuthenticated$ | async) {
+<li>
+  <app-logout-button></app-logout-button>
+</li>
+} } @else {
+<div class="topnav">
+  <ul>
+    <li>
+      <div
+        class="topnav-button"
+        routerLink="/"
+        routerLinkActive="activebutton"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <mat-icon>home</mat-icon>
+        <span>Home</span>
+      </div>
+    </li>
+    <li>
+      <div
+        class="topnav-button"
+        routerLink="runs-list"
+        routerLinkActive="activebutton"
+      >
+        <mat-icon>directions_run</mat-icon>
+        <span>Runs</span>
+      </div>
+    </li>
+    <li>
+      <div
+        class="topnav-button"
+        routerLink="register"
+        routerLinkActive="activebutton"
+      >
+        <mat-icon>how_to_reg</mat-icon>
+        <span>Register</span>
+      </div>
+    </li>
+    <li>
+      <div class="topnav-button" (click)="openMyModal()">
+        <mat-icon>favorite</mat-icon>
+        <span>Donate</span>
+      </div>
+    </li>
+    <li>
+      <div
+        class="topnav-button"
+        routerLink="about"
+        routerLinkActive="activebutton"
+      >
+        <mat-icon>info</mat-icon>
+        <span>About</span>
+      </div>
+    </li>
+    @if (auth.isAuthenticated$ | async) {
     <li>
       <app-logout-button></app-logout-button>
     </li>
-  }
-} @else {
-  <div class="topnav">
-    <ul>
-      <li>
-        <div class="topnav-button" routerLink="/" routerLinkActive="activebutton" [routerLinkActiveOptions]="{exact: true}">
-          <mat-icon>home</mat-icon>
-          <span>Home</span>
-        </div>
-      </li>
-      <li>
-        <div class="topnav-button" routerLink="runs-list" routerLinkActive="activebutton">
-        <mat-icon>directions_run</mat-icon>
-        <span>Runs</span>
-        </div>
-      </li>
-      <li>
-        <div class="topnav-button" routerLink="register" routerLinkActive="activebutton">
-        <mat-icon>how_to_reg</mat-icon>
-        <span>Register</span>
-        </div>
-      </li>
-      <li>
-        <div class="topnav-button" (click)="global.openDonate()">
-          <mat-icon>favorite</mat-icon>
-          <span>Donate</span>
-        </div>
-      </li>
-      <li>
-        <div class="topnav-button" routerLink="about" routerLinkActive="activebutton">
-        <mat-icon>info</mat-icon>
-        <span>About</span>
-        </div>
-      </li>
-      @if (auth.isAuthenticated$ | async) {
-        <li>
-          <app-logout-button></app-logout-button>
-        </li>
-      }
-    </ul>
-  </div>
+    }
+  </ul>
+</div>
 }

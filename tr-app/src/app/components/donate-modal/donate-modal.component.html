@@ -1,0 +1,33 @@
+<div class="donate-modal">
+  <button mat-icon-button style="align-self: flex-end" (click)="closeDialog()">
+    <mat-icon>close</mat-icon>
+  </button>
+  <p class="donate-modal__title">Thank You!!</p>
+  <img
+    src="../../../assets/domey.svg"
+    alt="Domey"
+    class="donate-modal__domey"
+  />
+  <p class="donate-modal__text">
+    We appreciate your support! Choose between either a one time donation or
+    consider joining our monthly Domey club.
+  </p>
+  <div class="donate-modal__buttons">
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="global.openDonate()"
+      class="donate-modal__button"
+    >
+      One Time Donation
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="global.openRecurringDonate()"
+      class="donate-modal__button"
+    >
+      Join the Domey Club!
+    </button>
+  </div>
+</div>

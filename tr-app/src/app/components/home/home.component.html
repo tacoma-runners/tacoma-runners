@@ -44,33 +44,6 @@
       </mat-card>
     </div>
     <div class="col-lg-6 col-md-12 col-sm-12">
-      <mat-card class="home-card" (click)="global.openTrainingForm()">
-        <mat-card-header>
-          <div mat-card-avatar>
-            <mat-icon
-              class="large-icon"
-              fontIcon="5k"
-              color="primary"
-            ></mat-icon>
-          </div>
-          <mat-card-title class="card-title"
-            >Beginner Training Group - FULL for Spring 2025</mat-card-title
-          >
-        </mat-card-header>
-        <mat-card-content>
-          Want to run 5 kilometers (3.1 miles) for the first time? Come join the
-          Tacoma Runners spring beginner training group! We'll train 3 days a
-          week from April 22nd to June 14th to run in the Sound2Narrows 5K. This
-          program is designed for people who haven't run before, but it's also
-          great for people who want to get back to running. Full for Spring,
-          2025, but follow the link to be notified for future programs.
-          <span style="text-decoration: underline"
-            >https://forms.gle/SaiwDVc8Pm9McZSn9</span
-          >.
-        </mat-card-content>
-      </mat-card>
-    </div>
-    <div class="col-lg-6 col-md-12 col-sm-12">
       <mat-card
         class="home-card"
         [routerLink]="
@@ -127,7 +100,7 @@
       </mat-card>
     </div>
     <div class="col-lg-6 col-md-12 col-sm-12">
-      <mat-card class="home-card" (click)="global.openRecurringDonate()">
+      <mat-card class="home-card" (click)="openMyModal()">
         <mat-card-header>
           <div mat-card-avatar>
             <mat-icon
@@ -136,35 +109,12 @@
               color="primary"
             ></mat-icon>
           </div>
-          <mat-card-title class="card-title">Recurring Donations</mat-card-title>
+          <mat-card-title class="card-title">Support Us!</mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <p>
-            Click this card to make a recurring donation to Tacoma Runners! Your
-            gift is tax-deductible and helps us maintain your favorite run
-            club.
-          </p>
-          <p>EIN: 86-3898774</p>
-        </mat-card-content>
-      </mat-card>
-    </div>
-    <div class="col-lg-6 col-md-12 col-sm-12">
-      <mat-card class="home-card" (click)="global.openDonate()">
-        <mat-card-header>
-          <div mat-card-avatar>
-            <mat-icon
-              class="large-icon"
-              fontIcon="favorite"
-              color="primary"
-            ></mat-icon>
-          </div>
-          <mat-card-title class="card-title">One-time Donations</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <p>
-            Click this card to donate to Tacoma Runners! Your
-            gift is tax-deductible and helps us maintain your favorite run
-            club.
+            Click this card to donate to Tacoma Runners! Your gift is
+            tax-deductible and helps us maintain your favorite run club.
           </p>
           <p>EIN: 86-3898774</p>
         </mat-card-content>

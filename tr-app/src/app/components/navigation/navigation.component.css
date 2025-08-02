@@ -27,7 +27,7 @@ ul li {
   font-size: 10pt;
   font-weight: bold;
   display: inline-block;
-  color: #17695C;
+  color: #17695c;
   cursor: pointer;
   text-transform: uppercase;
   padding: 0 5px;
@@ -45,5 +45,5 @@ ul li {
   height: 28px;
   vertical-align: middle;
   overflow: unset;
+  margin-right: 3px;
 }
-
